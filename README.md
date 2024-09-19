@@ -22,7 +22,7 @@ dependencies:
   dependencies:
  permission_master:
       git:
-        url: https://github.com/SwanFlutter/flutter_saver.git
+        url: https://github.com/SwanFlutter/permission_master.git
 ```
 
 ## Getting Started

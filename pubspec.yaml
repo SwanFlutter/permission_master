@@ -1,7 +1,7 @@
 name: permission_master
 description: "A new Flutter project."
 version: 0.0.1
-homepage:
+homepage: "https://github.com/SwanFlutter/permission_master"
 
 environment:
   sdk: ^3.5.3
