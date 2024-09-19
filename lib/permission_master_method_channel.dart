@@ -43,4 +43,39 @@ class MethodChannelPermissionMaster extends PermissionMasterPlatform {
         await methodChannel.invokeMethod<bool>('requestPhotosPermission');
     return granted ?? false;
   }
+
+  @override
+  Future<bool> requestBluetoothPermission() async {
+    final granted =
+        await methodChannel.invokeMethod<bool>('requestBluetoothPermission');
+    return granted ?? false;
+  }
+
+  @override
+  Future<bool> requestWiFiPermission() async {
+    final granted =
+        await methodChannel.invokeMethod<bool>('requestWiFiPermission');
+    return granted ?? false;
+  }
+
+  @override
+  Future<bool> requestProximitySensorPermission() async {
+    final granted = await methodChannel
+        .invokeMethod<bool>('requestProximitySensorPermission');
+    return granted ?? false;
+  }
+
+  @override
+  Future<bool> requestContactsPermission() async {
+    final granted =
+        await methodChannel.invokeMethod<bool>('requestContactsPermission');
+    return granted ?? false;
+  }
+
+  @override
+  Future<bool> requestNotificationPermission() async {
+    final granted =
+        await methodChannel.invokeMethod<bool>('requestNotificationPermission');
+    return granted ?? false;
+  }
 }

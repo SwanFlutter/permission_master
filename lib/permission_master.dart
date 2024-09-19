@@ -24,4 +24,28 @@ class PermissionMaster {
   Future<bool> requestPhotosPermission() {
     return PermissionMasterPlatform.instance.requestPhotosPermission();
   }
+
+  Future<bool> requestBluetoothPermission() {
+    return PermissionMasterPlatform.instance.requestBluetoothPermission();
+  }
+
+  // درخواست مجوز وای‌فای
+  Future<bool> requestWiFiPermission() {
+    return PermissionMasterPlatform.instance.requestWiFiPermission();
+  }
+
+  // درخواست مجوز سنسور مجاورتی
+  Future<bool> requestProximitySensorPermission() {
+    return PermissionMasterPlatform.instance.requestProximitySensorPermission();
+  }
+
+  // درخواست مجوز مخاطبین
+  Future<bool> requestContactsPermission() {
+    return PermissionMasterPlatform.instance.requestContactsPermission();
+  }
+
+  // درخواست مجوز نوتیفیکیشن
+  Future<bool> requestNotificationPermission() {
+    return PermissionMasterPlatform.instance.requestNotificationPermission();
+  }
 }

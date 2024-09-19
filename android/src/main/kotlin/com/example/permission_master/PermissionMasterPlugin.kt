@@ -25,13 +25,20 @@ class PermissionMasterPlugin : FlutterPlugin, MethodChannel.MethodCallHandler, A
     }
 
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
-        when (call.method) {
-            "requestCameraPermission" -> requestPermission(result, Manifest.permission.CAMERA, 1)
-            "requestLocationPermission" -> requestLocationPermissions(result, 2)
-            "requestStoragePermission" -> requestStoragePermissions(result, 3)
-            else -> result.notImplemented()
-        }
+    when (call.method) {
+        "requestCameraPermission" -> requestPermission(result, Manifest.permission.CAMERA, 1)
+        "requestLocationPermission" -> requestLocationPermissions(result, 2)
+        "requestStoragePermission" -> requestStoragePermissions(result, 3)
+        "requestBluetoothPermission" -> requestBluetoothPermission(result, 4)
+        "requestProximitySensorPermission" -> requestProximitySensorPermission(result, 5)
+        "requestWifiPermission" -> requestWifiPermission(result, 6)
+        "requestContactsPermission" -> requestContactsPermission(result, 7)
+        "requestSmsPermission" -> requestSmsPermission(result, 8)
+        "requestNotificationPermission" -> requestNotificationPermission(result, 9)
+        "requestAlarmPermission" -> requestAlarmPermission(result, 10)
+        else -> result.notImplemented()
     }
+}
 
     // Request camera permission
      private fun requestPermission(result: MethodChannel.Result, permission: String, requestCode: Int) {
@@ -84,10 +91,102 @@ class PermissionMasterPlugin : FlutterPlugin, MethodChannel.MethodCallHandler, A
             if (permissionsToRequest.isNotEmpty()) {
                 ActivityCompat.requestPermissions(it, permissionsToRequest.toTypedArray(), requestCode)
             } else {
-                result.success(true) // تمام مجوزها داده شده‌اند
+                result.success(true) 
             }
         } ?: result.error("Activity is null", null, null)
     }
+
+    // Request Bluetooth permission
+private fun requestBluetoothPermission(result: MethodChannel.Result, requestCode: Int) {
+    activity?.let {
+        val permission = Manifest.permission.BLUETOOTH
+        if (ContextCompat.checkSelfPermission(it, permission) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(it, arrayOf(permission), requestCode)
+        } else {
+            result.success(true) 
+        }
+    } ?: result.error("Activity is null", null, null)
+}
+
+// Request Proximity Sensor permission
+private fun requestProximitySensorPermission(result: MethodChannel.Result, requestCode: Int) {
+    activity?.let {
+        val permission = Manifest.permission.BODY_SENSORS
+        if (ContextCompat.checkSelfPermission(it, permission) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(it, arrayOf(permission), requestCode)
+        } else {
+            result.success(true) 
+        }
+    } ?: result.error("Activity is null", null, null)
+}
+
+// Request Wi-Fi permission
+private fun requestWifiPermission(result: MethodChannel.Result, requestCode: Int) {
+    activity?.let {
+        val permission = Manifest.permission.ACCESS_WIFI_STATE
+        if (ContextCompat.checkSelfPermission(it, permission) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(it, arrayOf(permission), requestCode)
+        } else {
+            result.success(true) 
+        }
+    } ?: result.error("Activity is null", null, null)
+}
+
+// Request Contacts permission
+private fun requestContactsPermission(result: MethodChannel.Result, requestCode: Int) {
+    activity?.let {
+        val permission = Manifest.permission.READ_CONTACTS
+        if (ContextCompat.checkSelfPermission(it, permission) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(it, arrayOf(permission), requestCode)
+        } else {
+            result.success(true) 
+        }
+    } ?: result.error("Activity is null", null, null)
+}
+
+// Request SMS permission
+private fun requestSmsPermission(result: MethodChannel.Result, requestCode: Int) {
+    activity?.let {
+        val permission = Manifest.permission.SEND_SMS
+        if (ContextCompat.checkSelfPermission(it, permission) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(it, arrayOf(permission), requestCode)
+        } else {
+            result.success(true) 
+        }
+    } ?: result.error("Activity is null", null, null)
+}
+
+// Request Notification permission (for Android 13+)
+private fun requestNotificationPermission(result: MethodChannel.Result, requestCode: Int) {
+    activity?.let {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            val permission = Manifest.permission.POST_NOTIFICATIONS
+            if (ContextCompat.checkSelfPermission(it, permission) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(it, arrayOf(permission), requestCode)
+            } else {
+                result.success(true) 
+            }
+        } else {
+            result.success(true) 
+        }
+    } ?: result.error("Activity is null", null, null)
+}
+
+// Request Alarm permission (for Android 12+)
+private fun requestAlarmPermission(result: MethodChannel.Result, requestCode: Int) {
+    activity?.let {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            val permission = Manifest.permission.SCHEDULE_EXACT_ALARM
+            if (ContextCompat.checkSelfPermission(it, permission) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(it, arrayOf(permission), requestCode)
+            } else {
+                result.success(true) 
+            }
+        } else {
+            result.success(true) 
+        }
+    } ?: result.error("Activity is null", null, null)
+}
 
    // Manage permissions request response
 override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {

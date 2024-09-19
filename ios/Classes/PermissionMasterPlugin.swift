@@ -3,9 +3,13 @@ import UIKit
 import AVFoundation
 import CoreLocation
 import Photos
+import CoreBluetooth
+import Contacts
+import UserNotifications
 
-public class PermissionMasterPlugin: NSObject, FlutterPlugin, CLLocationManagerDelegate {
+public class PermissionMasterPlugin: NSObject, FlutterPlugin, CLLocationManagerDelegate, CBCentralManagerDelegate {
     var locationManager: CLLocationManager?
+    var bluetoothManager: CBCentralManager?
 
     public static func register(with registrar: FlutterPluginRegistrar) {
         let channel = FlutterMethodChannel(name: "permission_master", binaryMessenger: registrar.messenger())
@@ -23,6 +27,14 @@ public class PermissionMasterPlugin: NSObject, FlutterPlugin, CLLocationManagerD
             requestMicrophonePermission(result: result)
         case "requestPhotosPermission":
             requestPhotosPermission(result: result)
+        case "requestBluetoothPermission":
+            requestBluetoothPermission(result: result)
+        case "requestContactsPermission":
+            requestContactsPermission(result: result)
+        case "requestNotificationPermission":
+            requestNotificationPermission(result: result)
+        case "requestProximitySensorPermission":
+            requestProximitySensorPermission(result: result)
         default:
             result(FlutterMethodNotImplemented)
         }
@@ -59,16 +71,6 @@ public class PermissionMasterPlugin: NSObject, FlutterPlugin, CLLocationManagerD
         }
     }
 
-    // Delegate method to handle permission changes for location
-    public func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        switch status {
-        case .authorizedWhenInUse, .authorizedAlways:
-            channel.invokeMethod("onPermissionResult", arguments: ["requestCode": "location", "granted": true])
-        default:
-            channel.invokeMethod("onPermissionResult", arguments: ["requestCode": "location", "granted": false])
-        }
-    }
-
     // Request microphone permission
     private func requestMicrophonePermission(result: @escaping FlutterResult) {
         let microphoneAuthStatus = AVAudioSession.sharedInstance().recordPermission
@@ -97,5 +99,55 @@ public class PermissionMasterPlugin: NSObject, FlutterPlugin, CLLocationManagerD
         default:
             result(false)
         }
+    }
+
+    // Request Bluetooth permission
+    private func requestBluetoothPermission(result: @escaping FlutterResult) {
+        bluetoothManager = CBCentralManager(delegate: self, queue: nil)
+        if bluetoothManager?.state == .poweredOn {
+            result(true)
+        } else {
+            bluetoothManager?.scanForPeripherals(withServices: nil, options: nil)
+        }
+    }
+
+    public func centralManagerDidUpdateState(_ central: CBCentralManager) {
+        if central.state == .poweredOn {
+            channel.invokeMethod("onPermissionResult", arguments: ["requestCode": "bluetooth", "granted": true])
+        } else {
+            channel.invokeMethod("onPermissionResult", arguments: ["requestCode": "bluetooth", "granted": false])
+        }
+    }
+
+    // Request Contacts permission
+    private func requestContactsPermission(result: @escaping FlutterResult) {
+        let contactAuthStatus = CNContactStore.authorizationStatus(for: .contacts)
+        switch contactAuthStatus {
+        case .authorized:
+            result(true)
+        case .notDetermined:
+            CNContactStore().requestAccess(for: .contacts) { granted, _ in
+                result(granted)
+            }
+        default:
+            result(false)
+        }
+    }
+
+    // Request Notification permission
+    private func requestNotificationPermission(result: @escaping FlutterResult) {
+        if #available(iOS 10.0, *) {
+            UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, _ in
+                result(granted)
+            }
+        } else {
+            result(false)
+        }
+    }
+
+    // Request Proximity Sensor permission (this is a sensor, no explicit permission is required in iOS)
+    private func requestProximitySensorPermission(result: @escaping FlutterResult) {
+        UIDevice.current.isProximityMonitoringEnabled = true
+        result(true)
     }
 }

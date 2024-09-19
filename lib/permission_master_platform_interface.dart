@@ -46,4 +46,29 @@ abstract class PermissionMasterPlatform extends PlatformInterface {
     throw UnimplementedError(
         'requestPhotosPermission() has not been implemented.');
   }
+
+  Future<bool> requestBluetoothPermission() {
+    throw UnimplementedError(
+        'requestStoragePermission() has not been implemented.');
+  }
+
+  Future<bool> requestWiFiPermission() {
+    throw UnimplementedError(
+        'requestWiFiPermission() has not been implemented.');
+  }
+
+  Future<bool> requestProximitySensorPermission() {
+    throw UnimplementedError(
+        'requestProximitySensorPermission() has not been implemented.');
+  }
+
+  Future<bool> requestContactsPermission() {
+    throw UnimplementedError(
+        'requestContactsPermission() has not been implemented.');
+  }
+
+  Future<bool> requestNotificationPermission() {
+    throw UnimplementedError(
+        'requestNotificationPermission() has not been implemented.');
+  }
 }

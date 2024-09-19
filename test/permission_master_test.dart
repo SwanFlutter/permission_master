@@ -29,6 +29,31 @@ class MockPermissionMasterPlatform
   Future<bool> requestPhotosPermission() {
     throw UnimplementedError();
   }
+
+  @override
+  Future<bool> requestBluetoothPermission() {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<bool> requestContactsPermission() {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<bool> requestNotificationPermission() {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<bool> requestProximitySensorPermission() {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<bool> requestWiFiPermission() {
+    throw UnimplementedError();
+  }
 }
 
 void main() {
