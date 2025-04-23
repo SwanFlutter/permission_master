@@ -1,0 +1,133 @@
+package com.example.permission_master
+
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
+import android.net.Uri
+import android.provider.Settings
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import android.content.pm.PackageManager
+import android.util.Log
+
+class PermissionHelper(private val activity: Activity) {
+    private val prefs: SharedPreferences = activity.getSharedPreferences("PermissionMaster", Context.MODE_PRIVATE)
+    private val storage = GetStorage(activity)
+    private val tag = "PermissionHelper"
+
+    companion object {
+        private const val MAX_ATTEMPTS = 2
+        private const val PREFS_REQUEST_COUNT = "request_count_"
+        private const val PREFS_LAST_REQUEST_TIME = "last_request_time_"
+        private const val MIN_REQUEST_INTERVAL = 24 * 60 * 60 * 1000 // 24 hours
+    }
+
+    fun shouldShowPermissionRationale(permission: String): Boolean {
+        return ActivityCompat.shouldShowRequestPermissionRationale(activity, permission)
+    }
+
+    fun canRequestPermission(permission: String): Boolean {
+        val requestCount = getRequestCount(permission)
+        val lastRequestTime = getLastRequestTime(permission)
+        val currentTime = System.currentTimeMillis()
+        return requestCount < MAX_ATTEMPTS || (currentTime - lastRequestTime >= MIN_REQUEST_INTERVAL)
+    }
+
+    fun incrementRequestCount(permission: String) {
+        val currentCount = getRequestCount(permission)
+        prefs.edit()
+            .putInt(PREFS_REQUEST_COUNT + permission, currentCount + 1)
+            .putLong(PREFS_LAST_REQUEST_TIME + permission, System.currentTimeMillis())
+            .apply()
+    }
+
+    private fun getRequestCount(permission: String): Int = prefs.getInt(PREFS_REQUEST_COUNT + permission, 0)
+    private fun getLastRequestTime(permission: String): Long = prefs.getLong(PREFS_LAST_REQUEST_TIME + permission, 0)
+
+    fun openAppSettings(): Boolean {
+        return try {
+            val packageName = activity.packageName
+            val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
+                data = android.net.Uri.parse("package:$packageName")
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
+                addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS)
+            }
+            activity.applicationContext.startActivity(intent)
+            Log.d("PermissionHelper", "App settings opened successfully for package: $packageName")
+            true
+        } catch (e: Exception) {
+            Log.e("PermissionHelper", "Failed to open app settings: ${e.message}", e)
+            false
+        }
+    }
+
+    fun isPermissionGranted(permission: String): Boolean {
+        return ContextCompat.checkSelfPermission(activity, permission) == PackageManager.PERMISSION_GRANTED
+    }
+
+    fun resetRequestCount(permission: String) {
+        prefs.edit()
+            .remove(PREFS_REQUEST_COUNT + permission)
+            .remove(PREFS_LAST_REQUEST_TIME + permission)
+            .apply()
+    }
+
+    fun requestPermission(permission: String): PermissionResult {
+        return try {
+            when {
+                isPermissionGranted(permission) -> PermissionResult.Granted
+                !canRequestPermission(permission) -> PermissionResult.OpenSettings
+                shouldShowPermissionRationale(permission) -> PermissionResult.ShowRationale
+                else -> {
+                    incrementRequestCount(permission)
+                    requestSystemPermission(permission)
+                    PermissionResult.Denied
+                }
+            }
+        } catch (e: Exception) {
+            logError("Error requesting permission: ${e.message}")
+            PermissionResult.Error(PermissionError.SystemError(-1))
+        }
+    }
+
+    fun requestPermissionGroup(permissions: Array<String>, callback: (Map<String, PermissionResult>) -> Unit) {
+        val results = permissions.associateWith { requestPermission(it) }
+        callback(results)
+    }
+
+    private fun requestSystemPermission(permission: String) {
+        ActivityCompat.requestPermissions(activity, arrayOf(permission), permission.hashCode() and 0xFFFF)
+    }
+
+    fun handlePermissionResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ): Map<String, Boolean> {
+        return permissions.zip(grantResults.toTypedArray())
+            .associate { (permission, result) -> permission to (result == PackageManager.PERMISSION_GRANTED) }
+    }
+
+    fun getPermissionStatus(permission: String): PermissionStatus {
+        return when {
+            isPermissionGranted(permission) -> PermissionStatus.GRANTED
+            !canRequestPermission(permission) -> PermissionStatus.PERMANENTLY_DENIED
+            shouldShowPermissionRationale(permission) -> PermissionStatus.DENIED_WITH_RATIONALE
+            else -> PermissionStatus.DENIED
+        }
+    }
+
+    private fun logError(message: String) {
+        Log.e(tag, message)
+    }
+}
+
+
+enum class PermissionStatus {
+    GRANTED,
+    DENIED,
+    DENIED_WITH_RATIONALE,
+    PERMANENTLY_DENIED
+}
