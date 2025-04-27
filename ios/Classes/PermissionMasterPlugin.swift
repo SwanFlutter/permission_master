@@ -848,27 +848,16 @@ public class SwiftPermissionMasterPlugin: NSObject, FlutterPlugin, CLLocationMan
             request: { completion in
                 let healthStore = HKHealthStore()
                 // Example: Request permissions for step count and body mass
-                let typesToShare: Set = [
+                let typesToShare: Set<HKSampleType> = Set([
                     HKObjectType.quantityType(forIdentifier: .stepCount),
                     HKObjectType.quantityType(forIdentifier: .bodyMass)
-                ].compactMap { $0 }
-                
-                let typesToRead: Set = [
+                ].compactMap { $0 })
+
+                let typesToRead: Set<HKSampleType> = Set([
                     HKObjectType.quantityType(forIdentifier: .stepCount),
                     HKObjectType.quantityType(forIdentifier: .bodyMass)
-                ].compactMap { $0 }
-                 let healthStore = HKHealthStore()
-                // Example: Request permissions for step count and body mass
-                let typesToShare: Set = [
-                    HKObjectType.quantityType(forIdentifier: .stepCount),
-                    HKObjectType.quantityType(forIdentifier: .bodyMass)
-                ].compactMap { $0 }
-                
-                let typesToRead: Set = [
-                    HKObjectType.quantityType(forIdentifier: .stepCount),
-                    HKObjectType.quantityType(forIdentifier: .bodyMass)
-                ].compactMap { $0 }
-                
+                ].compactMap { $0 })
+
                 healthStore.requestAuthorization(toShare: typesToShare, read: typesToRead) { success, error in
                     completion(success)
                 }
