@@ -633,15 +633,25 @@ public class SwiftPermissionMasterPlugin: NSObject, FlutterPlugin, CLLocationMan
     private func requestPhotoLibraryPermission(result: @escaping FlutterResult) {
         let status = PHPhotoLibrary.authorizationStatus()
         switch status {
-        case .authorized, .limited:
+        case .authorized:
             result(true)
+        case .limited:
+            if #available(iOS 14, *) {
+                result(true)
+            } else {
+                result(false)
+            }
         case .notDetermined:
             handlePermissionRequest(
                 permission: "photo_library",
                 status: status,
                 request: { completion in
                     PHPhotoLibrary.requestAuthorization { status in
-                        completion(status == .authorized || status == .limited)
+                        if #available(iOS 14, *) {
+                            completion(status == .authorized || status == .limited)
+                        } else {
+                            completion(status == .authorized)
+                        }
                     }
                 },
                 result: result
