@@ -290,26 +290,25 @@ class MethodChannelPermissionMaster extends PermissionMasterPlatform {
             await showDialog(
               context: _context!,
               barrierDismissible: false,
-              builder:
-                  (context) => AlertDialog(
-                    title: const Text('Grant Permission'),
-                    content: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: const [
-                        CircularProgressIndicator(),
-                        SizedBox(height: 16),
-                        Text(
-                          'Please tap "Allow" or "Allow precise alarms" on the settings screen.',
-                        ),
-                      ],
+              builder: (context) => AlertDialog(
+                title: const Text('Grant Permission'),
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: const [
+                    CircularProgressIndicator(),
+                    SizedBox(height: 16),
+                    Text(
+                      'Please tap "Allow" or "Allow precise alarms" on the settings screen.',
                     ),
-                    actions: [
-                      TextButton(
-                        child: const Text('I\'ve Granted Permission'),
-                        onPressed: () => Navigator.pop(context),
-                      ),
-                    ],
+                  ],
+                ),
+                actions: [
+                  TextButton(
+                    child: const Text('I\'ve Granted Permission'),
+                    onPressed: () => Navigator.pop(context),
                   ),
+                ],
+              ),
             );
           } else {
             // If no context, just wait a bit longer
@@ -434,28 +433,27 @@ class MethodChannelPermissionMaster extends PermissionMasterPlatform {
     final bool? result = await showDialog<bool>(
       context: _context!,
       barrierDismissible: false, // User must tap a button to dismiss the dialog
-      builder:
-          (context) => AlertDialog(
-            title: const Text('Alarm Permission Required'),
-            content: const Text(
-              'To schedule alarms, this app needs permission to schedule exact alarms.\n\n'
-              'You will be redirected to system settings. Please tap "Allow" or "Allow precise alarms" on the next screen.',
-            ),
-            actions: [
-              TextButton(
-                child: const Text('Not Now'),
-                onPressed: () => Navigator.pop(context, false),
-              ),
-              TextButton(
-                style: TextButton.styleFrom(
-                  backgroundColor: Colors.blue,
-                  foregroundColor: Colors.white,
-                ),
-                child: const Text('Continue'),
-                onPressed: () => Navigator.pop(context, true),
-              ),
-            ],
+      builder: (context) => AlertDialog(
+        title: const Text('Alarm Permission Required'),
+        content: const Text(
+          'To schedule alarms, this app needs permission to schedule exact alarms.\n\n'
+          'You will be redirected to system settings. Please tap "Allow" or "Allow precise alarms" on the next screen.',
+        ),
+        actions: [
+          TextButton(
+            child: const Text('Not Now'),
+            onPressed: () => Navigator.pop(context, false),
           ),
+          TextButton(
+            style: TextButton.styleFrom(
+              backgroundColor: Colors.blue,
+              foregroundColor: Colors.white,
+            ),
+            child: const Text('Continue'),
+            onPressed: () => Navigator.pop(context, true),
+          ),
+        ],
+      ),
     );
 
     debugPrint('Alarm permission dialog result: $result');
@@ -532,19 +530,18 @@ class MethodChannelPermissionMaster extends PermissionMasterPlatform {
 
     await showDialog(
       context: _context!,
-      builder:
-          (context) => AlertDialog(
-            title: const Text('Permission Needed'),
-            content: Text(
-              'This app needs $permissionName permission to function properly.',
-            ),
-            actions: [
-              TextButton(
-                child: const Text('OK'),
-                onPressed: () => Navigator.pop(context),
-              ),
-            ],
+      builder: (context) => AlertDialog(
+        title: const Text('Permission Needed'),
+        content: Text(
+          'This app needs $permissionName permission to function properly.',
+        ),
+        actions: [
+          TextButton(
+            child: const Text('OK'),
+            onPressed: () => Navigator.pop(context),
           ),
+        ],
+      ),
     );
   }
 
@@ -566,19 +563,18 @@ class MethodChannelPermissionMaster extends PermissionMasterPlatform {
 
     await showDialog(
       context: _context!,
-      builder:
-          (context) => AlertDialog(
-            title: const Text('Permission Not Supported'),
-            content: Text(
-              'The $permissionName permission is not supported on your device.\n\n$message',
-            ),
-            actions: [
-              TextButton(
-                child: const Text('OK'),
-                onPressed: () => Navigator.pop(context),
-              ),
-            ],
+      builder: (context) => AlertDialog(
+        title: const Text('Permission Not Supported'),
+        content: Text(
+          'The $permissionName permission is not supported on your device.\n\n$message',
+        ),
+        actions: [
+          TextButton(
+            child: const Text('OK'),
+            onPressed: () => Navigator.pop(context),
           ),
+        ],
+      ),
     );
   }
 
@@ -707,16 +703,15 @@ class MethodChannelPermissionMaster extends PermissionMasterPlatform {
       debugPrint('Checking multiple permissions: $permissions');
 
       // Filter out platform-specific permissions that aren't relevant
-      List<String> platformPermissions =
-          permissions.where((permission) {
-            if (Platform.isIOS && permission.startsWith('android.')) {
-              return false;
-            }
-            if (Platform.isAndroid && permission.startsWith('ios.')) {
-              return false;
-            }
-            return true;
-          }).toList();
+      List<String> platformPermissions = permissions.where((permission) {
+        if (Platform.isIOS && permission.startsWith('android.')) {
+          return false;
+        }
+        if (Platform.isAndroid && permission.startsWith('ios.')) {
+          return false;
+        }
+        return true;
+      }).toList();
 
       final result = await methodChannel.invokeMethod<Map<dynamic, dynamic>>(
         'checkMultiplePermissions',
@@ -752,19 +747,18 @@ class MethodChannelPermissionMaster extends PermissionMasterPlatform {
       if (_context != null) {
         showDialog(
           context: _context!,
-          builder:
-              (context) => AlertDialog(
-                title: const Text('Could not open settings'),
-                content: const Text(
-                  'Please open your device settings and enable the required permissions manually.',
-                ),
-                actions: [
-                  TextButton(
-                    child: const Text('OK'),
-                    onPressed: () => Navigator.pop(context),
-                  ),
-                ],
+          builder: (context) => AlertDialog(
+            title: const Text('Could not open settings'),
+            content: const Text(
+              'Please open your device settings and enable the required permissions manually.',
+            ),
+            actions: [
+              TextButton(
+                child: const Text('OK'),
+                onPressed: () => Navigator.pop(context),
               ),
+            ],
+          ),
         );
       }
     } catch (e) {

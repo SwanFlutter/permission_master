@@ -187,13 +187,12 @@ class _TestScreenState extends State<TestScreen> {
         content: Text(message),
         backgroundColor: backgroundColor,
         duration: const Duration(seconds: 3),
-        action:
-            status == PermissionStatus.openSettings
-                ? SnackBarAction(
-                  label: 'Open Settings',
-                  onPressed: () => permissionMaster.openAppSettings(),
-                )
-                : null,
+        action: status == PermissionStatus.openSettings
+            ? SnackBarAction(
+                label: 'Open Settings',
+                onPressed: () => permissionMaster.openAppSettings(),
+              )
+            : null,
       ),
     );
   }
@@ -240,52 +239,51 @@ class _TestScreenState extends State<TestScreen> {
           ),
         ],
       ),
-      body:
-          isLoading
-              ? const Center(child: CircularProgressIndicator())
-              : SingleChildScrollView(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Card(
-                      elevation: 4,
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Device Information',
-                              style: Theme.of(context).textTheme.titleLarge,
-                            ),
-                            const SizedBox(height: 8),
-                            Text('Platform: ${platformVersion ?? 'Unknown'}'),
-                          ],
-                        ),
+      body: isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : SingleChildScrollView(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Card(
+                    elevation: 4,
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Device Information',
+                            style: Theme.of(context).textTheme.titleLarge,
+                          ),
+                          const SizedBox(height: 8),
+                          Text('Platform: ${platformVersion ?? 'Unknown'}'),
+                        ],
                       ),
                     ),
-                    const SizedBox(height: 16),
-                    Text(
-                      'Permissions',
-                      style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    'Permissions',
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                  const SizedBox(height: 8),
+                  _buildPermissionsList(),
+                  const SizedBox(height: 16),
+                  ElevatedButton.icon(
+                    onPressed: () => _showPermissionBottomSheet(),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.deepPurple,
+                      foregroundColor: Colors.white,
+                      minimumSize: const Size(double.infinity, 50),
                     ),
-                    const SizedBox(height: 8),
-                    _buildPermissionsList(),
-                    const SizedBox(height: 16),
-                    ElevatedButton.icon(
-                      onPressed: () => _showPermissionBottomSheet(),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.deepPurple,
-                        foregroundColor: Colors.white,
-                        minimumSize: const Size(double.infinity, 50),
-                      ),
-                      icon: const Icon(Icons.add),
-                      label: const Text('Request More Permissions'),
-                    ),
-                  ],
-                ),
+                    icon: const Icon(Icons.add),
+                    label: const Text('Request More Permissions'),
+                  ),
+                ],
               ),
+            ),
     );
   }
 
@@ -468,13 +466,12 @@ class _TestScreenState extends State<TestScreen> {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
       child: ElevatedButton.icon(
-        onPressed:
-            isEnabled
-                ? () {
-                  Navigator.pop(context);
-                  _requestPermission(permission);
-                }
-                : null,
+        onPressed: isEnabled
+            ? () {
+                Navigator.pop(context);
+                _requestPermission(permission);
+              }
+            : null,
         style: ElevatedButton.styleFrom(
           backgroundColor: getButtonColor(),
           foregroundColor: Colors.white,

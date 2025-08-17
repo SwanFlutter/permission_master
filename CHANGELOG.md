@@ -1,3 +1,32 @@
 ## 0.0.1
 
-* TODO: Describe initial release.
+* initial release.
+
+
+## 0.0.2
+
+* Fix pub point.
+
+## 0.0.2+1
+
+* Fix pub point.
+
+## 0.0.3
+
+* Fix platform.
+
+## 0.0.4
+
+* Fix Alarm permission.
+
+## 0.0.5
+
+* Fix Storage permission.
+* Edit README.md
+
+## 0.0.6
+
+* Update SDK
+* Update Package
+* Changing permissions from default to manual mode
+

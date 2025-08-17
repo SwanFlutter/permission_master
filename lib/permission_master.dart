@@ -13,10 +13,10 @@ export 'package:permission_master/src/permission_status.dart';
 export 'package:permission_master/src/permission_type.dart';
 
 /// A class to manage and request permissions in a Flutter application.
-/// 
+///
 /// This class provides methods to request various permissions on both Android and iOS platforms.
 /// Permissions are requested in normal state (not granted by default) and require user interaction.
-/// 
+///
 /// Example usage:
 ///
 /// ```dart
@@ -29,18 +29,18 @@ export 'package:permission_master/src/permission_type.dart';
 ///
 ///   Future<void> _requestCameraPermission() async {
 ///     final permissionMaster = PermissionMaster();
-///     
+///
 ///     // Check current permission status first
 ///     final currentStatus = await permissionMaster.checkPermissionStatus(PermissionType.camera.value);
-///     
+///
 ///     if (currentStatus == PermissionStatus.granted) {
 ///       print('Camera permission already granted');
 ///       return;
 ///     }
-///     
+///
 ///     // Request camera permission
 ///     final status = await permissionMaster.requestCameraPermission();
-///     
+///
 ///     switch (status) {
 ///       case PermissionStatus.granted:
 ///         print('Camera permission granted - can now use camera');
@@ -478,23 +478,22 @@ class PermissionMaster {
 
     return await showDialog<bool>(
           context: context,
-          builder:
-              (BuildContext context) => AlertDialog(
-                title: const Text('Permission Required'),
-                content: Text(
-                  'Please enable ${permission.name} permission from ${Platform.isAndroid ? "app settings" : "Settings"}.',
-                ),
-                actions: [
-                  TextButton(
-                    child: const Text('Cancel'),
-                    onPressed: () => Navigator.pop(context, false),
-                  ),
-                  TextButton(
-                    child: const Text('Settings'),
-                    onPressed: () => Navigator.pop(context, true),
-                  ),
-                ],
+          builder: (BuildContext context) => AlertDialog(
+            title: const Text('Permission Required'),
+            content: Text(
+              'Please enable ${permission.name} permission from ${Platform.isAndroid ? "app settings" : "Settings"}.',
+            ),
+            actions: [
+              TextButton(
+                child: const Text('Cancel'),
+                onPressed: () => Navigator.pop(context, false),
               ),
+              TextButton(
+                child: const Text('Settings'),
+                onPressed: () => Navigator.pop(context, true),
+              ),
+            ],
+          ),
         ) ??
         false;
   }
@@ -540,7 +539,8 @@ class PermissionMaster {
         return AlertDialog(
           title: Text(title ?? 'Allow ${permission.name} Permission'),
           content: Text(
-            message ?? 'This app needs ${permission.name} permission to function properly.',
+            message ??
+                'This app needs ${permission.name} permission to function properly.',
           ),
           actions: [
             TextButton(

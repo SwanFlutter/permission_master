@@ -103,10 +103,10 @@ class _PermissionDemoPageState extends State<PermissionDemoPage> {
   }
 
   Future<void> _requestPermission(
-      String title,
-      String permission,
-      Future<PermissionStatus> Function() requestFunc,
-      ) async {
+    String title,
+    String permission,
+    Future<PermissionStatus> Function() requestFunc,
+  ) async {
     try {
       final attempts = _permissionAttempts[permission] ?? 0;
 
@@ -119,12 +119,11 @@ class _PermissionDemoPageState extends State<PermissionDemoPage> {
         if (status != PermissionStatus.granted) {
           final bool? openSettings = await showDialog<bool>(
             context: context,
-            builder:
-                (BuildContext context) => AlertDialog(
+            builder: (BuildContext context) => AlertDialog(
               title: Text('$title Permission Required'),
               content: const Text(
                 'You have denied this permission multiple times. '
-                    'Please enable it from settings to use this feature.',
+                'Please enable it from settings to use this feature.',
               ),
               actions: [
                 TextButton(
@@ -168,12 +167,11 @@ class _PermissionDemoPageState extends State<PermissionDemoPage> {
           _permissionStatus[permission] != PermissionStatus.granted) {
         final bool? shouldRequest = await showDialog<bool>(
           context: context,
-          builder:
-              (BuildContext context) => AlertDialog(
+          builder: (BuildContext context) => AlertDialog(
             title: Text('$title Permission Required'),
             content: Text(
               'This permission is required for $title functionality. '
-                  'Would you like to grant it now?',
+              'Would you like to grant it now?',
             ),
             actions: [
               TextButton(
@@ -213,10 +211,10 @@ class _PermissionDemoPageState extends State<PermissionDemoPage> {
   }
 
   void _updatePermissionStatus(
-      String title,
-      String permission,
-      PermissionStatus result,
-      ) {
+    String title,
+    String permission,
+    PermissionStatus result,
+  ) {
     if (mounted) {
       setState(() {
         _permissionStatus[permission] = result;
@@ -286,15 +284,13 @@ class _PermissionDemoPageState extends State<PermissionDemoPage> {
                 status == PermissionStatus.granted
                     ? Icons.check_circle
                     : Icons.cancel,
-                color:
-                status == PermissionStatus.granted
+                color: status == PermissionStatus.granted
                     ? Colors.green
                     : Colors.red,
               ),
             const SizedBox(width: 8),
             ElevatedButton(
-              onPressed:
-              attempts >= 2 && status != PermissionStatus.granted
+              onPressed: attempts >= 2 && status != PermissionStatus.granted
                   ? () => _requestPermission(title, permission, onRequest)
                   : () => _requestPermission(title, permission, onRequest),
               child: Text(

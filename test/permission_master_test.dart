@@ -8,12 +8,13 @@ import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 class MockPermissionMasterPlatform
     with MockPlatformInterfaceMixin
     implements PermissionMasterPlatform {
-
   @override
   Future<String?> getPlatformVersion() => Future.value('42');
 
   @override
-  Future<Map<String, String>> checkMultiplePermissions(List<String> permissions) {
+  Future<Map<String, String>> checkMultiplePermissions(
+    List<String> permissions,
+  ) {
     // TODO: implement checkMultiplePermissions
     throw UnimplementedError();
   }
@@ -133,7 +134,8 @@ class MockPermissionMasterPlatform
 }
 
 void main() {
-  final PermissionMasterPlatform initialPlatform = PermissionMasterPlatform.instance;
+  final PermissionMasterPlatform initialPlatform =
+      PermissionMasterPlatform.instance;
 
   test('$MethodChannelPermissionMaster is the default instance', () {
     expect(initialPlatform, isInstanceOf<MethodChannelPermissionMaster>());
