@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>Your App Name</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>your_app_name</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>$(FLUTTER_BUILD_NAME)</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleVersion</key>
+	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
+	<UISupportedInterfaceOrientations>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
+	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
+	
+	<!-- پرمیشن‌های مورد نیاز برای iOS - فقط موارد مورد نیاز خود را فعال کنید -->
+	
+	<!-- دوربین -->
+	<key>NSCameraUsageDescription</key>
+	<string>این برنامه برای گرفتن عکس و فیلم به دوربین نیاز دارد</string>
+	
+	<!-- کتابخانه عکس -->
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>این برنامه برای انتخاب عکس از گالری به دسترسی نیاز دارد</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>این برنامه برای ذخیره عکس در گالری به دسترسی نیاز دارد</string>
+	
+	<!-- لوکیشن -->
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>این برنامه برای ارائه خدمات مبتنی بر موقعیت به لوکیشن شما نیاز دارد</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>این برنامه برای فعالیت در پس‌زمینه به لوکیشن شما نیاز دارد</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>این برنامه برای ارائه بهترین تجربه کاربری به لوکیشن شما نیاز دارد</string>
+	
+	<!-- میکروفون -->
+	<key>NSMicrophoneUsageDescription</key>
+	<string>این برنامه برای ضبط صدا و فیلم‌برداری به میکروفون نیاز دارد</string>
+	
+	<!-- مخاطبین -->
+	<key>NSContactsUsageDescription</key>
+	<string>این برنامه برای یافتن دوستان به دسترسی به مخاطبین نیاز دارد</string>
+	
+	<!-- تقویم -->
+	<key>NSCalendarsUsageDescription</key>
+	<string>این برنامه برای افزودن رویدادها به تقویم به دسترسی نیاز دارد</string>
+	
+	<!-- یادآورها -->
+	<key>NSRemindersUsageDescription</key>
+	<string>این برنامه برای ایجاد یادآور به دسترسی نیاز دارد</string>
+	
+	<!-- حرکت و سنسورها -->
+	<key>NSMotionUsageDescription</key>
+	<string>این برنامه برای تشخیص فعالیت‌های بدنی به دسترسی به سنسورها نیاز دارد</string>
+	
+	<!-- بلوتوث -->
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>این برنامه برای اتصال به دستگاه‌های بلوتوث به دسترسی نیاز دارد</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>این برنامه برای کار به عنوان دستگاه بلوتوث جانبی به دسترسی نیاز دارد</string>
+	
+	<!-- سلامت -->
+	<key>NSHealthShareUsageDescription</key>
+	<string>این برنامه برای خواندن داده‌های سلامت به دسترسی نیاز دارد</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>این برنامه برای بروزرسانی داده‌های سلامت به دسترسی نیاز دارد</string>
+	
+	<!-- تشخیص گفتار -->
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>این برنامه برای تبدیل گفتار به متن به دسترسی نیاز دارد</string>
+	
+	<!-- Face ID -->
+	<key>NSFaceIDUsageDescription</key>
+	<string>این برنامه برای احراز هویت امن با Face ID به دسترسی نیاز دارد</string>
+	
+	<!-- Apple Music -->
+	<key>NSAppleMusicUsageDescription</key>
+	<string>این برنامه برای دسترسی به Apple Music و کتابخانه موسیقی به دسترسی نیاز دارد</string>
+	
+</dict>
+</plist>
