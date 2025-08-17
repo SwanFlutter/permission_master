@@ -1,7 +1,7 @@
 name: permission_master
-description: "Permission Master is a comprehensive Flutter plugin designed to simplify permission management across iOS and Android platforms. It provides an intuitive and easy-to-use interface for requesting and checking various system permissions while ensuring a smooth user experience."
-version: 0.0.6
-homepage:
+description: "**Permission Master** is a **Flutter** plugin for managing and requesting permissions on **iOS** and **Android**, making development easier."
+version: 0.0.7
+homepage: "https://github.com/SwanFlutter/permission_master"
 
 environment:
   sdk: ^3.8.0

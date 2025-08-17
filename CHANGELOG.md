@@ -30,3 +30,6 @@
 * Update Package
 * Changing permissions from default to manual mode
 
+## 0.0.7
+
+* Fix pub point
