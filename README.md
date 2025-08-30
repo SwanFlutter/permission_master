@@ -711,6 +711,9 @@ Add these to your `android/app/src/main/AndroidManifest.xml` if needed:
 <!-- Storage -->
 <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+<uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+<uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
+<uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
 
 <!-- Audio -->
 <uses-permission android:name="android.permission.RECORD_AUDIO" />
