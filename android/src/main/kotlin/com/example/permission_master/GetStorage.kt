@@ -22,7 +22,10 @@ class GetStorage(context: Context) {
                 is Float -> editor.putFloat(prefix + key, value)
                 is String -> editor.putString(prefix + key, value)
                 is Boolean -> editor.putBoolean(prefix + key, value)
-                is HashMap<*, *> -> editor.putString(prefix + key, JSONObject(value as Map<*, *>).toString())
+                is HashMap<*, *> -> {
+                    @Suppress("UNCHECKED_CAST")
+                    editor.putString(prefix + key, JSONObject(value as Map<*, *>).toString())
+                }
                 else -> throw IllegalArgumentException("Unsupported data type: ${value?.let { it::class.java.name } ?: "null"}")
             }
             editor.apply()
@@ -43,6 +46,7 @@ class GetStorage(context: Context) {
                 is HashMap<*, *> -> {
                     val jsonString = prefs.getString(prefix + key, null)
                     jsonString?.let {
+                        @Suppress("UNCHECKED_CAST")
                         JSONObject(it).toMap() as T
                     } ?: defaultValue
                 }

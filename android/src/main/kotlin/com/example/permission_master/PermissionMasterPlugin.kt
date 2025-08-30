@@ -84,7 +84,53 @@ class PermissionMasterPlugin : FlutterPlugin, MethodChannel.MethodCallHandler, A
                 val permissions = PermissionVersionManager.getBluetoothPermissions()
                 requestPermissionsSequentially(permissionHelper, permissions, result)
             }
-            "requestSensorsPermission" -> requestSinglePermission(permissionHelper, Manifest.permission.BODY_SENSORS, result)
+            "requestSensorsPermission" -> {
+                Log.d("PermissionMaster", "Requesting BODY_SENSORS permission on Android ${Build.VERSION.SDK_INT}")
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT_WATCH) {
+                    // Check if already granted
+                    if (permissionHelper.isPermissionGranted(Manifest.permission.BODY_SENSORS)) {
+                        Log.d("PermissionMaster", "BODY_SENSORS already granted")
+                        savePermissionStatus(Manifest.permission.BODY_SENSORS, true)
+                        result.success(true)
+                        return
+                    }
+
+                    // Check device capabilities
+                    val packageManager = activity?.packageManager
+                    val hasHeartRateFeature = packageManager?.hasSystemFeature(PackageManager.FEATURE_SENSOR_HEART_RATE) ?: false
+                    val hasStepCounterFeature = packageManager?.hasSystemFeature(PackageManager.FEATURE_SENSOR_STEP_COUNTER) ?: false
+
+                    Log.d("PermissionMaster", "Device features - HeartRate: $hasHeartRateFeature, StepCounter: $hasStepCounterFeature")
+
+                    // If device doesn't have required features, this permission is not applicable
+                    if (!hasHeartRateFeature && !hasStepCounterFeature) {
+                        Log.w("PermissionMaster", "Device doesn't support body sensors, skipping permission")
+                        savePermissionStatus(Manifest.permission.BODY_SENSORS, true)
+                        result.success(true)
+                        return
+                    }
+
+                    val requestCount = permissionHelper.getRequestCount(Manifest.permission.BODY_SENSORS)
+
+                    // Since this permission is being automatically denied by system,
+                    // we'll try only once and then accept the system's decision
+                    if (requestCount >= 1) {
+                        Log.w("PermissionMaster", "BODY_SENSORS already attempted, system restrictions may apply")
+                        savePermissionStatus(Manifest.permission.BODY_SENSORS, false)
+                        result.success(false)
+                        return
+                    }
+
+                    Log.d("PermissionMaster", "Attempting BODY_SENSORS permission request")
+                    requestSinglePermission(permissionHelper, Manifest.permission.BODY_SENSORS, result)
+
+                } else {
+                    Log.d("PermissionMaster", "BODY_SENSORS not needed for Android ${Build.VERSION.SDK_INT}")
+                    savePermissionStatus(Manifest.permission.BODY_SENSORS, true)
+                    result.success(true)
+                }
+            }
             "requestMicrophonePermission" -> requestSinglePermission(permissionHelper, Manifest.permission.RECORD_AUDIO, result)
             "requestNotificationPermission" -> {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -245,7 +291,10 @@ class PermissionMasterPlugin : FlutterPlugin, MethodChannel.MethodCallHandler, A
                     is Float -> storage.write(key, value)
                     is String -> storage.write(key, value)
                     is Boolean -> storage.write(key, value)
-                    is HashMap<*, *> -> storage.write(key, value as HashMap<String, Any>)
+                    is HashMap<*, *> -> {
+                        @Suppress("UNCHECKED_CAST")
+                        storage.write(key, value as HashMap<String, Any>)
+                    }
                     else -> return result.error("UNSUPPORTED_TYPE", "Unsupported value type: ${value::class.java}", null)
                 }
                 result.success(true)
@@ -259,7 +308,10 @@ class PermissionMasterPlugin : FlutterPlugin, MethodChannel.MethodCallHandler, A
                     is Float -> result.success(storage.read(key, defaultValue))
                     is String -> result.success(storage.read(key, defaultValue))
                     is Boolean -> result.success(storage.read(key, defaultValue))
-                    is HashMap<*, *> -> result.success(storage.read(key, defaultValue as HashMap<String, Any>))
+                    is HashMap<*, *> -> {
+                        @Suppress("UNCHECKED_CAST")
+                        result.success(storage.read(key, defaultValue as HashMap<String, Any>))
+                    }
                     else -> return result.error("UNSUPPORTED_TYPE", "Unsupported default value type: ${defaultValue::class.java}", null)
                 }
             }
@@ -274,6 +326,39 @@ class PermissionMasterPlugin : FlutterPlugin, MethodChannel.MethodCallHandler, A
             }
             "storage_clear" -> {
                 storage.clear()
+                result.success(true)
+            }
+            "clearPermissionCounts" -> {
+                // Clear all permission request counts to allow fresh permission requests
+                val permissionHelper = activity?.let { PermissionHelper(it) }
+                    ?: return result.error("ACTIVITY_NULL", "Activity is null", null)
+                
+                val permissions = arrayOf(
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION,
+                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.READ_MEDIA_IMAGES,
+                    Manifest.permission.READ_MEDIA_VIDEO,
+                    Manifest.permission.READ_MEDIA_AUDIO,
+                    Manifest.permission.RECORD_AUDIO,
+                    Manifest.permission.READ_CONTACTS,
+                    Manifest.permission.READ_CALENDAR,
+                    Manifest.permission.READ_PHONE_STATE,
+                    Manifest.permission.SEND_SMS,
+                    Manifest.permission.POST_NOTIFICATIONS,
+                    Manifest.permission.BLUETOOTH_SCAN,
+                    Manifest.permission.BLUETOOTH_CONNECT,
+                    Manifest.permission.BLUETOOTH_ADVERTISE,
+                    Manifest.permission.NEARBY_WIFI_DEVICES,
+                    Manifest.permission.ACTIVITY_RECOGNITION,
+                    Manifest.permission.BODY_SENSORS
+                )
+                
+                permissions.forEach { permission ->
+                    permissionHelper.resetRequestCount(permission)
+                }
+                
                 result.success(true)
             }
             else -> result.notImplemented()
@@ -293,11 +378,18 @@ class PermissionMasterPlugin : FlutterPlugin, MethodChannel.MethodCallHandler, A
             return
         }
 
+
         val requestCode = permission.hashCode() and 0xFFFF
         requestCallbacks[requestCode] = result
 
         try {
             Log.d("PermissionMaster", "Requesting permission: $permission")
+            
+            // Special handling for BODY_SENSORS - don't increment count immediately
+            if (permission != Manifest.permission.BODY_SENSORS) {
+                helper.incrementRequestCount(permission)
+            }
+            
             ActivityCompat.requestPermissions(
                 activity!!,
                 arrayOf(permission),
@@ -366,6 +458,7 @@ class PermissionMasterPlugin : FlutterPlugin, MethodChannel.MethodCallHandler, A
                     return
                 }
 
+
                 val requestCode = permission.hashCode() and 0xFFFF
 
                 requestCallbacks[requestCode] = object : MethodChannel.Result {
@@ -397,6 +490,12 @@ class PermissionMasterPlugin : FlutterPlugin, MethodChannel.MethodCallHandler, A
 
                 try {
                     Log.d("PermissionMaster", "Requesting permission: $permission")
+                    
+                    // Special handling for BODY_SENSORS - don't increment count immediately
+                    if (permission != Manifest.permission.BODY_SENSORS) {
+                        helper.incrementRequestCount(permission)
+                    }
+                    
                     ActivityCompat.requestPermissions(
                         activity!!,
                         arrayOf(permission),
@@ -439,17 +538,23 @@ class PermissionMasterPlugin : FlutterPlugin, MethodChannel.MethodCallHandler, A
         val result = requestCallbacks[requestCode] ?: return
 
         try {
-            Log.d("PermissionMaster", "Handling permission result for requestCode: $requestCode, permissions: ${permissions.joinToString()}")
+            Log.d("PermissionMaster", "Handling permission result for requestCode: $requestCode, permissions: ${permissions.joinToString()}, grantResults: ${grantResults.joinToString()}")
 
             if (permissions.isNotEmpty() && grantResults.isNotEmpty()) {
                 val granted = grantResults[0] == PackageManager.PERMISSION_GRANTED
+                val permission = permissions[0]
 
-                if (permissions.isNotEmpty()) {
-                    savePermissionStatus(permissions[0], granted)
+                Log.d("PermissionMaster", "Permission $permission result: ${if (granted) "GRANTED" else "DENIED"}")
+
+                // For BODY_SENSORS, increment count only after getting result
+                if (permission == Manifest.permission.BODY_SENSORS && !granted) {
+                    activity?.let { PermissionHelper(it).incrementRequestCount(permission) }
                 }
 
+                savePermissionStatus(permission, granted)
                 result.success(granted)
             } else {
+                Log.w("PermissionMaster", "Empty permissions or grant results array")
                 result.success(false)
             }
         } catch (e: Exception) {

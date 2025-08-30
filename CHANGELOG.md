@@ -33,3 +33,7 @@
 ## 0.0.7
 
 * Fix pub point
+
+## 0.0.8
+
+* Fix bug gradle

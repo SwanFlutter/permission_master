@@ -35,7 +35,8 @@ android {
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_11
+        jvmTarget = JavaVersion.VERSION_11.toString()
+        freeCompilerArgs += ["-Xsuppress-version-warnings"]
     }
 
     sourceSets {
@@ -45,6 +46,14 @@ android {
 
     defaultConfig {
         minSdk = 21
+    }
+
+    // Fix incremental compilation issues
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+        kotlinOptions {
+            jvmTarget = JavaVersion.VERSION_11.toString()
+            freeCompilerArgs += ["-Xsuppress-version-warnings"]
+        }
     }
 
     dependencies {

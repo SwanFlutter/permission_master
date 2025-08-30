@@ -29,10 +29,9 @@ class PermissionHelper(private val activity: Activity) {
     }
 
     fun canRequestPermission(permission: String): Boolean {
-        val requestCount = getRequestCount(permission)
-        val lastRequestTime = getLastRequestTime(permission)
-        val currentTime = System.currentTimeMillis()
-        return requestCount < MAX_ATTEMPTS || (currentTime - lastRequestTime >= MIN_REQUEST_INTERVAL)
+        // Always allow permission requests for better user experience
+        // The system will handle showing rationale or blocking if needed
+        return true
     }
 
     fun incrementRequestCount(permission: String) {
@@ -43,7 +42,7 @@ class PermissionHelper(private val activity: Activity) {
             .apply()
     }
 
-    private fun getRequestCount(permission: String): Int = prefs.getInt(PREFS_REQUEST_COUNT + permission, 0)
+    fun getRequestCount(permission: String): Int = prefs.getInt(PREFS_REQUEST_COUNT + permission, 0)
     private fun getLastRequestTime(permission: String): Long = prefs.getLong(PREFS_LAST_REQUEST_TIME + permission, 0)
 
     fun openAppSettings(): Boolean {
@@ -143,7 +142,6 @@ class PermissionHelper(private val activity: Activity) {
     fun getPermissionStatus(permission: String): PermissionStatus {
         return when {
             isPermissionGranted(permission) -> PermissionStatus.GRANTED
-            !canRequestPermission(permission) -> PermissionStatus.PERMANENTLY_DENIED
             shouldShowPermissionRationale(permission) -> PermissionStatus.DENIED_WITH_RATIONALE
             else -> PermissionStatus.DENIED
         }

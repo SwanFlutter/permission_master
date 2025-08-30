@@ -766,6 +766,21 @@ class MethodChannelPermissionMaster extends PermissionMasterPlatform {
     }
   }
 
+  /// Clears all permission request counts to allow fresh permission requests
+  Future<bool> clearPermissionCounts() async {
+    try {
+      debugPrint('Clearing permission request counts');
+      final result = await methodChannel.invokeMethod<bool>(
+        'clearPermissionCounts',
+      );
+      debugPrint('Clear permission counts result: $result');
+      return result ?? false;
+    } on PlatformException catch (e) {
+      debugPrint('Error clearing permission counts: ${e.message}');
+      return false;
+    }
+  }
+
   @override
   void setContext(BuildContext context) {
     MethodChannelPermissionMaster.context = context;
