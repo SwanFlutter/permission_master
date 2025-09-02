@@ -161,19 +161,20 @@ class _WebExampleScreenState extends State<WebExampleScreen> {
       PermissionStatus permissionResult;
       switch (permissionType) {
         case 'camera':
-          permissionResult = await _permissionMaster.requestCameraPermission();
+          permissionResult = await _permissionMaster
+              .requestCameraPermissionWeb();
           break;
         case 'microphone':
           permissionResult = await _permissionMaster
-              .requestMicrophonePermission();
+              .requestMicrophonePermissionWeb();
           break;
         case 'location':
           permissionResult = await _permissionMaster
-              .requestLocationPermission();
+              .requestLocationPermissionWeb();
           break;
         case 'notification':
           permissionResult = await _permissionMaster
-              .requestNotificationPermission();
+              .requestNotificationPermissionWeb();
           break;
         default:
           permissionResult = PermissionStatus.error;

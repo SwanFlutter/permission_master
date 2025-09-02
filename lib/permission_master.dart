@@ -170,6 +170,22 @@ class PermissionMaster {
     );
   }
 
+  /// Requests camera permission for web platform.
+  /// Example usage:
+  ///
+  /// ```dart
+  /// final permissionMaster = PermissionMaster();
+  /// final result = await permissionMaster.requestCameraPermissionWeb();
+  /// print('Web Camera Permission Result: \$result');
+  /// ```
+
+  Future<PermissionStatus> requestCameraPermissionWeb() async {
+    final result = await _permissionMasterPlatform.requestPermission(
+      'requestCameraPermission',
+    );
+    return _mapStatus(result);
+  }
+
   /// Requests location permission.
   /// Example usage:
   ///
@@ -184,6 +200,22 @@ class PermissionMaster {
       'requestLocationPermission',
       PermissionType.fineLocation,
     );
+  }
+
+  /// Requests location permission for web platform.
+  /// Example usage:
+  ///
+  /// ```dart
+  /// final permissionMaster = PermissionMaster();
+  /// final result = await permissionMaster.requestLocationPermissionWeb();
+  /// print('Web Location Permission Result: \$result');
+  /// ```
+
+  Future<PermissionStatus> requestLocationPermissionWeb() async {
+    final result = await _permissionMasterPlatform.requestPermission(
+      'requestLocationPermission',
+    );
+    return _mapStatus(result);
   }
 
   /// Requests storage permission.
@@ -295,6 +327,22 @@ class PermissionMaster {
     );
   }
 
+  /// Requests notification permission for web platform.
+  /// Example usage:
+  ///
+  /// ```dart
+  /// final permissionMaster = PermissionMaster();
+  /// final result = await permissionMaster.requestNotificationPermissionWeb();
+  /// print('Web Notification Permission Result: \$result');
+  /// ```
+
+  Future<PermissionStatus> requestNotificationPermissionWeb() async {
+    final result = await _permissionMasterPlatform.requestPermission(
+      'requestNotificationPermission',
+    );
+    return _mapStatus(result);
+  }
+
   /// Requests alarm permission.
   /// Example usage:
   ///
@@ -325,6 +373,22 @@ class PermissionMaster {
       'requestMicrophonePermission',
       PermissionType.microphone,
     );
+  }
+
+  /// Requests microphone permission for web platform.
+  /// Example usage:
+  ///
+  /// ```dart
+  /// final permissionMaster = PermissionMaster();
+  /// final result = await permissionMaster.requestMicrophonePermissionWeb();
+  /// print('Web Microphone Permission Result: \$result');
+  /// ```
+
+  Future<PermissionStatus> requestMicrophonePermissionWeb() async {
+    final result = await _permissionMasterPlatform.requestPermission(
+      'requestMicrophonePermission',
+    );
+    return _mapStatus(result);
   }
 
   /// Requests calendar permission.

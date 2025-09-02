@@ -1,4 +1,4 @@
-// ignore_for_file: unnecessary_null_comparison, unused_local_variable, override_on_non_overriding_member, invalid_runtime_check_with_js_interop_types, unrelated_type_equality_checks
+// ignore_for_file: invalid_runtime_check_with_js_interop_types
 
 import 'dart:async';
 import 'dart:js_interop';
@@ -35,17 +35,16 @@ class PermissionMasterWeb extends PermissionMasterPlatform {
     capabilities['isLocalhost'] = web.window.location.hostname == 'localhost';
 
     // Check media devices
-    capabilities['mediaDevices'] = web.window.navigator.mediaDevices != null;
-    capabilities['getUserMedia'] = web.window.navigator.mediaDevices != null;
+    capabilities['mediaDevices'] = true;
+    capabilities['getUserMedia'] = true;
 
     // Check geolocation
-    capabilities['geolocation'] = web.window.navigator.geolocation != null;
-    capabilities['getCurrentPosition'] =
-        web.window.navigator.geolocation != null;
+    capabilities['geolocation'] = true;
+    capabilities['getCurrentPosition'] = true;
 
     // Check notifications
     try {
-      capabilities['notifications'] = web.Notification.permission != null;
+      capabilities['notifications'] = true;
       capabilities['notificationPermission'] = web.Notification.permission;
     } catch (e) {
       capabilities['notifications'] = false;
@@ -53,7 +52,7 @@ class PermissionMasterWeb extends PermissionMasterPlatform {
     }
 
     // Check permissions API
-    capabilities['permissionsAPI'] = web.window.navigator.permissions != null;
+    capabilities['permissionsAPI'] = true;
 
     // Check user agent for debugging
     capabilities['userAgent'] = web.window.navigator.userAgent;
@@ -101,10 +100,6 @@ class PermissionMasterWeb extends PermissionMasterPlatform {
 
       final mediaDevices = web.window.navigator.mediaDevices;
       debugPrint('Media devices: $mediaDevices');
-      if (mediaDevices == null) {
-        debugPrint('Media devices not supported');
-        return 'unsupported';
-      }
 
       final constraints = web.MediaStreamConstraints(
         video: true.toJS,
@@ -148,9 +143,6 @@ class PermissionMasterWeb extends PermissionMasterPlatform {
     try {
       // Check if mediaDevices API is available
       final mediaDevices = web.window.navigator.mediaDevices;
-      if (mediaDevices == null) {
-        return 'unsupported';
-      }
 
       // Try to enumerate devices to check camera availability
       try {
@@ -173,29 +165,23 @@ class PermissionMasterWeb extends PermissionMasterPlatform {
       }
 
       // Try to check permission status using Permissions API if available
-      if (web.window.navigator.permissions != null) {
-        try {
-          final permissions = web.window.navigator.permissions;
-          final queryOptions = {'name': 'camera'}.jsify() as JSObject;
-          final result = await permissions.query(queryOptions).toDart;
-          if (result != null) {
-            final state = result.state;
-            switch (state) {
-              case 'granted':
-                return 'granted';
-              case 'denied':
-                return 'denied';
-              case 'prompt':
-                return 'denied'; // Not yet requested
-              default:
-                return 'denied';
-            }
-          }
-        } catch (e) {
-          debugPrint(
-            'Error checking camera permission via Permissions API: $e',
-          );
+      try {
+        final permissions = web.window.navigator.permissions;
+        final queryOptions = {'name': 'camera'}.jsify() as JSObject;
+        final result = await permissions.query(queryOptions).toDart;
+        final state = result.state;
+        switch (state) {
+          case 'granted':
+            return 'granted';
+          case 'denied':
+            return 'denied';
+          case 'prompt':
+            return 'denied'; // Not yet requested
+          default:
+            return 'denied';
         }
+      } catch (e) {
+        debugPrint('Error checking camera permission via Permissions API: $e');
       }
 
       // Default fallback
@@ -225,10 +211,6 @@ class PermissionMasterWeb extends PermissionMasterPlatform {
 
       final mediaDevices = web.window.navigator.mediaDevices;
       debugPrint('Media devices: $mediaDevices');
-      if (mediaDevices == null) {
-        debugPrint('Media devices not supported');
-        return 'unsupported';
-      }
 
       final constraints = web.MediaStreamConstraints(
         audio: true.toJS,
@@ -315,10 +297,6 @@ class PermissionMasterWeb extends PermissionMasterPlatform {
 
       final geolocation = web.window.navigator.geolocation;
       debugPrint('Geolocation: $geolocation');
-      if (geolocation == null) {
-        debugPrint('Geolocation not supported');
-        return 'unsupported';
-      }
 
       final completer = Completer<String>();
 
@@ -368,9 +346,6 @@ class PermissionMasterWeb extends PermissionMasterPlatform {
 
   Future<String> checkLocationPermissionWeb() async {
     try {
-      // Check if geolocation API is available
-      final geolocation = web.window.navigator.geolocation;
-
       // For web, we return 'denied' as default state since we can't check
       // permission status without requesting it first
       return 'denied';
@@ -392,28 +367,19 @@ class PermissionMasterWeb extends PermissionMasterPlatform {
         return 'unsupported';
       }
 
-      if (web.window.navigator.permissions != null) {
-        final permissions = web.window.navigator.permissions;
-        final queryOptions = {'name': 'notifications'}.jsify() as JSObject;
-        final result = await permissions.query(queryOptions).toDart;
+      final permissions = web.window.navigator.permissions;
+      final queryOptions = {'name': 'notifications'}.jsify() as JSObject;
+      final result = await permissions.query(queryOptions).toDart;
 
-        if (result != null) {
-          final state = result.state;
-          if (state == 'granted') {
-            return 'granted';
-          } else if (state == 'denied') {
-            return 'denied';
-          } else if (state == 'prompt') {
-            // Request permission
-            final permission =
-                await web.Notification.requestPermission().toDart;
-            return permission == 'granted' ? 'granted' : 'denied';
-          }
-        }
-      } else {
-        // Fallback for browsers that don't support permissions API
+      final state = result.state;
+      if (state == 'granted') {
+        return 'granted';
+      } else if (state == 'denied') {
+        return 'denied';
+      } else if (state == 'prompt') {
+        // Request permission
         final permission = await web.Notification.requestPermission().toDart;
-        return permission == 'granted' ? 'granted' : 'denied';
+        return permission.toDart == 'granted' ? 'granted' : 'denied';
       }
 
       return 'denied';
@@ -457,37 +423,32 @@ class PermissionMasterWeb extends PermissionMasterPlatform {
   }
 
   // Web-specific permissions that are not applicable
-  @override
+
   Future<String> requestRadiosPermission() async {
     // Radios permission is not applicable for web
     return 'unsupported';
   }
 
-  @override
   Future<String> checkRadiosPermission() async {
     // Radios permission is not applicable for web
     return 'unsupported';
   }
 
-  @override
   Future<String> requestVoiceActivationPermission() async {
     // Voice activation is handled through microphone permission in web
     return requestMicrophonePermissionWeb();
   }
 
-  @override
   Future<String> checkVoiceActivationPermission() async {
     // Voice activation is handled through microphone permission in web
     return checkMicrophonePermissionWeb();
   }
 
-  @override
   Future<String> requestEmailPermission() async {
     // Email permission is not applicable for web
     return 'unsupported';
   }
 
-  @override
   Future<String> checkEmailPermission() async {
     // Email permission is not applicable for web
     return 'unsupported';
@@ -519,19 +480,16 @@ class PermissionMasterWeb extends PermissionMasterPlatform {
     _showBrowserSettingsMessage('Notification');
   }
 
-  @override
   Future<void> openRadiosSettings() async {
     // Not applicable for web
     _showNotApplicableMessage('Radios');
   }
 
-  @override
   Future<void> openVoiceActivationSettings() async {
     // Voice activation settings are handled through microphone settings
     openMicrophoneSettings();
   }
 
-  @override
   Future<void> openEmailSettings() async {
     // Not applicable for web
     _showNotApplicableMessage('Email');
@@ -647,12 +605,10 @@ class PermissionMasterWeb extends PermissionMasterPlatform {
     // Not applicable for web
   }
 
-  @override
   Future<void> openVoiceActivationSettingsWindows() async {
     // Not applicable for web
   }
 
-  @override
   Future<void> openEmailSettingsWindows() async {
     // Not applicable for web
   }

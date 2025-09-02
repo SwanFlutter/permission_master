@@ -42,3 +42,8 @@
 ## 0.0.9
 
 * Add Support all permission platform
+
+
+## 0.0.10
+
+* Fix name permission web
