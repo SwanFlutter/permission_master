@@ -1,5 +1,5 @@
 name: permission_master
-description: "**Permission Master** is a **Flutter** plugin for managing and requesting permissions on **iOS** and **Android**, making development easier."
+description: "**Permission Master** is a **Flutter** plugin for managing and requesting permissions on **All Platform**."
 version: 0.0.9
 homepage: "https://github.com/SwanFlutter/permission_master"
 
