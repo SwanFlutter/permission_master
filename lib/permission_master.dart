@@ -75,6 +75,9 @@ export 'package:permission_master/src/permission_type.dart';
 /// ```
 
 class PermissionMaster {
+  /// Platform interface instance
+  final PermissionMasterPlatform _permissionMasterPlatform = PermissionMasterPlatform.instance;
+
   /// Sets the context for the permission master.
   static void setContext(BuildContext context) {
     PermissionMasterPlatform.setGlobalContext(context);
@@ -435,6 +438,50 @@ class PermissionMaster {
     return PermissionMasterPlatform.instance.openAppSettings();
   }
 
+  /// Opens camera settings.
+  /// Example usage:
+  ///
+  /// ```dart
+  /// final permissionMaster = PermissionMaster();
+  /// await permissionMaster.openCameraSettings();
+  /// ```
+  Future<void> openCameraSettings() {
+    return PermissionMasterPlatform.instance.openCameraSettings();
+  }
+
+  /// Opens microphone settings.
+  /// Example usage:
+  ///
+  /// ```dart
+  /// final permissionMaster = PermissionMaster();
+  /// await permissionMaster.openMicrophoneSettings();
+  /// ```
+  Future<void> openMicrophoneSettings() {
+    return PermissionMasterPlatform.instance.openMicrophoneSettings();
+  }
+
+  /// Opens location settings.
+  /// Example usage:
+  ///
+  /// ```dart
+  /// final permissionMaster = PermissionMaster();
+  /// await permissionMaster.openLocationSettings();
+  /// ```
+  Future<void> openLocationSettings() {
+    return PermissionMasterPlatform.instance.openLocationSettings();
+  }
+
+  /// Opens notification settings.
+  /// Example usage:
+  ///
+  /// ```dart
+  /// final permissionMaster = PermissionMaster();
+  /// await permissionMaster.openNotificationSettings();
+  /// ```
+  Future<void> openNotificationSettings() {
+    return PermissionMasterPlatform.instance.openNotificationSettings();
+  }
+
   /// Handles the permission request and shows a dialog if necessary.
   Future<PermissionStatus> _handlePermissionRequest(
     String method,
@@ -623,5 +670,352 @@ class PermissionMaster {
     );
 
     // Permission has been explicitly denied and stored
+  }
+
+  // Windows specific methods
+  /// Requests camera permission on Windows.
+  /// Example usage:
+  ///
+  /// ```dart
+  /// final permissionMaster = PermissionMaster();
+  /// final status = await permissionMaster.requestCameraPermissionWindows();
+  /// print('Windows Camera Permission Status: \$status');
+  /// ```
+  Future<String> requestCameraPermissionWindows() async {
+    return await _permissionMasterPlatform.requestCameraPermissionWindows();
+  }
+
+  /// Requests microphone permission on Windows.
+  /// Example usage:
+  ///
+  /// ```dart
+  /// final permissionMaster = PermissionMaster();
+  /// final status = await permissionMaster.requestMicrophonePermissionWindows();
+  /// print('Windows Microphone Permission Status: \$status');
+  /// ```
+  Future<String> requestMicrophonePermissionWindows() async {
+    return await _permissionMasterPlatform.requestMicrophonePermissionWindows();
+  }
+
+  // macOS specific permission methods
+  /// Requests camera permission on macOS.
+  Future<String> requestCameraPermissionMac() async {
+    return await _permissionMasterPlatform.requestCameraPermissionMac();
+  }
+
+  /// Requests microphone permission on macOS.
+  Future<String> requestMicrophonePermissionMac() async {
+    return await _permissionMasterPlatform.requestMicrophonePermissionMac();
+  }
+
+  /// Requests location permission on macOS.
+  Future<String> requestLocationPermissionMac() async {
+    return await _permissionMasterPlatform.requestLocationPermissionMac();
+  }
+
+  /// Requests photo library permission on macOS.
+  Future<String> requestPhotoLibraryPermissionMac() async {
+    return await _permissionMasterPlatform.requestPhotoLibraryPermissionMac();
+  }
+
+  /// Requests contacts permission on macOS.
+  Future<String> requestContactsPermissionMac() async {
+    return await _permissionMasterPlatform.requestContactsPermissionMac();
+  }
+
+  /// Requests notification permission on macOS.
+  Future<String> requestNotificationPermissionMac() async {
+    return await _permissionMasterPlatform.requestNotificationPermissionMac();
+  }
+
+  /// Requests Bluetooth permission on macOS.
+  Future<String> requestBluetoothPermissionMac() async {
+    return await _permissionMasterPlatform.requestBluetoothPermissionMac();
+  }
+
+  /// Requests calendar permission on macOS.
+  Future<String> requestCalendarPermissionMac() async {
+    return await _permissionMasterPlatform.requestCalendarPermissionMac();
+  }
+
+  /// Requests reminders permission on macOS.
+  Future<String> requestRemindersPermissionMac() async {
+    return await _permissionMasterPlatform.requestRemindersPermissionMac();
+  }
+
+  /// Requests speech recognition permission on macOS.
+  Future<String> requestSpeechRecognitionPermissionMac() async {
+    return await _permissionMasterPlatform.requestSpeechRecognitionPermissionMac();
+  }
+
+  /// Checks camera permission status on macOS.
+  Future<String> checkCameraPermissionMac() async {
+    return await _permissionMasterPlatform.checkCameraPermissionMac();
+  }
+
+  /// Checks microphone permission status on macOS.
+  Future<String> checkMicrophonePermissionMac() async {
+    return await _permissionMasterPlatform.checkMicrophonePermissionMac();
+  }
+
+  /// Checks location permission status on macOS.
+  Future<String> checkLocationPermissionMac() async {
+    return await _permissionMasterPlatform.checkLocationPermissionMac();
+  }
+
+  /// Checks photo library permission status on macOS.
+  Future<String> checkPhotoLibraryPermissionMac() async {
+    return await _permissionMasterPlatform.checkPhotoLibraryPermissionMac();
+  }
+
+  /// Checks contacts permission status on macOS.
+  Future<String> checkContactsPermissionMac() async {
+    return await _permissionMasterPlatform.checkContactsPermissionMac();
+  }
+
+  /// Checks notification permission status on macOS.
+  Future<String> checkNotificationPermissionMac() async {
+    return await _permissionMasterPlatform.checkNotificationPermissionMac();
+  }
+
+  /// Checks Bluetooth permission status on macOS.
+  Future<String> checkBluetoothPermissionMac() async {
+    return await _permissionMasterPlatform.checkBluetoothPermissionMac();
+  }
+
+  /// Checks calendar permission status on macOS.
+  Future<String> checkCalendarPermissionMac() async {
+    return await _permissionMasterPlatform.checkCalendarPermissionMac();
+  }
+
+  /// Checks reminders permission status on macOS.
+  Future<String> checkRemindersPermissionMac() async {
+    return await _permissionMasterPlatform.checkRemindersPermissionMac();
+  }
+
+  /// Checks speech recognition permission status on macOS.
+  Future<String> checkSpeechRecognitionPermissionMac() async {
+    return await _permissionMasterPlatform.checkSpeechRecognitionPermissionMac();
+  }
+
+  /// Opens macOS app settings.
+  Future<void> openAppSettingsMac() async {
+    await _permissionMasterPlatform.openAppSettingsMac();
+  }
+
+  /// Checks camera permission status on Windows.
+  /// Example usage:
+  ///
+  /// ```dart
+  /// final permissionMaster = PermissionMaster();
+  /// final status = await permissionMaster.checkCameraPermissionWindows();
+  /// print('Windows Camera Permission Status: \$status');
+  /// ```
+  Future<String> checkCameraPermissionWindows() async {
+    return await _permissionMasterPlatform.checkCameraPermissionWindows();
+  }
+
+  /// Checks microphone permission status on Windows.
+  /// Example usage:
+  ///
+  /// ```dart
+  /// final permissionMaster = PermissionMaster();
+  /// final status = await permissionMaster.checkMicrophonePermissionWindows();
+  /// print('Windows Microphone Permission Status: \$status');
+  /// ```
+  Future<String> checkMicrophonePermissionWindows() async {
+    return await _permissionMasterPlatform.checkMicrophonePermissionWindows();
+  }
+
+  /// Checks permission status on Windows.
+  /// Example usage:
+  ///
+  /// ```dart
+  /// final permissionMaster = PermissionMaster();
+  /// final status = await permissionMaster.checkPermissionStatusWindows('camera');
+  /// print('Windows Permission Status: \$status');
+  /// ```
+  Future<String> checkPermissionStatusWindows(String permission) async {
+    return await _permissionMasterPlatform.checkPermissionStatusWindows(permission);
+  }
+
+  /// Opens Windows app settings.
+  /// Example usage:
+  ///
+  /// ```dart
+  /// final permissionMaster = PermissionMaster();
+  /// await permissionMaster.openAppSettingsWindows();
+  /// ```
+  Future<void> openAppSettingsWindows() async {
+    await _permissionMasterPlatform.openAppSettingsWindows();
+  }
+
+  /// Opens Windows camera settings.
+  /// Example usage:
+  ///
+  /// ```dart
+  /// final permissionMaster = PermissionMaster();
+  /// await permissionMaster.openCameraSettingsWindows();
+  /// ```
+  Future<void> openCameraSettingsWindows() async {
+    await _permissionMasterPlatform.openCameraSettingsWindows();
+  }
+
+  /// Opens Windows microphone settings.
+  /// Example usage:
+  ///
+  /// ```dart
+  /// final permissionMaster = PermissionMaster();
+  /// await permissionMaster.openMicrophoneSettingsWindows();
+  /// ```
+  Future<void> openMicrophoneSettingsWindows() async {
+    await _permissionMasterPlatform.openMicrophoneSettingsWindows();
+  }
+
+  // Additional Windows permission methods
+  /// Requests location permission on Windows.
+  Future<String> requestLocationPermissionWindows() async {
+    return await _permissionMasterPlatform.requestLocationPermissionWindows();
+  }
+
+  /// Checks location permission status on Windows.
+  Future<String> checkLocationPermissionWindows() async {
+    return await _permissionMasterPlatform.checkLocationPermissionWindows();
+  }
+
+  /// Requests notification permission on Windows.
+  Future<String> requestNotificationPermissionWindows() async {
+    return await _permissionMasterPlatform.requestNotificationPermissionWindows();
+  }
+
+  /// Checks notification permission status on Windows.
+  Future<String> checkNotificationPermissionWindows() async {
+    return await _permissionMasterPlatform.checkNotificationPermissionWindows();
+  }
+
+  /// Requests radios permission on Windows.
+  Future<String> requestRadiosPermissionWindows() async {
+    return await _permissionMasterPlatform.requestRadiosPermissionWindows();
+  }
+
+  /// Checks radios permission status on Windows.
+  Future<String> checkRadiosPermissionWindows() async {
+    return await _permissionMasterPlatform.checkRadiosPermissionWindows();
+  }
+
+  /// Requests voice activation permission on Windows.
+  Future<String> requestVoiceActivationPermissionWindows() async {
+    return await _permissionMasterPlatform.requestVoiceActivationPermissionWindows();
+  }
+
+  /// Checks voice activation permission status on Windows.
+  Future<String> checkVoiceActivationPermissionWindows() async {
+    return await _permissionMasterPlatform.checkVoiceActivationPermissionWindows();
+  }
+
+  /// Requests email permission on Windows.
+  Future<String> requestEmailPermissionWindows() async {
+    return await _permissionMasterPlatform.requestEmailPermissionWindows();
+  }
+
+  /// Checks email permission status on Windows.
+  Future<String> checkEmailPermissionWindows() async {
+    return await _permissionMasterPlatform.checkEmailPermissionWindows();
+  }
+
+  /// Opens Windows location settings.
+  Future<void> openLocationSettingsWindows() async {
+    await _permissionMasterPlatform.openLocationSettingsWindows();
+  }
+
+  /// Opens Windows notification settings.
+  Future<void> openNotificationSettingsWindows() async {
+    await _permissionMasterPlatform.openNotificationSettingsWindows();
+  }
+
+  /// Opens Windows radios settings.
+  Future<void> openRadiosSettingsWindows() async {
+    await _permissionMasterPlatform.openRadiosSettingsWindows();
+  }
+
+  /// Opens Windows speech settings.
+  Future<void> openSpeechSettingsWindows() async {
+    await _permissionMasterPlatform.openSpeechSettingsWindows();
+  }
+
+  // Linux specific methods
+  /// Requests camera permission on Linux.
+  /// Example usage:
+  ///
+  /// ```dart
+  /// final permissionMaster = PermissionMaster();
+  /// final status = await permissionMaster.requestCameraPermissionLinux();
+  /// print('Linux Camera Permission Status: \$status');
+  /// ```
+  Future<String> requestCameraPermissionLinux() async {
+    return await _permissionMasterPlatform.requestCameraPermissionLinux();
+  }
+
+  /// Requests microphone permission on Linux.
+  /// Example usage:
+  ///
+  /// ```dart
+  /// final permissionMaster = PermissionMaster();
+  /// final status = await permissionMaster.requestMicrophonePermissionLinux();
+  /// print('Linux Microphone Permission Status: \$status');
+  /// ```
+  Future<String> requestMicrophonePermissionLinux() async {
+    return await _permissionMasterPlatform.requestMicrophonePermissionLinux();
+  }
+
+  /// Requests location permission on Linux.
+  Future<String> requestLocationPermissionLinux() async {
+    return await _permissionMasterPlatform.requestLocationPermissionLinux();
+  }
+
+  /// Requests storage permission on Linux.
+  Future<String> requestStoragePermissionLinux() async {
+    return await _permissionMasterPlatform.requestStoragePermissionLinux();
+  }
+
+  /// Requests contacts permission on Linux.
+  Future<String> requestContactsPermissionLinux() async {
+    return await _permissionMasterPlatform.requestContactsPermissionLinux();
+  }
+
+  /// Requests calendar permission on Linux.
+  Future<String> requestCalendarPermissionLinux() async {
+    return await _permissionMasterPlatform.requestCalendarPermissionLinux();
+  }
+
+  /// Requests notification permission on Linux.
+  Future<String> requestNotificationPermissionLinux() async {
+    return await _permissionMasterPlatform.requestNotificationPermissionLinux();
+  }
+
+  /// Requests Bluetooth permission on Linux.
+  Future<String> requestBluetoothPermissionLinux() async {
+    return await _permissionMasterPlatform.requestBluetoothPermissionLinux();
+  }
+
+  /// Requests network permission on Linux.
+  Future<String> requestNetworkPermissionLinux() async {
+    return await _permissionMasterPlatform.requestNetworkPermissionLinux();
+  }
+
+  /// Requests USB permission on Linux.
+  Future<String> requestUsbPermissionLinux() async {
+    return await _permissionMasterPlatform.requestUsbPermissionLinux();
+  }
+
+  /// Opens Linux app settings.
+  /// Example usage:
+  ///
+  /// ```dart
+  /// final permissionMaster = PermissionMaster();
+  /// await permissionMaster.openAppSettingsLinux();
+  /// ```
+  Future<void> openAppSettingsLinux() async {
+    await _permissionMasterPlatform.openAppSettingsLinux();
   }
 }

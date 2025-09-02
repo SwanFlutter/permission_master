@@ -740,6 +740,50 @@ class MethodChannelPermissionMaster extends PermissionMasterPlatform {
     }
   }
 
+  @override
+  Future<void> openCameraSettings() async {
+    try {
+      debugPrint('Opening camera settings');
+      await methodChannel.invokeMethod('openCameraSettings');
+      debugPrint('Camera settings opened successfully');
+    } on PlatformException catch (e) {
+      debugPrint('Error opening camera settings: ${e.message}');
+    }
+  }
+
+  @override
+  Future<void> openMicrophoneSettings() async {
+    try {
+      debugPrint('Opening microphone settings');
+      await methodChannel.invokeMethod('openMicrophoneSettings');
+      debugPrint('Microphone settings opened successfully');
+    } on PlatformException catch (e) {
+      debugPrint('Error opening microphone settings: ${e.message}');
+    }
+  }
+
+  @override
+  Future<void> openLocationSettings() async {
+    try {
+      debugPrint('Opening location settings');
+      await methodChannel.invokeMethod('openLocationSettings');
+      debugPrint('Location settings opened successfully');
+    } on PlatformException catch (e) {
+      debugPrint('Error opening location settings: ${e.message}');
+    }
+  }
+
+  @override
+  Future<void> openNotificationSettings() async {
+    try {
+      debugPrint('Opening notification settings');
+      await methodChannel.invokeMethod('openNotificationSettings');
+      debugPrint('Notification settings opened successfully');
+    } on PlatformException catch (e) {
+      debugPrint('Error opening notification settings: ${e.message}');
+    }
+  }
+
   /// Alternative method to open app settings.
   void _tryAlternativeOpenSettings() {
     try {
@@ -784,5 +828,664 @@ class MethodChannelPermissionMaster extends PermissionMasterPlatform {
   @override
   void setContext(BuildContext context) {
     MethodChannelPermissionMaster.context = context;
+  }
+
+  // Windows specific methods
+  @override
+  Future<String> requestCameraPermissionWindows() async {
+    try {
+      debugPrint('Requesting camera permission on Windows');
+      final result = await methodChannel.invokeMethod<String>(
+        'requestCameraPermissionWindows',
+      );
+      debugPrint('Windows camera permission result: $result');
+      return result ?? 'denied';
+    } on PlatformException catch (e) {
+      debugPrint('Error requesting camera permission on Windows: ${e.message}');
+      return 'denied';
+    }
+  }
+
+  @override
+  Future<String> requestMicrophonePermissionWindows() async {
+    try {
+      debugPrint('Requesting microphone permission on Windows');
+      final result = await methodChannel.invokeMethod<String>(
+        'requestMicrophonePermissionWindows',
+      );
+      debugPrint('Windows microphone permission result: $result');
+      return result ?? 'denied';
+    } on PlatformException catch (e) {
+      debugPrint('Error requesting microphone permission on Windows: ${e.message}');
+      return 'denied';
+    }
+  }
+
+  @override
+  Future<String> checkCameraPermissionWindows() async {
+    try {
+      debugPrint('Checking camera permission on Windows');
+      final result = await methodChannel.invokeMethod<String>(
+        'checkCameraPermissionWindows',
+      );
+      debugPrint('Windows camera permission status: $result');
+      return result ?? 'denied';
+    } on PlatformException catch (e) {
+      debugPrint('Error checking camera permission on Windows: ${e.message}');
+      return 'denied';
+    }
+  }
+
+  @override
+  Future<String> checkMicrophonePermissionWindows() async {
+    try {
+      debugPrint('Checking microphone permission on Windows');
+      final result = await methodChannel.invokeMethod<String>(
+        'checkMicrophonePermissionWindows',
+      );
+      debugPrint('Windows microphone permission status: $result');
+      return result ?? 'denied';
+    } on PlatformException catch (e) {
+      debugPrint('Error checking microphone permission on Windows: ${e.message}');
+      return 'denied';
+    }
+  }
+
+  @override
+  Future<String> checkPermissionStatusWindows(String permission) async {
+    try {
+      debugPrint('Checking permission status on Windows: $permission');
+      final result = await methodChannel.invokeMethod<String>(
+        'checkPermissionStatusWindows',
+        {'permission': permission},
+      );
+      debugPrint('Windows permission status for $permission: $result');
+      return result ?? 'denied';
+    } on PlatformException catch (e) {
+      debugPrint('Error checking permission status on Windows: ${e.message}');
+      return 'denied';
+    }
+  }
+
+  @override
+  Future<void> openAppSettingsWindows() async {
+    try {
+      debugPrint('Opening Windows app settings');
+      await methodChannel.invokeMethod('openAppSettingsWindows');
+      debugPrint('Windows app settings opened successfully');
+    } on PlatformException catch (e) {
+      debugPrint('Error opening Windows app settings: ${e.message}');
+    }
+  }
+
+  @override
+  Future<void> openCameraSettingsWindows() async {
+    try {
+      debugPrint('Opening Windows camera settings');
+      await methodChannel.invokeMethod('openCameraSettingsWindows');
+      debugPrint('Windows camera settings opened successfully');
+    } on PlatformException catch (e) {
+      debugPrint('Error opening Windows camera settings: ${e.message}');
+    }
+  }
+
+  @override
+  Future<void> openMicrophoneSettingsWindows() async {
+    try {
+      debugPrint('Opening Windows microphone settings');
+      await methodChannel.invokeMethod('openMicrophoneSettingsWindows');
+      debugPrint('Windows microphone settings opened successfully');
+    } on PlatformException catch (e) {
+      debugPrint('Error opening Windows microphone settings: ${e.message}');
+    }
+  }
+
+  // Additional Windows permission methods
+  @override
+  Future<String> requestLocationPermissionWindows() async {
+    try {
+      debugPrint('Requesting location permission on Windows');
+      final result = await methodChannel.invokeMethod<String>(
+        'requestLocationPermissionWindows',
+      );
+      debugPrint('Windows location permission result: $result');
+      return result ?? 'denied';
+    } on PlatformException catch (e) {
+      debugPrint('Error requesting location permission on Windows: ${e.message}');
+      return 'denied';
+    }
+  }
+
+  @override
+  Future<String> checkLocationPermissionWindows() async {
+    try {
+      debugPrint('Checking location permission on Windows');
+      final result = await methodChannel.invokeMethod<String>(
+        'checkLocationPermissionWindows',
+      );
+      debugPrint('Windows location permission status: $result');
+      return result ?? 'denied';
+    } on PlatformException catch (e) {
+      debugPrint('Error checking location permission on Windows: ${e.message}');
+      return 'denied';
+    }
+  }
+
+  @override
+  Future<String> requestNotificationPermissionWindows() async {
+    try {
+      debugPrint('Requesting notification permission on Windows');
+      final result = await methodChannel.invokeMethod<String>(
+        'requestNotificationPermissionWindows',
+      );
+      debugPrint('Windows notification permission result: $result');
+      return result ?? 'denied';
+    } on PlatformException catch (e) {
+      debugPrint('Error requesting notification permission on Windows: ${e.message}');
+      return 'denied';
+    }
+  }
+
+  @override
+  Future<String> checkNotificationPermissionWindows() async {
+    try {
+      debugPrint('Checking notification permission on Windows');
+      final result = await methodChannel.invokeMethod<String>(
+        'checkNotificationPermissionWindows',
+      );
+      debugPrint('Windows notification permission status: $result');
+      return result ?? 'denied';
+    } on PlatformException catch (e) {
+      debugPrint('Error checking notification permission on Windows: ${e.message}');
+      return 'denied';
+    }
+  }
+
+  @override
+  Future<String> requestRadiosPermissionWindows() async {
+    try {
+      debugPrint('Requesting radios permission on Windows');
+      final result = await methodChannel.invokeMethod<String>(
+        'requestRadiosPermissionWindows',
+      );
+      debugPrint('Windows radios permission result: $result');
+      return result ?? 'denied';
+    } on PlatformException catch (e) {
+      debugPrint('Error requesting radios permission on Windows: ${e.message}');
+      return 'denied';
+    }
+  }
+
+  @override
+  Future<String> checkRadiosPermissionWindows() async {
+    try {
+      debugPrint('Checking radios permission on Windows');
+      final result = await methodChannel.invokeMethod<String>(
+        'checkRadiosPermissionWindows',
+      );
+      debugPrint('Windows radios permission status: $result');
+      return result ?? 'denied';
+    } on PlatformException catch (e) {
+      debugPrint('Error checking radios permission on Windows: ${e.message}');
+      return 'denied';
+    }
+  }
+
+  @override
+  Future<String> requestVoiceActivationPermissionWindows() async {
+    try {
+      debugPrint('Requesting voice activation permission on Windows');
+      final result = await methodChannel.invokeMethod<String>(
+        'requestVoiceActivationPermissionWindows',
+      );
+      debugPrint('Windows voice activation permission result: $result');
+      return result ?? 'denied';
+    } on PlatformException catch (e) {
+      debugPrint('Error requesting voice activation permission on Windows: ${e.message}');
+      return 'denied';
+    }
+  }
+
+  @override
+  Future<String> checkVoiceActivationPermissionWindows() async {
+    try {
+      debugPrint('Checking voice activation permission on Windows');
+      final result = await methodChannel.invokeMethod<String>(
+        'checkVoiceActivationPermissionWindows',
+      );
+      debugPrint('Windows voice activation permission status: $result');
+      return result ?? 'denied';
+    } on PlatformException catch (e) {
+      debugPrint('Error checking voice activation permission on Windows: ${e.message}');
+      return 'denied';
+    }
+  }
+
+  @override
+  Future<String> requestEmailPermissionWindows() async {
+    try {
+      debugPrint('Requesting email permission on Windows');
+      final result = await methodChannel.invokeMethod<String>(
+        'requestEmailPermissionWindows',
+      );
+      debugPrint('Windows email permission result: $result');
+      return result ?? 'denied';
+    } on PlatformException catch (e) {
+      debugPrint('Error requesting email permission on Windows: ${e.message}');
+      return 'denied';
+    }
+  }
+
+  @override
+  Future<String> checkEmailPermissionWindows() async {
+    try {
+      debugPrint('Checking email permission on Windows');
+      final result = await methodChannel.invokeMethod<String>(
+        'checkEmailPermissionWindows',
+      );
+      debugPrint('Windows email permission status: $result');
+      return result ?? 'denied';
+    } on PlatformException catch (e) {
+      debugPrint('Error checking email permission on Windows: ${e.message}');
+      return 'denied';
+    }
+  }
+
+  @override
+  Future<void> openLocationSettingsWindows() async {
+    try {
+      debugPrint('Opening Windows location settings');
+      await methodChannel.invokeMethod('openLocationSettingsWindows');
+      debugPrint('Windows location settings opened successfully');
+    } on PlatformException catch (e) {
+      debugPrint('Error opening Windows location settings: ${e.message}');
+    }
+  }
+
+  @override
+  Future<void> openNotificationSettingsWindows() async {
+    try {
+      debugPrint('Opening Windows notification settings');
+      await methodChannel.invokeMethod('openNotificationSettingsWindows');
+      debugPrint('Windows notification settings opened successfully');
+    } on PlatformException catch (e) {
+      debugPrint('Error opening Windows notification settings: ${e.message}');
+    }
+  }
+
+  @override
+  Future<void> openRadiosSettingsWindows() async {
+    try {
+      debugPrint('Opening Windows radios settings');
+      await methodChannel.invokeMethod('openRadiosSettingsWindows');
+      debugPrint('Windows radios settings opened successfully');
+    } on PlatformException catch (e) {
+      debugPrint('Error opening Windows radios settings: ${e.message}');
+    }
+  }
+
+  @override
+  Future<void> openSpeechSettingsWindows() async {
+    try {
+      debugPrint('Opening Windows speech settings');
+      await methodChannel.invokeMethod('openSpeechSettingsWindows');
+      debugPrint('Windows speech settings opened successfully');
+    } on PlatformException catch (e) {
+      debugPrint('Error opening Windows speech settings: ${e.message}');
+    }
+  }
+
+  // macOS specific methods implementation
+  @override
+  Future<String> requestCameraPermissionMac() async {
+    try {
+      final result = await methodChannel.invokeMethod('requestCameraPermissionMac');
+      return result ?? 'denied';
+    } on PlatformException catch (e) {
+      debugPrint('Error requesting macOS camera permission: ${e.message}');
+      return 'denied';
+    }
+  }
+
+  @override
+  Future<String> requestMicrophonePermissionMac() async {
+    try {
+      final result = await methodChannel.invokeMethod('requestMicrophonePermissionMac');
+      return result ?? 'denied';
+    } on PlatformException catch (e) {
+      debugPrint('Error requesting macOS microphone permission: ${e.message}');
+      return 'denied';
+    }
+  }
+
+  @override
+  Future<String> requestLocationPermissionMac() async {
+    try {
+      final result = await methodChannel.invokeMethod('requestLocationPermissionMac');
+      return result ?? 'denied';
+    } on PlatformException catch (e) {
+      debugPrint('Error requesting macOS location permission: ${e.message}');
+      return 'denied';
+    }
+  }
+
+  @override
+  Future<String> requestPhotoLibraryPermissionMac() async {
+    try {
+      final result = await methodChannel.invokeMethod('requestPhotoLibraryPermissionMac');
+      return result ?? 'denied';
+    } on PlatformException catch (e) {
+      debugPrint('Error requesting macOS photo library permission: ${e.message}');
+      return 'denied';
+    }
+  }
+
+  @override
+  Future<String> requestContactsPermissionMac() async {
+    try {
+      final result = await methodChannel.invokeMethod('requestContactsPermissionMac');
+      return result ?? 'denied';
+    } on PlatformException catch (e) {
+      debugPrint('Error requesting macOS contacts permission: ${e.message}');
+      return 'denied';
+    }
+  }
+
+  @override
+  Future<String> requestNotificationPermissionMac() async {
+    try {
+      final result = await methodChannel.invokeMethod('requestNotificationPermissionMac');
+      return result ?? 'denied';
+    } on PlatformException catch (e) {
+      debugPrint('Error requesting macOS notification permission: ${e.message}');
+      return 'denied';
+    }
+  }
+
+  @override
+  Future<String> requestBluetoothPermissionMac() async {
+    try {
+      final result = await methodChannel.invokeMethod('requestBluetoothPermissionMac');
+      return result ?? 'denied';
+    } on PlatformException catch (e) {
+      debugPrint('Error requesting macOS Bluetooth permission: ${e.message}');
+      return 'denied';
+    }
+  }
+
+  @override
+  Future<String> requestCalendarPermissionMac() async {
+    try {
+      final result = await methodChannel.invokeMethod('requestCalendarPermissionMac');
+      return result ?? 'denied';
+    } on PlatformException catch (e) {
+      debugPrint('Error requesting macOS calendar permission: ${e.message}');
+      return 'denied';
+    }
+  }
+
+  @override
+  Future<String> requestRemindersPermissionMac() async {
+    try {
+      final result = await methodChannel.invokeMethod('requestRemindersPermissionMac');
+      return result ?? 'denied';
+    } on PlatformException catch (e) {
+      debugPrint('Error requesting macOS reminders permission: ${e.message}');
+      return 'denied';
+    }
+  }
+
+  @override
+  Future<String> requestSpeechRecognitionPermissionMac() async {
+    try {
+      final result = await methodChannel.invokeMethod('requestSpeechRecognitionPermissionMac');
+      return result ?? 'denied';
+    } on PlatformException catch (e) {
+      debugPrint('Error requesting macOS speech recognition permission: ${e.message}');
+      return 'denied';
+    }
+  }
+
+  @override
+  Future<String> checkCameraPermissionMac() async {
+    try {
+      final result = await methodChannel.invokeMethod('checkCameraPermissionMac');
+      return result ?? 'denied';
+    } on PlatformException catch (e) {
+      debugPrint('Error checking macOS camera permission: ${e.message}');
+      return 'denied';
+    }
+  }
+
+  @override
+  Future<String> checkMicrophonePermissionMac() async {
+    try {
+      final result = await methodChannel.invokeMethod('checkMicrophonePermissionMac');
+      return result ?? 'denied';
+    } on PlatformException catch (e) {
+      debugPrint('Error checking macOS microphone permission: ${e.message}');
+      return 'denied';
+    }
+  }
+
+  @override
+  Future<String> checkLocationPermissionMac() async {
+    try {
+      final result = await methodChannel.invokeMethod('checkLocationPermissionMac');
+      return result ?? 'denied';
+    } on PlatformException catch (e) {
+      debugPrint('Error checking macOS location permission: ${e.message}');
+      return 'denied';
+    }
+  }
+
+  @override
+  Future<String> checkPhotoLibraryPermissionMac() async {
+    try {
+      final result = await methodChannel.invokeMethod('checkPhotoLibraryPermissionMac');
+      return result ?? 'denied';
+    } on PlatformException catch (e) {
+      debugPrint('Error checking macOS photo library permission: ${e.message}');
+      return 'denied';
+    }
+  }
+
+  @override
+  Future<String> checkContactsPermissionMac() async {
+    try {
+      final result = await methodChannel.invokeMethod('checkContactsPermissionMac');
+      return result ?? 'denied';
+    } on PlatformException catch (e) {
+      debugPrint('Error checking macOS contacts permission: ${e.message}');
+      return 'denied';
+    }
+  }
+
+  @override
+  Future<String> checkNotificationPermissionMac() async {
+    try {
+      final result = await methodChannel.invokeMethod('checkNotificationPermissionMac');
+      return result ?? 'denied';
+    } on PlatformException catch (e) {
+      debugPrint('Error checking macOS notification permission: ${e.message}');
+      return 'denied';
+    }
+  }
+
+  @override
+  Future<String> checkBluetoothPermissionMac() async {
+    try {
+      final result = await methodChannel.invokeMethod('checkBluetoothPermissionMac');
+      return result ?? 'denied';
+    } on PlatformException catch (e) {
+      debugPrint('Error checking macOS Bluetooth permission: ${e.message}');
+      return 'denied';
+    }
+  }
+
+  @override
+  Future<String> checkCalendarPermissionMac() async {
+    try {
+      final result = await methodChannel.invokeMethod('checkCalendarPermissionMac');
+      return result ?? 'denied';
+    } on PlatformException catch (e) {
+      debugPrint('Error checking macOS calendar permission: ${e.message}');
+      return 'denied';
+    }
+  }
+
+  @override
+  Future<String> checkRemindersPermissionMac() async {
+    try {
+      final result = await methodChannel.invokeMethod('checkRemindersPermissionMac');
+      return result ?? 'denied';
+    } on PlatformException catch (e) {
+      debugPrint('Error checking macOS reminders permission: ${e.message}');
+      return 'denied';
+    }
+  }
+
+  @override
+  Future<String> checkSpeechRecognitionPermissionMac() async {
+    try {
+      final result = await methodChannel.invokeMethod('checkSpeechRecognitionPermissionMac');
+      return result ?? 'denied';
+    } on PlatformException catch (e) {
+      debugPrint('Error checking macOS speech recognition permission: ${e.message}');
+      return 'denied';
+    }
+  }
+
+  @override
+  Future<void> openAppSettingsMac() async {
+    try {
+      debugPrint('Opening macOS app settings');
+      await methodChannel.invokeMethod('openAppSettingsMac');
+      debugPrint('macOS app settings opened successfully');
+    } on PlatformException catch (e) {
+      debugPrint('Error opening macOS app settings: ${e.message}');
+    }
+  }
+
+  // Linux specific methods implementation
+  @override
+  Future<String> requestCameraPermissionLinux() async {
+    try {
+      final result = await methodChannel.invokeMethod('requestCameraPermissionLinux');
+      return result ?? 'denied';
+    } on PlatformException catch (e) {
+      debugPrint('Error requesting Linux camera permission: ${e.message}');
+      return 'denied';
+    }
+  }
+
+  @override
+  Future<String> requestMicrophonePermissionLinux() async {
+    try {
+      final result = await methodChannel.invokeMethod('requestMicrophonePermissionLinux');
+      return result ?? 'denied';
+    } on PlatformException catch (e) {
+      debugPrint('Error requesting Linux microphone permission: ${e.message}');
+      return 'denied';
+    }
+  }
+
+  @override
+  Future<String> requestLocationPermissionLinux() async {
+    try {
+      final result = await methodChannel.invokeMethod('requestLocationPermissionLinux');
+      return result ?? 'denied';
+    } on PlatformException catch (e) {
+      debugPrint('Error requesting Linux location permission: ${e.message}');
+      return 'denied';
+    }
+  }
+
+  @override
+  Future<String> requestStoragePermissionLinux() async {
+    try {
+      final result = await methodChannel.invokeMethod('requestStoragePermissionLinux');
+      return result ?? 'denied';
+    } on PlatformException catch (e) {
+      debugPrint('Error requesting Linux storage permission: ${e.message}');
+      return 'denied';
+    }
+  }
+
+  @override
+  Future<String> requestContactsPermissionLinux() async {
+    try {
+      final result = await methodChannel.invokeMethod('requestContactsPermissionLinux');
+      return result ?? 'denied';
+    } on PlatformException catch (e) {
+      debugPrint('Error requesting Linux contacts permission: ${e.message}');
+      return 'denied';
+    }
+  }
+
+  @override
+  Future<String> requestCalendarPermissionLinux() async {
+    try {
+      final result = await methodChannel.invokeMethod('requestCalendarPermissionLinux');
+      return result ?? 'denied';
+    } on PlatformException catch (e) {
+      debugPrint('Error requesting Linux calendar permission: ${e.message}');
+      return 'denied';
+    }
+  }
+
+  @override
+  Future<String> requestNotificationPermissionLinux() async {
+    try {
+      final result = await methodChannel.invokeMethod('requestNotificationPermissionLinux');
+      return result ?? 'denied';
+    } on PlatformException catch (e) {
+      debugPrint('Error requesting Linux notification permission: ${e.message}');
+      return 'denied';
+    }
+  }
+
+  @override
+  Future<String> requestBluetoothPermissionLinux() async {
+    try {
+      final result = await methodChannel.invokeMethod('requestBluetoothPermissionLinux');
+      return result ?? 'denied';
+    } on PlatformException catch (e) {
+      debugPrint('Error requesting Linux Bluetooth permission: ${e.message}');
+      return 'denied';
+    }
+  }
+
+  @override
+  Future<String> requestNetworkPermissionLinux() async {
+    try {
+      final result = await methodChannel.invokeMethod('requestNetworkPermissionLinux');
+      return result ?? 'denied';
+    } on PlatformException catch (e) {
+      debugPrint('Error requesting Linux network permission: ${e.message}');
+      return 'denied';
+    }
+  }
+
+  @override
+  Future<String> requestUsbPermissionLinux() async {
+    try {
+      final result = await methodChannel.invokeMethod('requestUsbPermissionLinux');
+      return result ?? 'denied';
+    } on PlatformException catch (e) {
+      debugPrint('Error requesting Linux USB permission: ${e.message}');
+      return 'denied';
+    }
+  }
+
+  @override
+  Future<void> openAppSettingsLinux() async {
+    try {
+      debugPrint('Opening Linux app settings');
+      await methodChannel.invokeMethod('openAppSettingsLinux');
+      debugPrint('Linux app settings opened successfully');
+    } on PlatformException catch (e) {
+      debugPrint('Error opening Linux app settings: ${e.message}');
+    }
   }
 }

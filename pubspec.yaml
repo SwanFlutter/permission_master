@@ -10,7 +10,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_web_plugins:
+    sdk: flutter
   plugin_platform_interface: ^2.0.2
+  web: ^1.1.1
 
 dev_dependencies:
   flutter_test:
@@ -27,5 +30,14 @@ flutter:
         pluginClass: PermissionMasterPlugin
       ios:
         pluginClass: PermissionMasterPlugin
+      linux:
+        pluginClass: PermissionMasterPlugin
+      macos:
+        pluginClass: PermissionMasterPlugin
+      windows:
+        pluginClass: PermissionMasterPluginCApi
+      web:
+        pluginClass: PermissionMasterWeb
+        fileName: permission_master_web.dart
 
 
