@@ -24,7 +24,7 @@ Add to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  permission_master: ^0.0.8
+  permission_master: ^0.0.9
 ```
 
 Or install directly from GitHub:
@@ -658,20 +658,21 @@ Future<void> trackPermissionRequest(PermissionType permission, PermissionStatus 
 
 ## Supported Permissions
 
-| Permission Type       | Android | iOS | Android Permission | iOS Usage Description |
-|----------------------|---------|-----|-------------------|----------------------|
-| Camera               | ✅      | ✅  | `CAMERA` | Camera access for photos/videos |
-| Location             | ✅      | ✅  | `ACCESS_FINE_LOCATION` | Location services |
-| Storage              | ✅      | ✅  | `READ_EXTERNAL_STORAGE` | Photo library access |
-| Microphone           | ✅      | ✅  | `RECORD_AUDIO` | Microphone for audio recording |
-| Bluetooth            | ✅      | ✅  | `BLUETOOTH` | Bluetooth connectivity |
-| Contacts             | ✅      | ✅  | `READ_CONTACTS` | Address book access |
-| Notifications        | ✅      | ✅  | `POST_NOTIFICATIONS` | Push notifications |
-| SMS                  | ✅      | ❌  | `SEND_SMS` | SMS messaging |
-| Calendar             | ✅      | ✅  | `READ_CALENDAR` | Calendar events access |
-| Phone                | ✅      | ❌  | `READ_PHONE_STATE` | Phone state information |
-| Activity Recognition | ✅      | ✅  | `ACTIVITY_RECOGNITION` | Motion & fitness data |
-| Nearby Devices       | ✅      | ✅  | `NEARBY_WIFI_DEVICES` | Nearby interaction |
+| Permission Type      | Android | iOS | Windows | macOS | Linux | Web |
+|----------------------|:-------:|:---:|:-------:|:-----:|:-----:|:---:|
+| Camera               |    ✅    |  ✅  |    ✅    |   ✅   |   ✅   |  ✅  |
+| Location             |    ✅    |  ✅  |    ✅    |   ✅   |   ✅   |  ✅  |
+| Storage/Photo Library|    ✅    |  ✅  |    ❌    |   ✅   |   ✅   |  ✅  |
+| Microphone           |    ✅    |  ✅  |    ✅    |   ✅   |   ✅   |  ✅  |
+| Bluetooth            |    ✅    |  ✅  |    ❌    |   ❌   |   ✅   |  ❌  |
+| Contacts             |    ✅    |  ✅  |    ❌    |   ✅   |   ❌   |  ❌  |
+| Notifications        |    ✅    |  ✅  |    ❌    |   ❌   |   ❌   |  ✅  |
+| SMS                  |    ✅    |  ❌  |    ❌    |   ❌   |   ❌   |  ❌  |
+| Calendar             |    ✅    |  ✅  |    ❌    |   ✅   |   ❌   |  ❌  |
+| Phone                |    ✅    |  ❌  |    ❌    |   ❌   |   ❌   |  ❌  |
+| Activity Recognition |    ✅    |  ✅  |    ❌    |   ❌   |   ❌   |  ❌  |
+| Nearby Devices       |    ✅    |  ✅  |    ❌    |   ❌   |   ❌   |  ❌  |
+| Network              |    ✅    |  ✅  |    ✅    |   ✅   |   ✅   |  ✅  |
 
 ## Best Practices
 

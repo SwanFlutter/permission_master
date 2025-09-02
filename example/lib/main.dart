@@ -24,15 +24,15 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Permission Master Demo',
       theme: ThemeData(primarySwatch: Colors.blue, useMaterial3: true),
-      home: kIsWeb 
-          ? const WebExampleScreen() 
-          : Platform.isWindows 
-              ? const WindowsExampleScreen()
-              : Platform.isMacOS
-                  ? const MacOSExampleScreen()
-                  : Platform.isLinux
-                      ? const LinuxExampleScreen()
-                      : const PermissionDemoPage(),
+      home: kIsWeb
+          ? const WebExampleScreen()
+          : Platform.isWindows
+          ? const WindowsExampleScreen()
+          : Platform.isMacOS
+          ? const MacOSExampleScreen()
+          : Platform.isLinux
+          ? const LinuxExampleScreen()
+          : const PermissionDemoPage(),
     );
   }
 }

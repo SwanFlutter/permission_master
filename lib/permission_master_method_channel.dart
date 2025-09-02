@@ -856,7 +856,9 @@ class MethodChannelPermissionMaster extends PermissionMasterPlatform {
       debugPrint('Windows microphone permission result: $result');
       return result ?? 'denied';
     } on PlatformException catch (e) {
-      debugPrint('Error requesting microphone permission on Windows: ${e.message}');
+      debugPrint(
+        'Error requesting microphone permission on Windows: ${e.message}',
+      );
       return 'denied';
     }
   }
@@ -886,7 +888,9 @@ class MethodChannelPermissionMaster extends PermissionMasterPlatform {
       debugPrint('Windows microphone permission status: $result');
       return result ?? 'denied';
     } on PlatformException catch (e) {
-      debugPrint('Error checking microphone permission on Windows: ${e.message}');
+      debugPrint(
+        'Error checking microphone permission on Windows: ${e.message}',
+      );
       return 'denied';
     }
   }
@@ -951,7 +955,9 @@ class MethodChannelPermissionMaster extends PermissionMasterPlatform {
       debugPrint('Windows location permission result: $result');
       return result ?? 'denied';
     } on PlatformException catch (e) {
-      debugPrint('Error requesting location permission on Windows: ${e.message}');
+      debugPrint(
+        'Error requesting location permission on Windows: ${e.message}',
+      );
       return 'denied';
     }
   }
@@ -981,7 +987,9 @@ class MethodChannelPermissionMaster extends PermissionMasterPlatform {
       debugPrint('Windows notification permission result: $result');
       return result ?? 'denied';
     } on PlatformException catch (e) {
-      debugPrint('Error requesting notification permission on Windows: ${e.message}');
+      debugPrint(
+        'Error requesting notification permission on Windows: ${e.message}',
+      );
       return 'denied';
     }
   }
@@ -996,7 +1004,9 @@ class MethodChannelPermissionMaster extends PermissionMasterPlatform {
       debugPrint('Windows notification permission status: $result');
       return result ?? 'denied';
     } on PlatformException catch (e) {
-      debugPrint('Error checking notification permission on Windows: ${e.message}');
+      debugPrint(
+        'Error checking notification permission on Windows: ${e.message}',
+      );
       return 'denied';
     }
   }
@@ -1041,7 +1051,9 @@ class MethodChannelPermissionMaster extends PermissionMasterPlatform {
       debugPrint('Windows voice activation permission result: $result');
       return result ?? 'denied';
     } on PlatformException catch (e) {
-      debugPrint('Error requesting voice activation permission on Windows: ${e.message}');
+      debugPrint(
+        'Error requesting voice activation permission on Windows: ${e.message}',
+      );
       return 'denied';
     }
   }
@@ -1056,7 +1068,9 @@ class MethodChannelPermissionMaster extends PermissionMasterPlatform {
       debugPrint('Windows voice activation permission status: $result');
       return result ?? 'denied';
     } on PlatformException catch (e) {
-      debugPrint('Error checking voice activation permission on Windows: ${e.message}');
+      debugPrint(
+        'Error checking voice activation permission on Windows: ${e.message}',
+      );
       return 'denied';
     }
   }
@@ -1139,7 +1153,9 @@ class MethodChannelPermissionMaster extends PermissionMasterPlatform {
   @override
   Future<String> requestCameraPermissionMac() async {
     try {
-      final result = await methodChannel.invokeMethod('requestCameraPermissionMac');
+      final result = await methodChannel.invokeMethod(
+        'requestCameraPermissionMac',
+      );
       return result ?? 'denied';
     } on PlatformException catch (e) {
       debugPrint('Error requesting macOS camera permission: ${e.message}');
@@ -1150,7 +1166,9 @@ class MethodChannelPermissionMaster extends PermissionMasterPlatform {
   @override
   Future<String> requestMicrophonePermissionMac() async {
     try {
-      final result = await methodChannel.invokeMethod('requestMicrophonePermissionMac');
+      final result = await methodChannel.invokeMethod(
+        'requestMicrophonePermissionMac',
+      );
       return result ?? 'denied';
     } on PlatformException catch (e) {
       debugPrint('Error requesting macOS microphone permission: ${e.message}');
@@ -1161,7 +1179,9 @@ class MethodChannelPermissionMaster extends PermissionMasterPlatform {
   @override
   Future<String> requestLocationPermissionMac() async {
     try {
-      final result = await methodChannel.invokeMethod('requestLocationPermissionMac');
+      final result = await methodChannel.invokeMethod(
+        'requestLocationPermissionMac',
+      );
       return result ?? 'denied';
     } on PlatformException catch (e) {
       debugPrint('Error requesting macOS location permission: ${e.message}');
@@ -1172,10 +1192,14 @@ class MethodChannelPermissionMaster extends PermissionMasterPlatform {
   @override
   Future<String> requestPhotoLibraryPermissionMac() async {
     try {
-      final result = await methodChannel.invokeMethod('requestPhotoLibraryPermissionMac');
+      final result = await methodChannel.invokeMethod(
+        'requestPhotoLibraryPermissionMac',
+      );
       return result ?? 'denied';
     } on PlatformException catch (e) {
-      debugPrint('Error requesting macOS photo library permission: ${e.message}');
+      debugPrint(
+        'Error requesting macOS photo library permission: ${e.message}',
+      );
       return 'denied';
     }
   }
@@ -1183,7 +1207,9 @@ class MethodChannelPermissionMaster extends PermissionMasterPlatform {
   @override
   Future<String> requestContactsPermissionMac() async {
     try {
-      final result = await methodChannel.invokeMethod('requestContactsPermissionMac');
+      final result = await methodChannel.invokeMethod(
+        'requestContactsPermissionMac',
+      );
       return result ?? 'denied';
     } on PlatformException catch (e) {
       debugPrint('Error requesting macOS contacts permission: ${e.message}');
@@ -1194,10 +1220,14 @@ class MethodChannelPermissionMaster extends PermissionMasterPlatform {
   @override
   Future<String> requestNotificationPermissionMac() async {
     try {
-      final result = await methodChannel.invokeMethod('requestNotificationPermissionMac');
+      final result = await methodChannel.invokeMethod(
+        'requestNotificationPermissionMac',
+      );
       return result ?? 'denied';
     } on PlatformException catch (e) {
-      debugPrint('Error requesting macOS notification permission: ${e.message}');
+      debugPrint(
+        'Error requesting macOS notification permission: ${e.message}',
+      );
       return 'denied';
     }
   }
@@ -1205,7 +1235,9 @@ class MethodChannelPermissionMaster extends PermissionMasterPlatform {
   @override
   Future<String> requestBluetoothPermissionMac() async {
     try {
-      final result = await methodChannel.invokeMethod('requestBluetoothPermissionMac');
+      final result = await methodChannel.invokeMethod(
+        'requestBluetoothPermissionMac',
+      );
       return result ?? 'denied';
     } on PlatformException catch (e) {
       debugPrint('Error requesting macOS Bluetooth permission: ${e.message}');
@@ -1216,7 +1248,9 @@ class MethodChannelPermissionMaster extends PermissionMasterPlatform {
   @override
   Future<String> requestCalendarPermissionMac() async {
     try {
-      final result = await methodChannel.invokeMethod('requestCalendarPermissionMac');
+      final result = await methodChannel.invokeMethod(
+        'requestCalendarPermissionMac',
+      );
       return result ?? 'denied';
     } on PlatformException catch (e) {
       debugPrint('Error requesting macOS calendar permission: ${e.message}');
@@ -1227,7 +1261,9 @@ class MethodChannelPermissionMaster extends PermissionMasterPlatform {
   @override
   Future<String> requestRemindersPermissionMac() async {
     try {
-      final result = await methodChannel.invokeMethod('requestRemindersPermissionMac');
+      final result = await methodChannel.invokeMethod(
+        'requestRemindersPermissionMac',
+      );
       return result ?? 'denied';
     } on PlatformException catch (e) {
       debugPrint('Error requesting macOS reminders permission: ${e.message}');
@@ -1238,10 +1274,14 @@ class MethodChannelPermissionMaster extends PermissionMasterPlatform {
   @override
   Future<String> requestSpeechRecognitionPermissionMac() async {
     try {
-      final result = await methodChannel.invokeMethod('requestSpeechRecognitionPermissionMac');
+      final result = await methodChannel.invokeMethod(
+        'requestSpeechRecognitionPermissionMac',
+      );
       return result ?? 'denied';
     } on PlatformException catch (e) {
-      debugPrint('Error requesting macOS speech recognition permission: ${e.message}');
+      debugPrint(
+        'Error requesting macOS speech recognition permission: ${e.message}',
+      );
       return 'denied';
     }
   }
@@ -1249,7 +1289,9 @@ class MethodChannelPermissionMaster extends PermissionMasterPlatform {
   @override
   Future<String> checkCameraPermissionMac() async {
     try {
-      final result = await methodChannel.invokeMethod('checkCameraPermissionMac');
+      final result = await methodChannel.invokeMethod(
+        'checkCameraPermissionMac',
+      );
       return result ?? 'denied';
     } on PlatformException catch (e) {
       debugPrint('Error checking macOS camera permission: ${e.message}');
@@ -1260,7 +1302,9 @@ class MethodChannelPermissionMaster extends PermissionMasterPlatform {
   @override
   Future<String> checkMicrophonePermissionMac() async {
     try {
-      final result = await methodChannel.invokeMethod('checkMicrophonePermissionMac');
+      final result = await methodChannel.invokeMethod(
+        'checkMicrophonePermissionMac',
+      );
       return result ?? 'denied';
     } on PlatformException catch (e) {
       debugPrint('Error checking macOS microphone permission: ${e.message}');
@@ -1271,7 +1315,9 @@ class MethodChannelPermissionMaster extends PermissionMasterPlatform {
   @override
   Future<String> checkLocationPermissionMac() async {
     try {
-      final result = await methodChannel.invokeMethod('checkLocationPermissionMac');
+      final result = await methodChannel.invokeMethod(
+        'checkLocationPermissionMac',
+      );
       return result ?? 'denied';
     } on PlatformException catch (e) {
       debugPrint('Error checking macOS location permission: ${e.message}');
@@ -1282,7 +1328,9 @@ class MethodChannelPermissionMaster extends PermissionMasterPlatform {
   @override
   Future<String> checkPhotoLibraryPermissionMac() async {
     try {
-      final result = await methodChannel.invokeMethod('checkPhotoLibraryPermissionMac');
+      final result = await methodChannel.invokeMethod(
+        'checkPhotoLibraryPermissionMac',
+      );
       return result ?? 'denied';
     } on PlatformException catch (e) {
       debugPrint('Error checking macOS photo library permission: ${e.message}');
@@ -1293,7 +1341,9 @@ class MethodChannelPermissionMaster extends PermissionMasterPlatform {
   @override
   Future<String> checkContactsPermissionMac() async {
     try {
-      final result = await methodChannel.invokeMethod('checkContactsPermissionMac');
+      final result = await methodChannel.invokeMethod(
+        'checkContactsPermissionMac',
+      );
       return result ?? 'denied';
     } on PlatformException catch (e) {
       debugPrint('Error checking macOS contacts permission: ${e.message}');
@@ -1304,7 +1354,9 @@ class MethodChannelPermissionMaster extends PermissionMasterPlatform {
   @override
   Future<String> checkNotificationPermissionMac() async {
     try {
-      final result = await methodChannel.invokeMethod('checkNotificationPermissionMac');
+      final result = await methodChannel.invokeMethod(
+        'checkNotificationPermissionMac',
+      );
       return result ?? 'denied';
     } on PlatformException catch (e) {
       debugPrint('Error checking macOS notification permission: ${e.message}');
@@ -1315,7 +1367,9 @@ class MethodChannelPermissionMaster extends PermissionMasterPlatform {
   @override
   Future<String> checkBluetoothPermissionMac() async {
     try {
-      final result = await methodChannel.invokeMethod('checkBluetoothPermissionMac');
+      final result = await methodChannel.invokeMethod(
+        'checkBluetoothPermissionMac',
+      );
       return result ?? 'denied';
     } on PlatformException catch (e) {
       debugPrint('Error checking macOS Bluetooth permission: ${e.message}');
@@ -1326,7 +1380,9 @@ class MethodChannelPermissionMaster extends PermissionMasterPlatform {
   @override
   Future<String> checkCalendarPermissionMac() async {
     try {
-      final result = await methodChannel.invokeMethod('checkCalendarPermissionMac');
+      final result = await methodChannel.invokeMethod(
+        'checkCalendarPermissionMac',
+      );
       return result ?? 'denied';
     } on PlatformException catch (e) {
       debugPrint('Error checking macOS calendar permission: ${e.message}');
@@ -1337,7 +1393,9 @@ class MethodChannelPermissionMaster extends PermissionMasterPlatform {
   @override
   Future<String> checkRemindersPermissionMac() async {
     try {
-      final result = await methodChannel.invokeMethod('checkRemindersPermissionMac');
+      final result = await methodChannel.invokeMethod(
+        'checkRemindersPermissionMac',
+      );
       return result ?? 'denied';
     } on PlatformException catch (e) {
       debugPrint('Error checking macOS reminders permission: ${e.message}');
@@ -1348,10 +1406,14 @@ class MethodChannelPermissionMaster extends PermissionMasterPlatform {
   @override
   Future<String> checkSpeechRecognitionPermissionMac() async {
     try {
-      final result = await methodChannel.invokeMethod('checkSpeechRecognitionPermissionMac');
+      final result = await methodChannel.invokeMethod(
+        'checkSpeechRecognitionPermissionMac',
+      );
       return result ?? 'denied';
     } on PlatformException catch (e) {
-      debugPrint('Error checking macOS speech recognition permission: ${e.message}');
+      debugPrint(
+        'Error checking macOS speech recognition permission: ${e.message}',
+      );
       return 'denied';
     }
   }
@@ -1371,7 +1433,9 @@ class MethodChannelPermissionMaster extends PermissionMasterPlatform {
   @override
   Future<String> requestCameraPermissionLinux() async {
     try {
-      final result = await methodChannel.invokeMethod('requestCameraPermissionLinux');
+      final result = await methodChannel.invokeMethod(
+        'requestCameraPermissionLinux',
+      );
       return result ?? 'denied';
     } on PlatformException catch (e) {
       debugPrint('Error requesting Linux camera permission: ${e.message}');
@@ -1382,7 +1446,9 @@ class MethodChannelPermissionMaster extends PermissionMasterPlatform {
   @override
   Future<String> requestMicrophonePermissionLinux() async {
     try {
-      final result = await methodChannel.invokeMethod('requestMicrophonePermissionLinux');
+      final result = await methodChannel.invokeMethod(
+        'requestMicrophonePermissionLinux',
+      );
       return result ?? 'denied';
     } on PlatformException catch (e) {
       debugPrint('Error requesting Linux microphone permission: ${e.message}');
@@ -1393,7 +1459,9 @@ class MethodChannelPermissionMaster extends PermissionMasterPlatform {
   @override
   Future<String> requestLocationPermissionLinux() async {
     try {
-      final result = await methodChannel.invokeMethod('requestLocationPermissionLinux');
+      final result = await methodChannel.invokeMethod(
+        'requestLocationPermissionLinux',
+      );
       return result ?? 'denied';
     } on PlatformException catch (e) {
       debugPrint('Error requesting Linux location permission: ${e.message}');
@@ -1404,7 +1472,9 @@ class MethodChannelPermissionMaster extends PermissionMasterPlatform {
   @override
   Future<String> requestStoragePermissionLinux() async {
     try {
-      final result = await methodChannel.invokeMethod('requestStoragePermissionLinux');
+      final result = await methodChannel.invokeMethod(
+        'requestStoragePermissionLinux',
+      );
       return result ?? 'denied';
     } on PlatformException catch (e) {
       debugPrint('Error requesting Linux storage permission: ${e.message}');
@@ -1415,7 +1485,9 @@ class MethodChannelPermissionMaster extends PermissionMasterPlatform {
   @override
   Future<String> requestContactsPermissionLinux() async {
     try {
-      final result = await methodChannel.invokeMethod('requestContactsPermissionLinux');
+      final result = await methodChannel.invokeMethod(
+        'requestContactsPermissionLinux',
+      );
       return result ?? 'denied';
     } on PlatformException catch (e) {
       debugPrint('Error requesting Linux contacts permission: ${e.message}');
@@ -1426,7 +1498,9 @@ class MethodChannelPermissionMaster extends PermissionMasterPlatform {
   @override
   Future<String> requestCalendarPermissionLinux() async {
     try {
-      final result = await methodChannel.invokeMethod('requestCalendarPermissionLinux');
+      final result = await methodChannel.invokeMethod(
+        'requestCalendarPermissionLinux',
+      );
       return result ?? 'denied';
     } on PlatformException catch (e) {
       debugPrint('Error requesting Linux calendar permission: ${e.message}');
@@ -1437,10 +1511,14 @@ class MethodChannelPermissionMaster extends PermissionMasterPlatform {
   @override
   Future<String> requestNotificationPermissionLinux() async {
     try {
-      final result = await methodChannel.invokeMethod('requestNotificationPermissionLinux');
+      final result = await methodChannel.invokeMethod(
+        'requestNotificationPermissionLinux',
+      );
       return result ?? 'denied';
     } on PlatformException catch (e) {
-      debugPrint('Error requesting Linux notification permission: ${e.message}');
+      debugPrint(
+        'Error requesting Linux notification permission: ${e.message}',
+      );
       return 'denied';
     }
   }
@@ -1448,7 +1526,9 @@ class MethodChannelPermissionMaster extends PermissionMasterPlatform {
   @override
   Future<String> requestBluetoothPermissionLinux() async {
     try {
-      final result = await methodChannel.invokeMethod('requestBluetoothPermissionLinux');
+      final result = await methodChannel.invokeMethod(
+        'requestBluetoothPermissionLinux',
+      );
       return result ?? 'denied';
     } on PlatformException catch (e) {
       debugPrint('Error requesting Linux Bluetooth permission: ${e.message}');
@@ -1459,7 +1539,9 @@ class MethodChannelPermissionMaster extends PermissionMasterPlatform {
   @override
   Future<String> requestNetworkPermissionLinux() async {
     try {
-      final result = await methodChannel.invokeMethod('requestNetworkPermissionLinux');
+      final result = await methodChannel.invokeMethod(
+        'requestNetworkPermissionLinux',
+      );
       return result ?? 'denied';
     } on PlatformException catch (e) {
       debugPrint('Error requesting Linux network permission: ${e.message}');
@@ -1470,7 +1552,9 @@ class MethodChannelPermissionMaster extends PermissionMasterPlatform {
   @override
   Future<String> requestUsbPermissionLinux() async {
     try {
-      final result = await methodChannel.invokeMethod('requestUsbPermissionLinux');
+      final result = await methodChannel.invokeMethod(
+        'requestUsbPermissionLinux',
+      );
       return result ?? 'denied';
     } on PlatformException catch (e) {
       debugPrint('Error requesting Linux USB permission: ${e.message}');

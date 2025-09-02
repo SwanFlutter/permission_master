@@ -76,7 +76,8 @@ export 'package:permission_master/src/permission_type.dart';
 
 class PermissionMaster {
   /// Platform interface instance
-  final PermissionMasterPlatform _permissionMasterPlatform = PermissionMasterPlatform.instance;
+  final PermissionMasterPlatform _permissionMasterPlatform =
+      PermissionMasterPlatform.instance;
 
   /// Sets the context for the permission master.
   static void setContext(BuildContext context) {
@@ -745,7 +746,8 @@ class PermissionMaster {
 
   /// Requests speech recognition permission on macOS.
   Future<String> requestSpeechRecognitionPermissionMac() async {
-    return await _permissionMasterPlatform.requestSpeechRecognitionPermissionMac();
+    return await _permissionMasterPlatform
+        .requestSpeechRecognitionPermissionMac();
   }
 
   /// Checks camera permission status on macOS.
@@ -795,7 +797,8 @@ class PermissionMaster {
 
   /// Checks speech recognition permission status on macOS.
   Future<String> checkSpeechRecognitionPermissionMac() async {
-    return await _permissionMasterPlatform.checkSpeechRecognitionPermissionMac();
+    return await _permissionMasterPlatform
+        .checkSpeechRecognitionPermissionMac();
   }
 
   /// Opens macOS app settings.
@@ -836,7 +839,9 @@ class PermissionMaster {
   /// print('Windows Permission Status: \$status');
   /// ```
   Future<String> checkPermissionStatusWindows(String permission) async {
-    return await _permissionMasterPlatform.checkPermissionStatusWindows(permission);
+    return await _permissionMasterPlatform.checkPermissionStatusWindows(
+      permission,
+    );
   }
 
   /// Opens Windows app settings.
@@ -885,7 +890,8 @@ class PermissionMaster {
 
   /// Requests notification permission on Windows.
   Future<String> requestNotificationPermissionWindows() async {
-    return await _permissionMasterPlatform.requestNotificationPermissionWindows();
+    return await _permissionMasterPlatform
+        .requestNotificationPermissionWindows();
   }
 
   /// Checks notification permission status on Windows.
@@ -905,12 +911,14 @@ class PermissionMaster {
 
   /// Requests voice activation permission on Windows.
   Future<String> requestVoiceActivationPermissionWindows() async {
-    return await _permissionMasterPlatform.requestVoiceActivationPermissionWindows();
+    return await _permissionMasterPlatform
+        .requestVoiceActivationPermissionWindows();
   }
 
   /// Checks voice activation permission status on Windows.
   Future<String> checkVoiceActivationPermissionWindows() async {
-    return await _permissionMasterPlatform.checkVoiceActivationPermissionWindows();
+    return await _permissionMasterPlatform
+        .checkVoiceActivationPermissionWindows();
   }
 
   /// Requests email permission on Windows.

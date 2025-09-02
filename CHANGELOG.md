@@ -37,3 +37,8 @@
 ## 0.0.8
 
 * Fix bug gradle
+
+
+## 0.0.9
+
+* Add Support all permission platform

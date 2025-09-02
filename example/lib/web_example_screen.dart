@@ -2,7 +2,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_master/permission_master.dart';
-import 'package:permission_master/src/permission_type.dart';
+
 
 /// Web-specific example screen for demonstrating browser permission handling
 class WebExampleScreen extends StatefulWidget {
