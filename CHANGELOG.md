@@ -47,3 +47,9 @@
 ## 0.0.10
 
 * Fix name permission web
+
+
+## 0.0.10
+
+* Edit README.md
+* Fix bug

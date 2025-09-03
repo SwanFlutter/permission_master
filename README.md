@@ -24,7 +24,7 @@ Add to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  permission_master: ^0.0.10
+  permission_master: ^0.0.11
 ```
 
 Or install directly from GitHub:
@@ -819,577 +819,400 @@ Add these to your `ios/Runner/Info.plist`:
 <string>This app needs health data access to update your fitness information</string>
 ```
 
+بسیار عذر می‌خواهم بابت سوءتفاهم. متوجه شدم که تاکید شما روی بازنویسی کامل بخش‌های مربوط به پلتفرم‌های دسکتاپ و وب با مثال‌های مجزا و به زبان انگلیسی برای هر متد بود.
+
+لطفاً این نسخه اصلاح‌شده را بررسی کنید.
+
+-----
+
 ## Platform-Specific Usage Examples
+
+This section provides detailed examples for using `PermissionMaster` on each specific platform, including Windows, macOS, Linux, and Web. Each method is demonstrated with a dedicated code snippet.
 
 ### Windows Platform
 
-The Permission Master plugin provides comprehensive support for Windows platform permissions. Here are examples of how to use Windows-specific permissions:
+To manage permissions on Windows, use the following methods.
 
-#### Camera Permission (Windows)
+#### 1\. Request Camera Permission
+
 ```dart
-import 'package:permission_master/permission_master.dart';
-
-// Request camera permission on Windows
 Future<void> requestWindowsCameraPermission() async {
-  try {
-    final result = await PermissionMaster.requestCameraPermissionWindows();
-    print('Windows Camera Permission: $result');
-    
-    if (result == 'granted') {
-      // Camera permission granted, proceed with camera operations
-      print('Camera access granted on Windows');
-    } else {
-      // Permission denied, show appropriate message
-      print('Camera permission denied on Windows');
-    }
-  } catch (e) {
-    print('Error requesting Windows camera permission: $e');
+  final permissionMaster = PermissionMaster();
+  final String status = await permissionMaster.requestCameraPermissionWindows();
+
+  if (status == 'granted') {
+    print('Windows camera permission granted');
+  } else {
+    print('Windows camera permission denied or an error occurred: $status');
   }
 }
 ```
 
-#### Microphone Permission (Windows)
+#### 2\. Request Microphone Permission
+
 ```dart
-// Request microphone permission on Windows
 Future<void> requestWindowsMicrophonePermission() async {
-  try {
-    final result = await PermissionMaster.requestMicrophonePermissionWindows();
-    print('Windows Microphone Permission: $result');
-    
-    if (result == 'granted') {
-      // Microphone permission granted
-      print('Microphone access granted on Windows');
-    }
-  } catch (e) {
-    print('Error requesting Windows microphone permission: $e');
+  final permissionMaster = PermissionMaster();
+  final String status = await permissionMaster.requestMicrophonePermissionWindows();
+
+  if (status == 'granted') {
+    print('Windows microphone permission granted');
+  } else {
+    print('Windows microphone permission denied or an error occurred: $status');
   }
 }
 ```
 
-#### Location Permission (Windows)
+#### 3\. Request Location Permission
+
 ```dart
-// Request location permission on Windows
 Future<void> requestWindowsLocationPermission() async {
-  try {
-    final result = await PermissionMaster.requestLocationPermissionWindows();
-    print('Windows Location Permission: $result');
-    
-    if (result == 'granted') {
-      // Location permission granted
-      print('Location access granted on Windows');
-    }
-  } catch (e) {
-    print('Error requesting Windows location permission: $e');
+  final permissionMaster = PermissionMaster();
+  final String status = await permissionMaster.requestLocationPermissionWindows();
+
+  if (status == 'granted') {
+    print('Windows location permission granted');
+  } else {
+    print('Windows location permission denied or an error occurred: $status');
   }
 }
 ```
 
-#### Open Windows App Settings
+#### 4\. Request Notification Permission
+
 ```dart
-// Open Windows app settings
-Future<void> openWindowsSettings() async {
-  try {
-    await PermissionMaster.openAppSettingsWindows();
-    print('Windows app settings opened');
-  } catch (e) {
-    print('Error opening Windows app settings: $e');
+Future<void> requestWindowsNotificationPermission() async {
+  final permissionMaster = PermissionMaster();
+  final String status = await permissionMaster.requestNotificationPermissionWindows();
+
+  if (status == 'granted') {
+    print('Windows notification permission granted');
+  } else {
+    print('Windows notification permission denied or an error occurred: $status');
   }
 }
 ```
+
+#### 5\. Check Camera Permission Status
+
+```dart
+Future<void> checkWindowsCameraPermission() async {
+  final permissionMaster = PermissionMaster();
+  final String status = await permissionMaster.checkCameraPermissionWindows();
+  print('Current Windows camera permission status: $status');
+}
+```
+
+#### 6\. Check Microphone Permission Status
+
+```dart
+Future<void> checkWindowsMicrophonePermission() async {
+  final permissionMaster = PermissionMaster();
+  final String status = await permissionMaster.checkMicrophonePermissionWindows();
+  print('Current Windows microphone permission status: $status');
+}
+```
+
+#### 7\. Check Location Permission Status
+
+```dart
+Future<void> checkWindowsLocationPermission() async {
+  final permissionMaster = PermissionMaster();
+  final String status = await permissionMaster.checkLocationPermissionWindows();
+  print('Current Windows location permission status: $status');
+}
+```
+
+#### 8\. Open Windows App Settings
+
+```dart
+Future<void> openWindowsSettings() async {
+  final permissionMaster = PermissionMaster();
+  await permissionMaster.openAppSettingsWindows();
+  print('Attempted to open Windows app settings.');
+}
+```
+
+#### 9\. Open Windows Camera Settings
+
+```dart
+Future<void> openWindowsCameraSettings() async {
+  final permissionMaster = PermissionMaster();
+  await permissionMaster.openCameraSettingsWindows();
+  print('Attempted to open Windows camera settings.');
+}
+```
+
+#### 10\. Open Windows Microphone Settings
+
+```dart
+Future<void> openWindowsMicrophoneSettings() async {
+  final permissionMaster = PermissionMaster();
+  await permissionMaster.openMicrophoneSettingsWindows();
+  print('Attempted to open Windows microphone settings.');
+}
+```
+
+-----
 
 ### macOS Platform
 
-The plugin offers extensive macOS permission support with native integration:
+For macOS, the plugin provides a rich set of methods to handle native permissions.
 
-#### Camera Permission (macOS)
+#### 1\. Request Camera Permission
+
 ```dart
-// Request camera permission on macOS
 Future<void> requestMacOSCameraPermission() async {
-  try {
-    final result = await PermissionMaster.requestCameraPermissionMac();
-    print('macOS Camera Permission: $result');
-    
-    if (result == 'granted') {
-      // Camera permission granted
-      print('Camera access granted on macOS');
-    } else if (result == 'denied') {
-      // Permission denied, guide user to settings
-      await PermissionMaster.openAppSettingsMac();
-    }
-  } catch (e) {
-    print('Error requesting macOS camera permission: $e');
+  final permissionMaster = PermissionMaster();
+  final String status = await permissionMaster.requestCameraPermissionMac();
+
+  if (status == 'granted') {
+    print('macOS camera permission granted');
+  } else if (status == 'denied') {
+    print('macOS camera permission was denied by the user.');
   }
 }
 ```
 
-#### Microphone Permission (macOS)
+#### 2\. Request Microphone Permission
+
 ```dart
-// Request microphone permission on macOS
 Future<void> requestMacOSMicrophonePermission() async {
-  try {
-    final result = await PermissionMaster.requestMicrophonePermissionMac();
-    print('macOS Microphone Permission: $result');
-    
-    if (result == 'granted') {
-      print('Microphone access granted on macOS');
-    }
-  } catch (e) {
-    print('Error requesting macOS microphone permission: $e');
+  final permissionMaster = PermissionMaster();
+  final String status = await permissionMaster.requestMicrophonePermissionMac();
+
+  if (status == 'granted') {
+    print('macOS microphone permission granted');
+  } else {
+    print('macOS microphone permission denied or an error occurred: $status');
   }
 }
 ```
 
-#### Location Permission (macOS)
-```dart
-// Request location permission on macOS
-Future<void> requestMacOSLocationPermission() async {
-  try {
-    final result = await PermissionMaster.requestLocationPermissionMac();
-    print('macOS Location Permission: $result');
-    
-    if (result == 'granted') {
-      print('Location access granted on macOS');
-    }
-  } catch (e) {
-    print('Error requesting macOS location permission: $e');
-  }
-}
-```
+#### 3\. Request Photo Library Permission
 
-#### Contacts Permission (macOS)
 ```dart
-// Request contacts permission on macOS
-Future<void> requestMacOSContactsPermission() async {
-  try {
-    final result = await PermissionMaster.requestContactsPermissionMac();
-    print('macOS Contacts Permission: $result');
-    
-    if (result == 'granted') {
-      print('Contacts access granted on macOS');
-    }
-  } catch (e) {
-    print('Error requesting macOS contacts permission: $e');
-  }
-}
-```
-
-#### Calendar Permission (macOS)
-```dart
-// Request calendar permission on macOS
-Future<void> requestMacOSCalendarPermission() async {
-  try {
-    final result = await PermissionMaster.requestCalendarPermissionMac();
-    print('macOS Calendar Permission: $result');
-    
-    if (result == 'granted') {
-      print('Calendar access granted on macOS');
-    }
-  } catch (e) {
-    print('Error requesting macOS calendar permission: $e');
-  }
-}
-```
-
-#### Photo Library Permission (macOS)
-```dart
-// Request photo library permission on macOS
 Future<void> requestMacOSPhotoLibraryPermission() async {
-  try {
-    final result = await PermissionMaster.requestPhotoLibraryPermissionMac();
-    print('macOS Photo Library Permission: $result');
-    
-    if (result == 'granted') {
-      print('Photo library access granted on macOS');
-    }
-  } catch (e) {
-    print('Error requesting macOS photo library permission: $e');
+  final permissionMaster = PermissionMaster();
+  final String status = await permissionMaster.requestPhotoLibraryPermissionMac();
+
+  if (status == 'granted') {
+    print('macOS photo library permission granted');
+  } else {
+    print('macOS photo library permission denied or an error occurred: $status');
   }
 }
 ```
+
+#### 4\. Request Contacts Permission
+
+```dart
+Future<void> requestMacOSContactsPermission() async {
+  final permissionMaster = PermissionMaster();
+  final String status = await permissionMaster.requestContactsPermissionMac();
+
+  if (status == 'granted') {
+    print('macOS contacts permission granted');
+  } else {
+    print('macOS contacts permission denied or an error occurred: $status');
+  }
+}
+```
+
+#### 5\. Request Calendar Permission
+
+```dart
+Future<void> requestMacOSCalendarPermission() async {
+  final permissionMaster = PermissionMaster();
+  final String status = await permissionMaster.requestCalendarPermissionMac();
+
+  if (status == 'granted') {
+    print('macOS calendar permission granted');
+  } else {
+    print('macOS calendar permission denied or an error occurred: $status');
+  }
+}
+```
+
+#### 6\. Check Photo Library Permission Status
+
+```dart
+Future<void> checkMacOSPhotoPermission() async {
+  final permissionMaster = PermissionMaster();
+  final String status = await permissionMaster.checkPhotoLibraryPermissionMac();
+  print('Current macOS photo library permission status: $status');
+}
+```
+
+#### 7\. Open macOS App Settings
+
+```dart
+Future<void> openMacOSSettings() async {
+  final permissionMaster = PermissionMaster();
+  await permissionMaster.openAppSettingsMac();
+  print('Attempted to open macOS app settings in System Settings.');
+}
+```
+
+-----
 
 ### Linux Platform
 
-Linux platform support provides essential permission management:
+For Linux distributions, you can manage core hardware permissions.
 
-#### Camera Permission (Linux)
+#### 1\. Request Camera Permission
+
 ```dart
-// Request camera permission on Linux
 Future<void> requestLinuxCameraPermission() async {
-  try {
-    final result = await PermissionMaster.requestCameraPermissionLinux();
-    print('Linux Camera Permission: $result');
-    
-    if (result == 'granted') {
-      print('Camera access granted on Linux');
-    } else {
-      print('Camera permission denied on Linux');
-    }
-  } catch (e) {
-    print('Error requesting Linux camera permission: $e');
+  final permissionMaster = PermissionMaster();
+  final String status = await permissionMaster.requestCameraPermissionLinux();
+
+  if (status == 'granted') {
+    print('Linux camera permission granted');
+  } else {
+    print('Linux camera permission denied or not available: $status');
   }
 }
 ```
 
-#### Microphone Permission (Linux)
+#### 2\. Request Microphone Permission
+
 ```dart
-// Request microphone permission on Linux
 Future<void> requestLinuxMicrophonePermission() async {
-  try {
-    final result = await PermissionMaster.requestMicrophonePermissionLinux();
-    print('Linux Microphone Permission: $result');
-    
-    if (result == 'granted') {
-      print('Microphone access granted on Linux');
-    }
-  } catch (e) {
-    print('Error requesting Linux microphone permission: $e');
+  final permissionMaster = PermissionMaster();
+  final String status = await permissionMaster.requestMicrophonePermissionLinux();
+
+  if (status == 'granted') {
+    print('Linux microphone permission granted');
+  } else {
+    print('Linux microphone permission denied or not available: $status');
   }
 }
 ```
 
-#### Location Permission (Linux)
-```dart
-// Request location permission on Linux
-Future<void> requestLinuxLocationPermission() async {
-  try {
-    final result = await PermissionMaster.requestLocationPermissionLinux();
-    print('Linux Location Permission: $result');
-    
-    if (result == 'granted') {
-      print('Location access granted on Linux');
-    }
-  } catch (e) {
-    print('Error requesting Linux location permission: $e');
-  }
-}
-```
+#### 3\. Request Storage Permission
 
-#### Storage Permission (Linux)
 ```dart
-// Request storage permission on Linux
 Future<void> requestLinuxStoragePermission() async {
-  try {
-    final result = await PermissionMaster.requestStoragePermissionLinux();
-    print('Linux Storage Permission: $result');
-    
-    if (result == 'granted') {
-      print('Storage access granted on Linux');
-    }
-  } catch (e) {
-    print('Error requesting Linux storage permission: $e');
+  final permissionMaster = PermissionMaster();
+  final String status = await permissionMaster.requestStoragePermissionLinux();
+
+  if (status == 'granted') {
+    print('Linux storage access granted');
+  } else {
+    print('Linux storage access denied or not available: $status');
   }
 }
 ```
 
-#### Network Permission (Linux)
-```dart
-// Request network permission on Linux
-Future<void> requestLinuxNetworkPermission() async {
-  try {
-    final result = await PermissionMaster.requestNetworkPermissionLinux();
-    print('Linux Network Permission: $result');
-    
-    if (result == 'granted') {
-      print('Network access granted on Linux');
-    }
-  } catch (e) {
-    print('Error requesting Linux network permission: $e');
-  }
-}
-```
+#### 4\. Request Bluetooth Permission
 
-#### Bluetooth Permission (Linux)
 ```dart
-// Request Bluetooth permission on Linux
 Future<void> requestLinuxBluetoothPermission() async {
-  try {
-    final result = await PermissionMaster.requestBluetoothPermissionLinux();
-    print('Linux Bluetooth Permission: $result');
-    
-    if (result == 'granted') {
-      print('Bluetooth access granted on Linux');
-    }
-  } catch (e) {
-    print('Error requesting Linux Bluetooth permission: $e');
+  final permissionMaster = PermissionMaster();
+  final String status = await permissionMaster.requestBluetoothPermissionLinux();
+
+  if (status == 'granted') {
+    print('Linux Bluetooth permission granted');
+  } else {
+    print('Linux Bluetooth permission denied or not available: $status');
   }
 }
 ```
+
+#### 5\. Open Linux App Settings
+
+```dart
+Future<void> openLinuxSettings() async {
+  final permissionMaster = PermissionMaster();
+  await permissionMaster.openAppSettingsLinux();
+  print('Attempted to open Linux system settings.');
+}
+```
+
+-----
 
 ### Web Platform
 
-Web platform permissions are handled through browser APIs:
+For web applications, you must create an instance of `PermissionMasterWeb`. Permissions are handled via browser APIs and typically require a secure context (HTTPS).
 
-#### Camera Permission (Web)
+#### 1\. Request Camera Permission
+
 ```dart
-// Request camera permission on Web
 Future<void> requestWebCameraPermission() async {
-  try {
-    final result = await PermissionMaster.requestCameraPermissionWeb();
-    print('Web Camera Permission: $result');
-    
-    if (result == 'granted') {
-      print('Camera access granted on Web');
-      // You can now access the camera through MediaDevices API
-    } else if (result == 'denied') {
-      print('Camera permission denied by user');
-    } else if (result == 'prompt') {
-      print('Camera permission prompt shown to user');
-    }
-  } catch (e) {
-    print('Error requesting Web camera permission: $e');
+  PermissionMasterWeb permissionMasterWeb = PermissionMasterWeb();
+  final String status = await permissionMasterWeb.requestCameraPermissionWeb();
+
+  if (status == 'granted') {
+    print('Web camera permission granted');
+  } else if (status == 'denied') {
+    print('Web camera permission was denied by the user.');
+  } else {
+    print('Web camera is not supported or an error occurred: $status');
   }
 }
 ```
 
-#### Microphone Permission (Web)
+#### 2\. Request Microphone Permission
+
 ```dart
-// Request microphone permission on Web
 Future<void> requestWebMicrophonePermission() async {
-  try {
-    final result = await PermissionMaster.requestMicrophonePermissionWeb();
-    print('Web Microphone Permission: $result');
-    
-    if (result == 'granted') {
-      print('Microphone access granted on Web');
-    }
-  } catch (e) {
-    print('Error requesting Web microphone permission: $e');
+  PermissionMasterWeb permissionMasterWeb = PermissionMasterWeb();
+  final String status = await permissionMasterWeb.requestMicrophonePermissionWeb();
+
+  if (status == 'granted') {
+    print('Web microphone permission granted');
+  } else if (status == 'denied') {
+    print('Web microphone permission was denied by the user.');
+  } else {
+    print('Web microphone is not supported or an error occurred: $status');
   }
 }
 ```
 
-#### Location Permission (Web)
+#### 3\. Request Location Permission
+
 ```dart
-// Request location permission on Web
 Future<void> requestWebLocationPermission() async {
-  try {
-    final result = await PermissionMaster.requestLocationPermissionWeb();
-    print('Web Location Permission: $result');
-    
-    if (result == 'granted') {
-      print('Location access granted on Web');
-      // You can now use Geolocation API
-    }
-  } catch (e) {
-    print('Error requesting Web location permission: $e');
+  PermissionMasterWeb permissionMasterWeb = PermissionMasterWeb();
+  final String status = await permissionMasterWeb.requestLocationPermissionWeb();
+
+  if (status == 'granted') {
+    print('Web location permission granted');
+  } else if (status == 'denied') {
+    print('Web location permission was denied by the user.');
+  } else {
+    print('Web location is not supported or an error occurred: $status');
   }
 }
 ```
 
-#### Notification Permission (Web)
+#### 4\. Request Notification Permission
+
 ```dart
-// Request notification permission on Web
 Future<void> requestWebNotificationPermission() async {
-  try {
-    final result = await PermissionMaster.requestNotificationPermissionWeb();
-    print('Web Notification Permission: $result');
-    
-    if (result == 'granted') {
-      print('Notification access granted on Web');
-      // You can now send notifications
-    }
-  } catch (e) {
-    print('Error requesting Web notification permission: $e');
+  PermissionMasterWeb permissionMasterWeb = PermissionMasterWeb();
+  final String status = await permissionMasterWeb.requestNotificationPermissionWeb();
+
+  if (status == 'granted') {
+    print('Web notification permission granted');
+  } else if (status == 'denied') {
+    print('Web notification permission was denied by the user.');
+  } else {
+    print('Web notifications are not supported or an error occurred: $status');
   }
 }
 ```
 
-#### Persistent Storage Permission (Web)
-```dart
-// Request persistent storage permission on Web
-Future<void> requestWebPersistentStoragePermission() async {
-  try {
-    final result = await PermissionMaster.requestPersistentStoragePermissionWeb();
-    print('Web Persistent Storage Permission: $result');
-    
-    if (result == 'granted') {
-      print('Persistent storage access granted on Web');
-    }
-  } catch (e) {
-    print('Error requesting Web persistent storage permission: $e');
-  }
-}
-```
+#### 5\. Open Settings (Web)
 
-### Platform Detection and Conditional Usage
+This method does not open a native settings screen. Instead, it shows a browser alert guiding the user to change permissions manually.
 
 ```dart
-import 'dart:io' show Platform;
-import 'package:flutter/foundation.dart' show kIsWeb;
-import 'package:permission_master/permission_master.dart';
-
-// Example of platform-specific permission handling
-Future<void> requestCameraPermissionForCurrentPlatform() async {
-  try {
-    String result;
-    
-    if (kIsWeb) {
-      // Web platform
-      result = await PermissionMaster.requestCameraPermissionWeb();
-      print('Web camera permission: $result');
-    } else if (Platform.isWindows) {
-      // Windows platform
-      result = await PermissionMaster.requestCameraPermissionWindows();
-      print('Windows camera permission: $result');
-    } else if (Platform.isMacOS) {
-      // macOS platform
-      result = await PermissionMaster.requestCameraPermissionMac();
-      print('macOS camera permission: $result');
-    } else if (Platform.isLinux) {
-      // Linux platform
-      result = await PermissionMaster.requestCameraPermissionLinux();
-      print('Linux camera permission: $result');
-    } else {
-      // Android/iOS - use standard permission methods
-      result = await PermissionMaster.requestPermission(PermissionType.camera);
-      print('Mobile camera permission: $result');
-    }
-    
-    // Handle the result
-    if (result == 'granted') {
-      print('Camera permission granted on current platform');
-      // Proceed with camera operations
-    } else {
-      print('Camera permission denied on current platform');
-      // Show appropriate message or guide user to settings
-    }
-  } catch (e) {
-    print('Error requesting camera permission: $e');
-  }
-}
-```
-
-### Complete Platform-Specific Example
-
-```dart
-import 'package:flutter/material.dart';
-import 'package:permission_master/permission_master.dart';
-import 'dart:io' show Platform;
-import 'package:flutter/foundation.dart' show kIsWeb;
-
-class PlatformSpecificPermissionExample extends StatefulWidget {
-  @override
-  _PlatformSpecificPermissionExampleState createState() => _PlatformSpecificPermissionExampleState();
-}
-
-class _PlatformSpecificPermissionExampleState extends State<PlatformSpecificPermissionExample> {
-  String _permissionStatus = 'Unknown';
-  String _currentPlatform = 'Unknown';
-
-  @override
-  void initState() {
-    super.initState();
-    _detectPlatform();
-  }
-
-  void _detectPlatform() {
-    if (kIsWeb) {
-      _currentPlatform = 'Web';
-    } else if (Platform.isWindows) {
-      _currentPlatform = 'Windows';
-    } else if (Platform.isMacOS) {
-      _currentPlatform = 'macOS';
-    } else if (Platform.isLinux) {
-      _currentPlatform = 'Linux';
-    } else if (Platform.isAndroid) {
-      _currentPlatform = 'Android';
-    } else if (Platform.isIOS) {
-      _currentPlatform = 'iOS';
-    }
-    setState(() {});
-  }
-
-  Future<void> _requestCameraPermission() async {
-    try {
-      String result;
-      
-      if (kIsWeb) {
-        result = await PermissionMaster.requestCameraPermissionWeb();
-      } else if (Platform.isWindows) {
-        result = await PermissionMaster.requestCameraPermissionWindows();
-      } else if (Platform.isMacOS) {
-        result = await PermissionMaster.requestCameraPermissionMac();
-      } else if (Platform.isLinux) {
-        result = await PermissionMaster.requestCameraPermissionLinux();
-      } else {
-        result = await PermissionMaster.requestPermission(PermissionType.camera);
-      }
-      
-      setState(() {
-        _permissionStatus = result;
-      });
-    } catch (e) {
-      setState(() {
-        _permissionStatus = 'Error: $e';
-      });
-    }
-  }
-
-  Future<void> _openAppSettings() async {
-    try {
-      if (kIsWeb) {
-        // Web doesn't have app settings, show browser settings info
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Please check browser settings for permissions')),
-        );
-      } else if (Platform.isWindows) {
-        await PermissionMaster.openAppSettingsWindows();
-      } else if (Platform.isMacOS) {
-        await PermissionMaster.openAppSettingsMac();
-      } else if (Platform.isLinux) {
-        await PermissionMaster.openAppSettingsLinux();
-      } else {
-        await PermissionMaster.openAppSettings();
-      }
-    } catch (e) {
-      print('Error opening app settings: $e');
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Platform-Specific Permissions'),
-      ),
-      body: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Card(
-              child: Padding(
-                padding: EdgeInsets.all(16.0),
-                child: Column(
-                  children: [
-                    Text(
-                      'Current Platform: $_currentPlatform',
-                      style: Theme.of(context).textTheme.headlineSmall,
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      'Camera Permission Status: $_permissionStatus',
-                      style: Theme.of(context).textTheme.bodyLarge,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: _requestCameraPermission,
-              child: Text('Request Camera Permission'),
-            ),
-            SizedBox(height: 10),
-            ElevatedButton(
-              onPressed: _openAppSettings,
-              child: Text('Open App Settings'),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+Future<void> openWebSettings() async {
+  PermissionMasterWeb permissionMasterWeb = PermissionMasterWeb();
+  await permissionMasterWeb.openAppSettings();
+  // This will show a browser alert to the user.
 }
 ```
 
