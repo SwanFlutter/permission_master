@@ -24,7 +24,7 @@ Add to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  permission_master: ^0.0.11
+  permission_master: ^0.0.12
 ```
 
 Or install directly from GitHub:

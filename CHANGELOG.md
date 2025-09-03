@@ -49,7 +49,12 @@
 * Fix name permission web
 
 
-## 0.0.10
+## 0.0.11
 
 * Edit README.md
 * Fix bug
+
+
+## 0.0.12
+
+* Fix pub point
