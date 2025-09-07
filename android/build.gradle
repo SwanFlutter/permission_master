@@ -36,7 +36,8 @@ android {
 
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_11.toString()
-        freeCompilerArgs += ["-Xsuppress-version-warnings"]
+        freeCompilerArgs += ["-Xsuppress-version-warnings", "-Xopt-in=kotlin.RequiresOptIn"]
+        allWarningsAsErrors = false
     }
 
     sourceSets {
@@ -52,8 +53,11 @@ android {
     tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
         kotlinOptions {
             jvmTarget = JavaVersion.VERSION_11.toString()
-            freeCompilerArgs += ["-Xsuppress-version-warnings"]
+            freeCompilerArgs += ["-Xsuppress-version-warnings", "-Xopt-in=kotlin.RequiresOptIn"]
+            allWarningsAsErrors = false
         }
+        // Increase daemon memory
+        System.setProperty("kotlin.daemon.jvm.options", "-Xmx2G -XX:MaxMetaspaceSize=1G")
     }
 
     dependencies {

@@ -58,3 +58,7 @@
 ## 0.0.12
 
 * Fix pub point
+
+## 0.0.13
+
+* Fix gradle android
