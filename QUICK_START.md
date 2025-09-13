@@ -1,69 +1,73 @@
-# راه‌اندازی سریع Permission Master
+Here’s the English version of your "Quick Setup for Permission Master" guide:
 
-## مرحله 1: نصب پکیج
+---
+
+# Quick Setup: Permission Master
+
+## Step 1: Install the Package
+Add the following to your `pubspec.yaml`:
 ```yaml
 dependencies:
   permission_master: ^latest_version
 ```
 
-## مرحله 2: اضافه کردن پرمیشن‌های مورد نیاز
+## Step 2: Add Required Permissions
 
-### Android (android/app/src/main/AndroidManifest.xml)
-فقط پرمیشن‌های مورد نیاز خود را اضافه کنید:
+### Android (`android/app/src/main/AndroidManifest.xml`)
+Add only the permissions you need:
 ```xml
 <uses-permission android:name="android.permission.CAMERA" />
 <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 ```
 
-### iOS (ios/Runner/Info.plist)
-فقط کلیدهای مورد نیاز خود را اضافه کنید:
+### iOS (`ios/Runner/Info.plist`)
+Add only the keys you need:
 ```xml
 <key>NSCameraUsageDescription</key>
-<string>توضیحات استفاده از دوربین</string>
+<string>Description for camera usage</string>
 <key>NSLocationWhenInUseUsageDescription</key>
-<string>توضیحات استفاده از لوکیشن</string>
+<string>Description for location usage</string>
 ```
 
-## مرحله 3: استفاده در کد
-
+## Step 3: Usage in Code
 ```dart
 import 'package:permission_master/permission_master.dart';
 
-// تنظیم context
+// Set context
 PermissionMaster.setContext(context);
 
-// استفاده ساده
+// Simple usage
 final permissionMaster = PermissionMaster();
 
-// درخواست دوربین
+// Request camera permission
 final status = await permissionMaster.requestCameraPermission();
 
-// یا استفاده عمومی
+// Or use the general method
 final status = await permissionMaster.requestPermission(
   permission: PermissionType.camera,
 );
 ```
 
-## پرمیشن‌های پشتیبانی شده
+## Supported Permissions
 
 ### Android
-- CAMERA
-- ACCESS_FINE_LOCATION
-- ACCESS_COARSE_LOCATION
-- READ_EXTERNAL_STORAGE
-- WRITE_EXTERNAL_STORAGE
-- RECORD_AUDIO
-- READ_CONTACTS
-- BLUETOOTH
-- BODY_SENSORS
-- و...
+- `CAMERA`
+- `ACCESS_FINE_LOCATION`
+- `ACCESS_COARSE_LOCATION`
+- `READ_EXTERNAL_STORAGE`
+- `WRITE_EXTERNAL_STORAGE`
+- `RECORD_AUDIO`
+- `READ_CONTACTS`
+- `BLUETOOTH`
+- `BODY_SENSORS`
+- And more...
 
 ### iOS
-- NSCameraUsageDescription
-- NSLocationWhenInUseUsageDescription
-- NSPhotoLibraryUsageDescription
-- NSMicrophoneUsageDescription
-- NSContactsUsageDescription
-- و...
+- `NSCameraUsageDescription`
+- `NSLocationWhenInUseUsageDescription`
+- `NSPhotoLibraryUsageDescription`
+- `NSMicrophoneUsageDescription`
+- `NSContactsUsageDescription`
+- And more...
 
-برای لیست کامل به فایل PERMISSION_GUIDE.md مراجعه کنید.
+For a complete list, refer to the `PERMISSION_GUIDE.md` file.

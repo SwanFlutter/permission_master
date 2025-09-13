@@ -62,3 +62,7 @@
 ## 0.0.13
 
 * Fix gradle android
+
+## 0.0.14
+
+* Edit README.md

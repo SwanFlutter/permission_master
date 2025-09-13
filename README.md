@@ -24,7 +24,7 @@ Add to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  permission_master: ^0.0.13
+  permission_master: ^0.0.14
 ```
 
 Or install directly from GitHub:
@@ -818,10 +818,6 @@ Add these to your `ios/Runner/Info.plist`:
 <key>NSHealthUpdateUsageDescription</key>
 <string>This app needs health data access to update your fitness information</string>
 ```
-
-بسیار عذر می‌خواهم بابت سوءتفاهم. متوجه شدم که تاکید شما روی بازنویسی کامل بخش‌های مربوط به پلتفرم‌های دسکتاپ و وب با مثال‌های مجزا و به زبان انگلیسی برای هر متد بود.
-
-لطفاً این نسخه اصلاح‌شده را بررسی کنید.
 
 -----
 
