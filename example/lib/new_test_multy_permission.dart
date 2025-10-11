@@ -14,7 +14,7 @@ class _NewTestMultyPermissionState extends State<NewTestMultyPermission> {
 
   Future<void> checkMultiplePermissions() async {
     debugPrint('Requesting multiple permissions with dialogs...');
-    
+
     final permissions = [
       PermissionType.camera,
       PermissionType.fineLocation,
@@ -28,11 +28,13 @@ class _NewTestMultyPermissionState extends State<NewTestMultyPermission> {
     // Request each permission one by one with dialog
     for (var permission in permissions) {
       debugPrint('Requesting $permission...');
-      
+
       final status = await permissionMaster.requestPermissionWithDialog(
         permission: permission,
-        title: 'دسترسی ${_getPermissionNameInPersian(permission)} مورد نیاز است',
-        message: 'لطفاً برای استفاده از این قابلیت، دسترسی ${_getPermissionNameInPersian(permission)} را اعطا کنید.',
+        title:
+            'دسترسی ${_getPermissionNameInPersian(permission)} مورد نیاز است',
+        message:
+            'لطفاً برای استفاده از این قابلیت، دسترسی ${_getPermissionNameInPersian(permission)} را اعطا کنید.',
       );
 
       results[permission.value] = status;
@@ -79,8 +81,8 @@ class _NewTestMultyPermissionState extends State<NewTestMultyPermission> {
   }
 
   Future<void> requestMultiplePermissions() async {
-    print('Requesting multiple permissions with dialogs...');
-    
+    debugPrint('Requesting multiple permissions with dialogs...');
+
     final permissions = [
       'android.permission.CAMERA',
       'android.permission.ACCESS_FINE_LOCATION',
@@ -93,19 +95,19 @@ class _NewTestMultyPermissionState extends State<NewTestMultyPermission> {
       // Use the native requestDynamicPermissions method
       final methodChannel = MethodChannelPermissionMaster();
       final result = await methodChannel.requestDynamicPermissions(permissions);
-      
-      print('Request multiple permissions result: $result');
-      
+
+      debugPrint('Request multiple permissions result: $result');
+
       result.forEach((permission, status) {
-        print('$permission status: $status');
+        debugPrint('$permission status: $status');
         if (status == 'GRANTED') {
-          print('✅ $permission is granted');
+          debugPrint('✅ $permission is granted');
         } else {
-          print('❌ $permission is $status');
+          debugPrint('❌ $permission is $status');
         }
       });
     } catch (e) {
-      print('Error requesting multiple permissions: $e');
+      debugPrint('Error requesting multiple permissions: $e');
     }
   }
 

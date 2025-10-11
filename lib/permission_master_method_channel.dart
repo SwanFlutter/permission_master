@@ -673,7 +673,7 @@ class MethodChannelPermissionMaster extends PermissionMasterPlatform {
       String platformPermission = permission;
       if (Platform.isIOS && permission.startsWith('android.')) {
         platformPermission = _mapAndroidPermissionToIOS(permission);
-        
+
         // Check if permission is not supported on iOS
         if (platformPermission == 'phone') {
           return 'NOT_SUPPORTED';
