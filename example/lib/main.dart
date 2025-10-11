@@ -4,13 +4,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:permission_master/permission_master.dart';
+import 'package:permission_master_example/new_test_multy_permission.dart';
 import 'package:permission_master_example/test_screen.dart';
-import 'dart:io' show Platform;
-import 'package:flutter/foundation.dart';
-import 'package:permission_master_example/windows_example_screen.dart';
-import 'package:permission_master_example/web_example_screen.dart';
-import 'package:permission_master_example/macos_example_screen.dart';
-import 'package:permission_master_example/linux_example_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -24,7 +19,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Permission Master Demo',
       theme: ThemeData(primarySwatch: Colors.blue, useMaterial3: true),
-      home: kIsWeb
+      home: NewTestMultyPermission(),
+      /* home: kIsWeb
           ? const WebExampleScreen()
           : Platform.isWindows
           ? const WindowsExampleScreen()
@@ -32,7 +28,7 @@ class MyApp extends StatelessWidget {
           ? const MacOSExampleScreen()
           : Platform.isLinux
           ? const LinuxExampleScreen()
-          : const PermissionDemoPage(),
+          : const PermissionDemoPage(),*/
     );
   }
 }
@@ -113,6 +109,77 @@ class _PermissionDemoPageState extends State<PermissionDemoPage> {
       setState(() {
         _permissionStatus.addAll(status);
       });
+    }
+  }
+
+  Future<void> _checkSelectedPermissions() async {
+    final permissions = [
+      PermissionType.camera,
+      PermissionType.fineLocation,
+      PermissionType.microphone,
+      PermissionType.contacts,
+      PermissionType.notifications,
+    ];
+    final status = await _permissionMaster.checkMultiplePermissions(
+      permissions,
+    );
+    if (!mounted) return;
+    setState(() {
+      _permissionStatus.addAll(status);
+    });
+  }
+
+  Future<void> _requestSelectedPermissionsSequentially() async {
+    try {
+      final cam = await _permissionMaster.requestCameraPermission();
+      if (!mounted) return;
+      setState(() {
+        _permissionStatus[PermissionType.camera.value] = cam;
+        _permissionAttempts[PermissionType.camera.value] =
+            (_permissionAttempts[PermissionType.camera.value] ?? 0) + 1;
+      });
+
+      final loc = await _permissionMaster.requestLocationPermission();
+      if (!mounted) return;
+      setState(() {
+        _permissionStatus[PermissionType.fineLocation.value] = loc;
+        _permissionAttempts[PermissionType.fineLocation.value] =
+            (_permissionAttempts[PermissionType.fineLocation.value] ?? 0) + 1;
+      });
+
+      final mic = await _permissionMaster.requestMicrophonePermission();
+      if (!mounted) return;
+      setState(() {
+        _permissionStatus[PermissionType.microphone.value] = mic;
+        _permissionAttempts[PermissionType.microphone.value] =
+            (_permissionAttempts[PermissionType.microphone.value] ?? 0) + 1;
+      });
+
+      final con = await _permissionMaster.requestContactsPermission();
+      if (!mounted) return;
+      setState(() {
+        _permissionStatus[PermissionType.contacts.value] = con;
+        _permissionAttempts[PermissionType.contacts.value] =
+            (_permissionAttempts[PermissionType.contacts.value] ?? 0) + 1;
+      });
+
+      final noti = await _permissionMaster.requestNotificationPermission();
+      if (!mounted) return;
+      setState(() {
+        _permissionStatus[PermissionType.notifications.value] = noti;
+        _permissionAttempts[PermissionType.notifications.value] =
+            (_permissionAttempts[PermissionType.notifications.value] ?? 0) + 1;
+      });
+
+      await _savePermissionAttempts();
+    } catch (e) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Error requesting multiple permissions: $e'),
+          backgroundColor: Colors.red,
+        ),
+      );
     }
   }
 
@@ -335,6 +402,36 @@ class _PermissionDemoPageState extends State<PermissionDemoPage> {
         padding: const EdgeInsets.only(bottom: 100),
         child: ListView(
           children: [
+            Card(
+              margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              child: ListTile(
+                leading: const Icon(Icons.layers),
+                title: const Text('Multiple permissions (example)'),
+                subtitle: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Demo of checkMultiplePermissions and sequential requests',
+                    ),
+                    const SizedBox(height: 8),
+                    Wrap(
+                      spacing: 8,
+                      runSpacing: 8,
+                      children: [
+                        ElevatedButton(
+                          onPressed: _checkSelectedPermissions,
+                          child: const Text('Check Multiple'),
+                        ),
+                        ElevatedButton(
+                          onPressed: _requestSelectedPermissionsSequentially,
+                          child: const Text('Request Multiple'),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
             _buildPermissionCard(
               title: 'Camera',
               description: 'Required for taking photos and video calls',

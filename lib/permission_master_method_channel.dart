@@ -672,13 +672,15 @@ class MethodChannelPermissionMaster extends PermissionMasterPlatform {
       // Handle platform-specific permission names
       String platformPermission = permission;
       if (Platform.isIOS && permission.startsWith('android.')) {
-        // Map Android permission to iOS equivalent if needed
-        switch (permission) {
-          case 'android.permission.READ_PHONE_STATE':
-            return 'NOT_SUPPORTED';
-          // Add other mappings as needed
+        platformPermission = _mapAndroidPermissionToIOS(permission);
+        
+        // Check if permission is not supported on iOS
+        if (platformPermission == 'phone') {
+          return 'NOT_SUPPORTED';
         }
       }
+
+      debugPrint('Platform-mapped permission: $platformPermission');
 
       final result = await methodChannel.invokeMethod<String>(
         'checkPermissionStatus',
@@ -695,12 +697,98 @@ class MethodChannelPermissionMaster extends PermissionMasterPlatform {
     }
   }
 
+  /// Maps Android permission names to iOS-compatible names
+  String _mapAndroidPermissionToIOS(String permission) {
+    if (!permission.startsWith('android.permission.')) {
+      return permission; // Already mapped or iOS permission
+    }
+
+    switch (permission) {
+      case 'android.permission.CAMERA':
+        return 'camera';
+      case 'android.permission.ACCESS_FINE_LOCATION':
+      case 'android.permission.ACCESS_COARSE_LOCATION':
+      case 'android.permission.ACCESS_BACKGROUND_LOCATION':
+        return 'location';
+      case 'android.permission.RECORD_AUDIO':
+        return 'microphone';
+      case 'android.permission.READ_CONTACTS':
+      case 'android.permission.WRITE_CONTACTS':
+        return 'contacts';
+      case 'android.permission.POST_NOTIFICATIONS':
+        return 'notifications';
+      case 'android.permission.READ_EXTERNAL_STORAGE':
+      case 'android.permission.WRITE_EXTERNAL_STORAGE':
+      case 'android.permission.READ_MEDIA_IMAGES':
+      case 'android.permission.READ_MEDIA_VIDEO':
+      case 'android.permission.READ_MEDIA_AUDIO':
+        return 'photos';
+      case 'android.permission.BLUETOOTH':
+      case 'android.permission.BLUETOOTH_ADMIN':
+      case 'android.permission.BLUETOOTH_SCAN':
+      case 'android.permission.BLUETOOTH_CONNECT':
+      case 'android.permission.BLUETOOTH_ADVERTISE':
+        return 'bluetooth';
+      case 'android.permission.READ_CALENDAR':
+      case 'android.permission.WRITE_CALENDAR':
+        return 'calendar';
+      case 'android.permission.ACTIVITY_RECOGNITION':
+      case 'android.permission.BODY_SENSORS':
+        return 'motion';
+      case 'android.permission.READ_PHONE_STATE':
+      case 'android.permission.CALL_PHONE':
+        return 'phone'; // Not directly supported on iOS
+      default:
+        return permission;
+    }
+  }
+
   @override
   Future<Map<String, String>> checkMultiplePermissions(
     List<String> permissions,
   ) async {
     try {
       debugPrint('Checking multiple permissions: $permissions');
+
+      // Map permissions to platform-specific format
+      List<String> platformPermissions = permissions.map((permission) {
+        if (Platform.isIOS && permission.startsWith('android.')) {
+          return _mapAndroidPermissionToIOS(permission);
+        }
+        return permission;
+      }).toList();
+
+      // Filter out unsupported permissions
+      platformPermissions = platformPermissions.where((permission) {
+        if (Platform.isIOS && permission == 'phone') {
+          return false; // Phone permission not supported on iOS
+        }
+        return true;
+      }).toList();
+
+      debugPrint('Platform-mapped permissions: $platformPermissions');
+
+      final result = await methodChannel.invokeMethod<Map<dynamic, dynamic>>(
+        'checkMultiplePermissions',
+        {'permissions': platformPermissions},
+      );
+      debugPrint('Multiple permissions result: $result');
+      return result?.map(
+            (key, value) => MapEntry(key.toString(), value.toString()),
+          ) ??
+          {};
+    } on PlatformException catch (e) {
+      debugPrint('Error checking multiple permissions: ${e.message}');
+      return {};
+    }
+  }
+
+  /// Request multiple permissions with dialogs (native implementation)
+  Future<Map<String, String>> requestDynamicPermissions(
+    List<String> permissions,
+  ) async {
+    try {
+      debugPrint('Requesting dynamic permissions: $permissions');
 
       // Filter out platform-specific permissions that aren't relevant
       List<String> platformPermissions = permissions.where((permission) {
@@ -714,16 +802,16 @@ class MethodChannelPermissionMaster extends PermissionMasterPlatform {
       }).toList();
 
       final result = await methodChannel.invokeMethod<Map<dynamic, dynamic>>(
-        'checkMultiplePermissions',
+        'requestDynamicPermissions',
         {'permissions': platformPermissions},
       );
-      debugPrint('Multiple permissions result: $result');
+      debugPrint('Dynamic permissions result: $result');
       return result?.map(
             (key, value) => MapEntry(key.toString(), value.toString()),
           ) ??
           {};
     } on PlatformException catch (e) {
-      debugPrint('Error checking multiple permissions: ${e.message}');
+      debugPrint('Error requesting dynamic permissions: ${e.message}');
       return {};
     }
   }

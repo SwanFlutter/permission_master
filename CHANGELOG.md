@@ -66,3 +66,9 @@
 ## 0.0.14
 
 * Edit README.md
+
+
+## 0.0.15
+
+* Fix bug checkMultiplePermissions
+* Add new method requestPermissionWithDialog()

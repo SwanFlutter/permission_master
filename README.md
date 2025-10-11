@@ -24,7 +24,7 @@ Add to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  permission_master: ^0.0.14
+  permission_master: ^0.0.15
 ```
 
 Or install directly from GitHub:
@@ -527,12 +527,15 @@ Future<void> requestNearbyDevicesAccessiOS() async {
 }
 ```
 
-### 13. Multiple Permission Checking
+### 13. Multiple Permission Checking (Status Only)
+
+**Note:** This method only **checks** the current status of permissions without requesting them. No dialogs will be shown.
 
 ```dart
 Future<void> checkMultiplePermissions() async {
   final permissionMaster = PermissionMaster();
   
+  // This only checks status, does NOT request permissions
   final statuses = await permissionMaster.checkMultiplePermissions([
     PermissionType.camera,
     PermissionType.fineLocation,
@@ -565,7 +568,59 @@ Future<void> checkMultiplePermissions() async {
 }
 ```
 
-### 14. Custom Permission Dialog
+### 14. Request Multiple Permissions with Dialog
+
+**This method requests multiple permissions sequentially, showing a dialog for each permission.**
+
+```dart
+Future<void> requestMultiplePermissionsWithDialogs() async {
+  final permissionMaster = PermissionMaster();
+  
+  final permissions = [
+    PermissionType.camera,
+    PermissionType.fineLocation,
+    PermissionType.microphone,
+    PermissionType.contacts,
+    PermissionType.notifications,
+  ];
+
+  final results = <String, PermissionStatus>{};
+
+  // Request each permission one by one with dialog
+  for (var permission in permissions) {
+    final status = await permissionMaster.requestPermissionWithDialog(
+      permission: permission,
+      title: '${permission.name} Permission Required',
+      message: 'Please allow ${permission.name} permission to use this feature.',
+    );
+
+    results[permission.value] = status;
+
+    switch (status) {
+      case PermissionStatus.granted:
+        print('✅ ${permission.name} is granted');
+        break;
+      case PermissionStatus.denied:
+        print('❌ ${permission.name} is denied');
+        break;
+      case PermissionStatus.openSettings:
+        print('⚠️ ${permission.name} needs settings adjustment');
+        await permissionMaster.openAppSettings();
+        break;
+      case PermissionStatus.unsupported:
+        print('🚫 ${permission.name} is not supported');
+        break;
+      case PermissionStatus.error:
+        print('💥 Error with ${permission.name}');
+        break;
+    }
+  }
+
+  print('All permissions requested. Results: $results');
+}
+```
+
+### 15. Custom Permission Dialog (Single Permission)
 
 ```dart
 Future<void> requestPermissionWithCustomDialog() async {
@@ -585,7 +640,7 @@ Future<void> requestPermissionWithCustomDialog() async {
 }
 ```
 
-### 15. Open App Settings
+### 16. Open App Settings
 
 ```dart
 Future<void> openAppPermissionSettings() async {
