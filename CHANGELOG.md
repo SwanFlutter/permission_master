@@ -72,3 +72,8 @@
 
 * Fix bug checkMultiplePermissions
 * Add new method requestPermissionWithDialog()
+
+
+## 0.0.16
+
+* Fix Issues macOS line 324 has an extra parenthesis "}" #4  Issues

@@ -321,7 +321,7 @@ public class PermissionMasterPlugin: NSObject, FlutterPlugin, CLLocationManagerD
         let status = getSpeechRecognitionPermissionStatus()
         result(status.rawValue)
     }
-}   
+    
     // MARK: - Location Permission
     private func requestLocationPermission(result: @escaping FlutterResult) {
         let status = locationManager.authorizationStatus
