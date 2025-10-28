@@ -1,11 +1,16 @@
 // ignore_for_file: unreachable_switch_default, use_build_context_synchronously
 
 import 'dart:async';
+import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_master/permission_master.dart';
-import 'package:permission_master_example/new_test_multy_permission.dart';
+import 'package:permission_master_example/linux_example_screen.dart';
+import 'package:permission_master_example/macos_example_screen.dart';
 import 'package:permission_master_example/test_screen.dart';
+import 'package:permission_master_example/web_example_screen.dart';
+import 'package:permission_master_example/windows_example_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,8 +24,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Permission Master Demo',
       theme: ThemeData(primarySwatch: Colors.blue, useMaterial3: true),
-      home: NewTestMultyPermission(),
-      /* home: kIsWeb
+      /*  home: NewTestMultyPermission(),*/
+      home: kIsWeb
           ? const WebExampleScreen()
           : Platform.isWindows
           ? const WindowsExampleScreen()
@@ -28,7 +33,7 @@ class MyApp extends StatelessWidget {
           ? const MacOSExampleScreen()
           : Platform.isLinux
           ? const LinuxExampleScreen()
-          : const PermissionDemoPage(),*/
+          : const PermissionDemoPage(),
     );
   }
 }
