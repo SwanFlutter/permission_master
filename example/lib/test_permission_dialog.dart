@@ -98,29 +98,29 @@ class _TestPermissionDialogState extends State<TestPermissionDialog> {
 
         switch (status) {
           case PermissionStatus.granted:
-            print('✅ ${permission.name} is granted');
+            debugPrint('✅ ${permission.name} is granted');
             break;
           case PermissionStatus.denied:
-            print('❌ ${permission.name} is denied');
+            debugPrint('❌ ${permission.name} is denied');
             break;
           case PermissionStatus.openSettings:
-            print('⚠️ ${permission.name} needs settings adjustment');
+            debugPrint('⚠️ ${permission.name} needs settings adjustment');
             await permissionMaster.openAppSettings();
             break;
           case PermissionStatus.unsupported:
-            print('🚫 ${permission.name} is not supported');
+            debugPrint('🚫 ${permission.name} is not supported');
             break;
           case PermissionStatus.error:
-            print('💥 Error with ${permission.name}');
+            debugPrint('💥 Error with ${permission.name}');
             break;
         }
       } catch (e) {
-        print('Error requesting ${permission.name}: $e');
+        debugPrint('Error requesting ${permission.name}: $e');
         results[permission.value] = PermissionStatus.error;
       }
     }
 
-    print('All permissions requested. Results: $results');
+    debugPrint('All permissions requested. Results: $results');
 
     setState(() {
       final grantedCount = results.values
