@@ -24,7 +24,7 @@ Add to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  permission_master: ^0.0.16
+  permission_master: ^0.0.17
 ```
 
 Or install directly from GitHub:
@@ -571,6 +571,10 @@ Future<void> checkMultiplePermissions() async {
 ### 14. Request Multiple Permissions with Dialog
 
 **This method requests multiple permissions sequentially, showing a dialog for each permission.**
+
+> **Note for Android:** On Android, this method shows the native system permission dialogs directly. The `title` and `message` parameters are kept for API compatibility but are not used, as Android's native permission dialogs have their own standard text. Custom dialogs are only shown when the user needs to be redirected to app settings.
+> 
+> **Note for iOS/macOS:** On iOS and macOS, custom dialogs are shown before requesting the actual permission.
 
 ```dart
 Future<void> requestMultiplePermissionsWithDialogs() async {

@@ -77,3 +77,9 @@
 ## 0.0.16
 
 * Fix Issues macOS line 324 has an extra parenthesis "}" #4  Issues
+
+
+
+## 0.0.17
+
+* Fix bug ui alert dialog method requestPermissionWithDialog()

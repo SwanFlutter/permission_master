@@ -1,6 +1,6 @@
 name: permission_master
 description: "**Permission Master** is a **Flutter** plugin for managing and requesting permissions on **All Platform**."
-version: 0.0.16
+version: 0.0.17
 homepage: "https://github.com/SwanFlutter/permission_master"
 
 environment:

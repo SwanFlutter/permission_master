@@ -1,4 +1,4 @@
-// ignore_for_file: unreachable_switch_default
+// ignore_for_file: unreachable_switch_default, use_build_context_synchronously
 
 import 'dart:io';
 
@@ -639,6 +639,49 @@ class PermissionMaster {
     String? title,
     String? message,
   }) async {
+    // For Android, directly request the permission to show native system dialog
+    // The title and message parameters are kept for API compatibility but not used
+    // as Android's native permission dialogs have their own standard text
+    if (Platform.isAndroid) {
+      final status = await requestPermission(permission: permission);
+      if (status == PermissionStatus.openSettings) {
+        // Show a dialog explaining that the user needs to enable permission in settings
+        final context = MethodChannelPermissionMaster.context;
+        if (context != null) {
+          final shouldOpenSettings = await showDialog<bool>(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Text(title ?? '${permission.name} Permission Required'),
+                content: Text(
+                  message ??
+                      'Please enable ${permission.name} permission in app settings to use this feature.',
+                ),
+                actions: [
+                  TextButton(
+                    child: const Text('Cancel'),
+                    onPressed: () => Navigator.pop(context, false),
+                  ),
+                  TextButton(
+                    child: const Text('Open Settings'),
+                    onPressed: () => Navigator.pop(context, true),
+                  ),
+                ],
+              );
+            },
+          );
+
+          if (shouldOpenSettings == true) {
+            await openAppSettingsDirectly();
+            return await checkPermissionStatus(permission.value);
+          }
+        }
+      }
+      return status;
+    }
+
+    // For other platforms (iOS, macOS, etc.), keep the original behavior
+    // as they might need custom dialogs
     final context = MethodChannelPermissionMaster.context;
     if (context == null) {
       // If no context, request permission directly
