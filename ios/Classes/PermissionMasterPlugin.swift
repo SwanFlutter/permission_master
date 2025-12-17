@@ -12,6 +12,8 @@ import Speech
 import MediaPlayer
 import HealthKit
 
+
+@objc(PermissionMasterPlugin)
 public class SwiftPermissionMasterPlugin: NSObject, FlutterPlugin, CLLocationManagerDelegate {
     private let locationManager = CLLocationManager()
     private let contactStore = CNContactStore()
