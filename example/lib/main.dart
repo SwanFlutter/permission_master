@@ -183,7 +183,7 @@ class _MacOSIOSExampleScreenState extends State<MacOSIOSExampleScreen>
     try {
       // Get platform version
       final version = await _permissionMaster.getPlatformVersion();
-      setState(() => _platformVersion = version);
+      setState(() => _platformVersion = version!);
 
       // Load saved attempts
       await _loadPermissionAttempts();
