@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>Permission Master</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>permission_master_example</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>$(FLUTTER_BUILD_NAME)</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleVersion</key>
+	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
+	<key>UIMainStoryboardFile</key>
+	<string>Main</string>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
+	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
+	
+	<!-- Permission Usage Descriptions -->
+	
+	<!-- Camera Permission -->
+	<key>NSCameraUsageDescription</key>
+	<string>این اپلیکیشن برای گرفتن عکس و ویدیو به دوربین نیاز دارد</string>
+	
+	<!-- Photo Library Permission -->
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>این اپلیکیشن برای انتخاب تصاویر به گالری عکس نیاز دارد</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>این اپلیکیشن برای ذخیره عکس‌ها به گالری نیاز دارد</string>
+	
+	<!-- Location Permission -->
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>این اپلیکیشن برای ارائه خدمات مبتنی بر موقعیت به دسترسی موقعیت مکانی نیاز دارد</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>این اپلیکیشن برای بهترین تجربه کاربری به موقعیت مکانی شما نیاز دارد</string>
+	
+	<!-- Microphone Permission -->
+	<key>NSMicrophoneUsageDescription</key>
+	<string>این اپلیکیشن برای ضبط صدا به میکروفون نیاز دارد</string>
+	
+	<!-- Contacts Permission -->
+	<key>NSContactsUsageDescription</key>
+	<string>این اپلیکیشن برای دسترسی به مخاطبین شما نیاز دارد</string>
+	
+	<!-- Bluetooth Permission -->
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>این اپلیکیشن برای اتصال به دستگاه‌های بلوتوث نیاز دارد</string>
+	
+	<!-- Calendar Permission -->
+	<key>NSCalendarsUsageDescription</key>
+	<string>این اپلیکیشن برای دسترسی به تقویم شما نیاز دارد</string>
+	
+	<!-- Motion/Sensors Permission -->
+	<key>NSMotionUsageDescription</key>
+	<string>این اپلیکیشن برای ردیابی فعالیت به سنسورهای حرکتی نیاز دارد</string>
+</dict>
+</plist>

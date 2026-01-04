@@ -1,0 +1,8 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+  package="com.example.permission_master">
+
+    <!-- No default permissions included -->
+    <!-- Add only the permissions you need in your app's AndroidManifest.xml -->
+    <!-- See README.md for the complete list of available permissions -->
+
+</manifest>

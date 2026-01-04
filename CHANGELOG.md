@@ -1,0 +1,85 @@
+## 0.0.1
+
+* initial release.
+
+
+## 0.0.2
+
+* Fix pub point.
+
+## 0.0.2+1
+
+* Fix pub point.
+
+## 0.0.3
+
+* Fix platform.
+
+## 0.0.4
+
+* Fix Alarm permission.
+
+## 0.0.5
+
+* Fix Storage permission.
+* Edit README.md
+
+## 0.0.6
+
+* Update SDK
+* Update Package
+* Changing permissions from default to manual mode
+
+## 0.0.7
+
+* Fix pub point
+
+## 0.0.8
+
+* Fix bug gradle
+
+
+## 0.0.9
+
+* Add Support all permission platform
+
+
+## 0.0.10
+
+* Fix name permission web
+
+
+## 0.0.11
+
+* Edit README.md
+* Fix bug
+
+
+## 0.0.12
+
+* Fix pub point
+
+## 0.0.13
+
+* Fix gradle android
+
+## 0.0.14
+
+* Edit README.md
+
+
+## 0.0.15
+
+* Fix bug checkMultiplePermissions
+* Add new method requestPermissionWithDialog()
+
+
+## 0.0.16
+
+* Fix Issues macOS line 324 has an extra parenthesis "}" #4  Issues
+
+
+
+## 0.0.17
+
+* Fix bug ui alert dialog method requestPermissionWithDialog()
