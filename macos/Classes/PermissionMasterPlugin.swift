@@ -14,6 +14,7 @@ public class PermissionMasterPlugin: NSObject, FlutterPlugin, CLLocationManagerD
     private let contactStore = CNContactStore()
     private var centralManager: CBCentralManager?
     private var eventStore: EKEventStore?
+    private let storage = GetStorage()
     
     // Dictionary to store pending results
     private var pendingResults = [String: FlutterResult]()
@@ -98,6 +99,22 @@ public class PermissionMasterPlugin: NSObject, FlutterPlugin, CLLocationManagerD
             checkSpeechRecognitionPermission(result: result)
         case "openAppSettingsMac":
             openAppSettings(result: result)
+        case "requestActivityRecognitionPermission":
+            result("NOT_SUPPORTED")
+        case "requestPhonePermission":
+            result("NOT_SUPPORTED")
+        case "requestSmsPermission":
+            result("NOT_SUPPORTED")
+        case "requestWifiPermission":
+            result("NOT_SUPPORTED")
+        case "requestNearbyDevicesPermission":
+            result("NOT_SUPPORTED")
+        case "requestAlarmPermission":
+            result("NOT_SUPPORTED")
+        case "requestSensorsPermission":
+            result("NOT_SUPPORTED")
+        case "requestMotionPermission":
+            result("NOT_SUPPORTED")
         case "checkPermissionStatus":
             checkPermissionStatus(call, result: result)
         case "checkMultiplePermissions":
@@ -106,11 +123,85 @@ public class PermissionMasterPlugin: NSObject, FlutterPlugin, CLLocationManagerD
             requestDynamicPermissions(call, result: result)
         case "openAppSettings":
             openAppSettings(result: result)
+        case "storage_write":
+            storageWrite(call, result: result)
+        case "storage_read":
+            storageRead(call, result: result)
+        case "storage_contains":
+            storageContains(call, result: result)
+        case "storage_remove":
+            storageRemove(call, result: result)
+        case "storage_clear":
+            storageClear(result: result)
         default:
             result(FlutterMethodNotImplemented)
         }
     }
     
+    // MARK: - Storage Methods
+    
+    private func storageWrite(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+        guard let args = call.arguments as? [String: Any],
+              let key = args["key"] as? String else {
+            result(FlutterError(code: "INVALID_KEY", message: "Key cannot be null", details: nil))
+            return
+        }
+        
+        guard let value = args["value"] else {
+            result(FlutterError(code: "INVALID_VALUE", message: "Value cannot be null", details: nil))
+            return
+        }
+        
+        do {
+            try storage.write(key, value: value)
+            result(true)
+        } catch {
+            result(FlutterError(code: "WRITE_ERROR", message: error.localizedDescription, details: nil))
+        }
+    }
+    
+    private func storageRead(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+        guard let args = call.arguments as? [String: Any],
+              let key = args["key"] as? String else {
+            result(FlutterError(code: "INVALID_KEY", message: "Key cannot be null", details: nil))
+            return
+        }
+        
+        guard let defaultValue = args["defaultValue"] else {
+            result(FlutterError(code: "INVALID_DEFAULT", message: "Default value cannot be null", details: nil))
+            return
+        }
+        
+        let value = storage.read(key) ?? defaultValue
+        result(value)
+    }
+    
+    private func storageContains(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+        guard let args = call.arguments as? [String: Any],
+              let key = args["key"] as? String else {
+            result(FlutterError(code: "INVALID_KEY", message: "Key cannot be null", details: nil))
+            return
+        }
+        
+        result(storage.contains(key))
+    }
+    
+    private func storageRemove(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+        guard let args = call.arguments as? [String: Any],
+              let key = args["key"] as? String else {
+            result(FlutterError(code: "INVALID_KEY", message: "Key cannot be null", details: nil))
+            return
+        }
+        
+        storage.remove(key)
+        result(true)
+    }
+    
+    private func storageClear(result: @escaping FlutterResult) {
+        storage.clear()
+        result(true)
+    }
+
     // MARK: - Permission Status Enum
     enum PermissionStatus: String {
         case granted = "granted"
@@ -248,7 +339,7 @@ public class PermissionMasterPlugin: NSObject, FlutterPlugin, CLLocationManagerD
                 }
             }
         case .denied, .restricted:
-            result(false)
+            result("OPEN_SETTINGS")
         @unknown default:
             result(false)
         }
@@ -333,7 +424,7 @@ public class PermissionMasterPlugin: NSObject, FlutterPlugin, CLLocationManagerD
             pendingResults["location"] = result
             locationManager.requestWhenInUseAuthorization()
         case .denied, .restricted:
-            result(false)
+            result("OPEN_SETTINGS")
         @unknown default:
             result(false)
         }
@@ -385,7 +476,7 @@ public class PermissionMasterPlugin: NSObject, FlutterPlugin, CLLocationManagerD
                 }
             }
         case .denied, .restricted:
-            result(false)
+            result("OPEN_SETTINGS")
         @unknown default:
             result(false)
         }
@@ -421,7 +512,7 @@ public class PermissionMasterPlugin: NSObject, FlutterPlugin, CLLocationManagerD
             case .allowedAlways:
                 result(true)
             case .denied, .restricted:
-                result(false)
+                result("OPEN_SETTINGS")
             case .notDetermined:
                 pendingResults["bluetooth"] = result
                 // Bluetooth permission is requested automatically when CBCentralManager is initialized
@@ -472,7 +563,7 @@ public class PermissionMasterPlugin: NSObject, FlutterPlugin, CLLocationManagerD
                 }
             }
         case .denied, .restricted:
-            result(false)
+            result("OPEN_SETTINGS")
         @unknown default:
             result(false)
         }
@@ -511,7 +602,7 @@ public class PermissionMasterPlugin: NSObject, FlutterPlugin, CLLocationManagerD
                         }
                     }
                 case .denied:
-                    result(false)
+                    result("OPEN_SETTINGS")
                 @unknown default:
                     result(false)
                 }
@@ -555,7 +646,7 @@ public class PermissionMasterPlugin: NSObject, FlutterPlugin, CLLocationManagerD
                 }
             }
         case .denied, .restricted:
-            result(false)
+            result("OPEN_SETTINGS")
         @unknown default:
             result(false)
         }
@@ -750,7 +841,7 @@ public class PermissionMasterPlugin: NSObject, FlutterPlugin, CLLocationManagerD
                 }
             }
         case .denied, .restricted:
-            result(false)
+            result("OPEN_SETTINGS")
         @unknown default:
             result(false)
         }
@@ -771,6 +862,70 @@ public class PermissionMasterPlugin: NSObject, FlutterPlugin, CLLocationManagerD
         @unknown default:
             return .denied
         }
+    }
+    
+    // MARK: - Storage Methods
+    
+    private func storageWrite(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+        guard let args = call.arguments as? [String: Any],
+              let key = args["key"] as? String else {
+            result(FlutterError(code: "INVALID_KEY", message: "Key cannot be null", details: nil))
+            return
+        }
+        
+        guard let value = args["value"] else {
+            result(FlutterError(code: "INVALID_VALUE", message: "Value cannot be null", details: nil))
+            return
+        }
+        
+        do {
+            try storage.write(key, value: value)
+            result(true)
+        } catch {
+            result(FlutterError(code: "WRITE_ERROR", message: error.localizedDescription, details: nil))
+        }
+    }
+    
+    private func storageRead(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+        guard let args = call.arguments as? [String: Any],
+              let key = args["key"] as? String else {
+            result(FlutterError(code: "INVALID_KEY", message: "Key cannot be null", details: nil))
+            return
+        }
+        
+        guard let defaultValue = args["defaultValue"] else {
+            result(FlutterError(code: "INVALID_DEFAULT", message: "Default value cannot be null", details: nil))
+            return
+        }
+        
+        let value = storage.read(key) ?? defaultValue
+        result(value)
+    }
+    
+    private func storageContains(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+        guard let args = call.arguments as? [String: Any],
+              let key = args["key"] as? String else {
+            result(FlutterError(code: "INVALID_KEY", message: "Key cannot be null", details: nil))
+            return
+        }
+        
+        result(storage.contains(key))
+    }
+    
+    private func storageRemove(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+        guard let args = call.arguments as? [String: Any],
+              let key = args["key"] as? String else {
+            result(FlutterError(code: "INVALID_KEY", message: "Key cannot be null", details: nil))
+            return
+        }
+        
+        storage.remove(key)
+        result(true)
+    }
+    
+    private func storageClear(result: @escaping FlutterResult) {
+        storage.clear()
+        result(true)
     }
     
     // MARK: - Open App Settings

@@ -178,6 +178,28 @@ public class SwiftPermissionMasterPlugin: NSObject, FlutterPlugin, CLLocationMan
             #else
             result(FlutterError(code: "PERMISSION_NOT_ENABLED", message: "Music Library permission not enabled in Podfile", details: nil))
             #endif
+        case "requestActivityRecognitionPermission":
+            #if PERMISSION_MOTION
+            requestMotionPermission(result: result)
+            #else
+            result(FlutterError(code: "PERMISSION_NOT_ENABLED", message: "Motion permission not enabled in Podfile", details: nil))
+            #endif
+        case "requestPhonePermission":
+            result("NOT_SUPPORTED")
+        case "requestSmsPermission":
+            result("NOT_SUPPORTED")
+        case "requestWifiPermission":
+            result("NOT_SUPPORTED")
+        case "requestNearbyDevicesPermission":
+            result("NOT_SUPPORTED")
+        case "requestAlarmPermission":
+            result("NOT_SUPPORTED")
+        case "requestSensorsPermission":
+            #if PERMISSION_MOTION
+            requestMotionPermission(result: result)
+            #else
+            result(FlutterError(code: "PERMISSION_NOT_ENABLED", message: "Motion permission not enabled in Podfile", details: nil))
+            #endif
         case "checkPermissionStatus":
             checkPermissionStatus(call, result: result)
         case "checkMultiplePermissions":
@@ -864,7 +886,7 @@ public class SwiftPermissionMasterPlugin: NSObject, FlutterPlugin, CLLocationMan
                 result: result
             )
         case .denied, .restricted:
-            result(false)
+            result("OPEN_SETTINGS")
         @unknown default:
             result(false)
         }
@@ -883,7 +905,7 @@ public class SwiftPermissionMasterPlugin: NSObject, FlutterPlugin, CLLocationMan
             self.locationManager.requestWhenInUseAuthorization()
             permissionHelper.incrementRequestCount(for: "location")
         case .denied, .restricted:
-            result(false)
+            result("OPEN_SETTINGS")
         @unknown default:
             result(false)
         }
@@ -918,7 +940,7 @@ public class SwiftPermissionMasterPlugin: NSObject, FlutterPlugin, CLLocationMan
                 result: result
             )
         case .denied, .restricted:
-            result(false)
+            result("OPEN_SETTINGS")
         @unknown default:
             result(false)
         }
@@ -931,7 +953,13 @@ public class SwiftPermissionMasterPlugin: NSObject, FlutterPlugin, CLLocationMan
             centralManager = CBCentralManager(delegate: nil, queue: nil)
             // iOS doesn't have a specific system permission dialog for Bluetooth
             // It's managed through the app's Info.plist
-            result(centralManager?.state == .poweredOn)
+            
+            let state = centralManager?.state ?? .unknown
+            if state == .unauthorized {
+                result("OPEN_SETTINGS")
+            } else {
+                result(state == .poweredOn)
+            }
         } else {
             result(true)
         }
@@ -956,7 +984,7 @@ public class SwiftPermissionMasterPlugin: NSObject, FlutterPlugin, CLLocationMan
                 result: result
             )
         case .denied, .restricted:
-            result(false)
+            result("OPEN_SETTINGS")
         @unknown default:
             result(false)
         }
@@ -982,7 +1010,7 @@ public class SwiftPermissionMasterPlugin: NSObject, FlutterPlugin, CLLocationMan
                     result: result
                 )
             case .denied, .ephemeral:
-                result(false)
+                result("OPEN_SETTINGS")
             @unknown default:
                 result(false)
             }
@@ -1008,7 +1036,7 @@ public class SwiftPermissionMasterPlugin: NSObject, FlutterPlugin, CLLocationMan
                 result: result
             )
         case .denied:
-            result(false)
+            result("OPEN_SETTINGS")
         @unknown default:
             result(false)
         }
@@ -1039,7 +1067,7 @@ public class SwiftPermissionMasterPlugin: NSObject, FlutterPlugin, CLLocationMan
                     result: result
                 )
             case .denied, .restricted:
-                result(false)
+                result("OPEN_SETTINGS")
             @unknown default:
                 result(false)
             }
@@ -1060,7 +1088,7 @@ public class SwiftPermissionMasterPlugin: NSObject, FlutterPlugin, CLLocationMan
                     result: result
                 )
             case .denied, .restricted:
-                result(false)
+                result("OPEN_SETTINGS")
             @unknown default:
                 result(false)
             }
@@ -1092,7 +1120,7 @@ public class SwiftPermissionMasterPlugin: NSObject, FlutterPlugin, CLLocationMan
                     result: result
                 )
             case .denied, .restricted:
-                result(false)
+                result("OPEN_SETTINGS")
             @unknown default:
                 result(false)
             }
@@ -1113,7 +1141,7 @@ public class SwiftPermissionMasterPlugin: NSObject, FlutterPlugin, CLLocationMan
                     result: result
                 )
             case .denied, .restricted:
-                result(false)
+                result("OPEN_SETTINGS")
             @unknown default:
                 result(false)
             }
@@ -1139,7 +1167,7 @@ public class SwiftPermissionMasterPlugin: NSObject, FlutterPlugin, CLLocationMan
                 result: result
             )
         case .denied, .restricted:
-            result(false)
+            result("OPEN_SETTINGS")
         @unknown default:
             result(false)
         }
@@ -1171,7 +1199,7 @@ public class SwiftPermissionMasterPlugin: NSObject, FlutterPlugin, CLLocationMan
                 result: result
             )
         case .denied, .restricted:
-            result(false)
+            result("OPEN_SETTINGS")
         @unknown default:
             result(false)
         }
@@ -1227,15 +1255,15 @@ public class SwiftPermissionMasterPlugin: NSObject, FlutterPlugin, CLLocationMan
                         }
                     },
                     result: result
-                )
-            case .denied, .restricted:
-                result(false)
-            @unknown default:
-                result(false)
-            }
-        } else {
-            result(true)
+            )
+        case .denied, .restricted:
+            result("OPEN_SETTINGS")
+        @unknown default:
+            result(false)
         }
+    } else {
+        result(true)
     }
-    #endif
+}
+#endif
 }
