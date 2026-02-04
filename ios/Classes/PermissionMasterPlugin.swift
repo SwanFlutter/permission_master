@@ -1,5 +1,6 @@
 import Flutter
 import UIKit
+import CoreLocation
 
 #if PERMISSION_CAMERA
 import AVFoundation
@@ -7,10 +8,6 @@ import AVFoundation
 
 #if PERMISSION_PHOTOS
 import Photos
-#endif
-
-#if PERMISSION_LOCATION
-import CoreLocation
 #endif
 
 #if PERMISSION_CONTACTS
