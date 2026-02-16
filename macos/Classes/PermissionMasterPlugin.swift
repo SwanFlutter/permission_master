@@ -351,7 +351,12 @@ public class PermissionMasterPlugin: NSObject, FlutterPlugin, CLLocationManagerD
     
     // MARK: - Location Permission
     private func requestLocationPermission(result: @escaping FlutterResult) {
-        let status = locationManager.authorizationStatus
+        let status: CLAuthorizationStatus
+        if #available(macOS 11.0, *) {
+            status = locationManager.authorizationStatus
+        } else {
+            status = CLLocationManager.authorizationStatus()
+        }
         
         switch status {
         case .authorizedAlways, .authorizedWhenInUse:
@@ -367,7 +372,12 @@ public class PermissionMasterPlugin: NSObject, FlutterPlugin, CLLocationManagerD
     }
     
     private func getLocationPermissionStatus() -> PermissionStatus {
-        let status = locationManager.authorizationStatus
+        let status: CLAuthorizationStatus
+        if #available(macOS 11.0, *) {
+            status = locationManager.authorizationStatus
+        } else {
+            status = CLLocationManager.authorizationStatus()
+        }
         
         switch status {
         case .authorizedAlways, .authorizedWhenInUse:
