@@ -24,6 +24,7 @@ Supported platform Android (5.0 to 15)
 
 <img src="https://github.com/user-attachments/assets/56d4dc2c-bc42-4124-abe0-592b092c7ae1" width="350"> <img src="https://github.com/user-attachments/assets/77eda07d-caf4-40c4-857b-6dca12e27c48" width="350">
 
+
 ## Installation
 
 Add to your `pubspec.yaml`:
