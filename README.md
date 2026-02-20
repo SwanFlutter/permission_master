@@ -24,6 +24,10 @@ Supported platform Android (5.0 to 16)
 
 <img src="https://github.com/user-attachments/assets/56d4dc2c-bc42-4124-abe0-592b092c7ae1" width="350"> <img src="https://github.com/user-attachments/assets/77eda07d-caf4-40c4-857b-6dca12e27c48" width="350">
 
+### IOS
+<img src="https://github.com/user-attachments/assets/bf656b5e-2c58-46b4-9356-461f2584cdf3" width="350">
+
+
 ## Supported Permissions
 
 | Permission Type      | Android | iOS | Windows | macOS | Linux | Web |
