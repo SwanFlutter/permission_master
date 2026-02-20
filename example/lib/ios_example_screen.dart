@@ -3,8 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:permission_master/permission_master.dart';
 
-
-
 class IosExampleScreen extends StatefulWidget {
   const IosExampleScreen({super.key});
 

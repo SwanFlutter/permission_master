@@ -475,7 +475,7 @@ class _MacOSIOSExampleScreenState extends State<MacOSIOSExampleScreen>
 
     return ListTile(
       leading: CircleAvatar(
-        backgroundColor: permission.color.withOpacity(0.1),
+        backgroundColor: permission.color.withValues(alpha: 0.1),
         child: Icon(permission.icon, color: permission.color),
       ),
       title: Text(permission.title),
