@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
+
 import 'permission_master_method_channel.dart';
 
 /// The interface that implementations of permission_master must implement.
@@ -85,6 +86,9 @@ abstract class PermissionMasterPlatform extends PlatformInterface {
 
   /// Request nearby devices permission
   Future<String> requestNearbyDevicesPermission();
+
+  /// Request health permission
+  Future<String> requestHealthPermission();
 
   /// Check status of a specific permission
   Future<String> checkPermissionStatus(String permission);

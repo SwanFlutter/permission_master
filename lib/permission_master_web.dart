@@ -876,4 +876,9 @@ class PermissionMasterWeb extends PermissionMasterPlatform {
   Future<String> requestUsbPermissionLinux() {
     throw UnimplementedError();
   }
+
+  @override
+  Future<String> requestHealthPermission() {
+    throw UnimplementedError();
+  }
 }

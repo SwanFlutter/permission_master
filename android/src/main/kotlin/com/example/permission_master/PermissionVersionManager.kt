@@ -120,10 +120,12 @@ object PermissionVersionManager {
      */
     fun getAndroidVersionName(sdkVersion: Int): String {
         return when (sdkVersion) {
+            36 -> "Android 16"
+            35 -> "Android 15"
+            Build.VERSION_CODES.UPSIDE_DOWN_CAKE -> "Android 14"
             Build.VERSION_CODES.S -> "Android 12"
             Build.VERSION_CODES.S_V2 -> "Android 12L"
             Build.VERSION_CODES.TIRAMISU -> "Android 13"
-            Build.VERSION_CODES.UPSIDE_DOWN_CAKE -> "Android 14"
             Build.VERSION_CODES.R -> "Android 11"
             Build.VERSION_CODES.Q -> "Android 10"
             Build.VERSION_CODES.P -> "Android 9"

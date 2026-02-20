@@ -1,10 +1,10 @@
 # Permission Master Flutter Plugin
 
-[![share_plus](https://github.com/fluttercommunity/plus_plugins/actions/workflows/share_plus.yaml/badge.svg)](https://github.com/fluttercommunity/plus_plugins/actions/workflows/share_plus.yaml)
-[![pub points](https://img.shields.io/pub/points/share_plus?color=2E8B57&label=pub%20points)](https://pub.dev/packages/share_plus/score)
-[![pub package](https://img.shields.io/pub/v/share_plus.svg)](https://pub.dev/packages/share_plus)
+[![permission_master](https://img.shields.io/pub/v/permission_master.svg)](https://pub.dev/packages/permission_master)
+[![pub points](https://img.shields.io/pub/points/permission_master?color=2E8B57&label=pub%20points)](https://pub.dev/packages/permission_master/score)
+[![likes](https://img.shields.io/pub/likes/permission_master)](https://pub.dev/packages/permission_master)
 
-[<img src="../../../assets/flutter-favorite-badge.png" width="100" />](https://flutter.dev/docs/development/packages-and-plugins/favorites)
+
 
 ## Overview
 
@@ -20,10 +20,33 @@ Permission Master is a comprehensive Flutter plugin designed to simplify permiss
 - Manual permission configuration required (no default permissions included)
 
 iOS platform requirement (iOS 12.0 and above)
-Supported platform Android (5.0 to 15)
+Supported platform Android (5.0 to 16)
 
 <img src="https://github.com/user-attachments/assets/56d4dc2c-bc42-4124-abe0-592b092c7ae1" width="350"> <img src="https://github.com/user-attachments/assets/77eda07d-caf4-40c4-857b-6dca12e27c48" width="350">
 
+## Supported Permissions
+
+| Permission Type      | Android | iOS | Windows | macOS | Linux | Web |
+|----------------------|:-------:|:---:|:-------:|:-----:|:-----:|:---:|
+| 📷 Camera            |    ✅    |  ✅  |    ✅    |   ✅   |   ✅   |  ✅  |
+| 📍 Location          |    ✅    |  ✅  |    ✅    |   ✅   |   ✅   |  ✅  |
+| 🖼️ Storage/Photos    |    ✅    |  ✅  |    ❌    |   ✅   |   ✅   |  ✅  |
+| 🎤 Microphone        |    ✅    |  ✅  |    ✅    |   ✅   |   ✅   |  ✅  |
+| 📶 Bluetooth         |    ✅    |  ✅  |    ❌    |   ❌   |   ✅   |  ❌  |
+| 👥 Contacts          |    ✅    |  ✅  |    ❌    |   ✅   |   ❌   |  ❌  |
+| 🔔 Notifications     |    ✅    |  ✅  |    ❌    |   ❌   |   ❌   |  ✅  |
+| 📱 SMS               |    ✅    |  ❌  |    ❌    |   ❌   |   ❌   |  ❌  |
+| 📅 Calendar          |    ✅    |  ✅  |    ❌    |   ✅   |   ❌   |  ❌  |
+| 📞 Phone             |    ✅    |  ❌  |    ❌    |   ❌   |   ❌   |  ❌  |
+| 🏃 Activity Recognition |    ✅    |  ✅  |    ❌    |   ❌   |   ❌   |  ❌  |
+| 🔍 Nearby Devices    |    ✅    |  ✅  |    ❌    |   ❌   |   ❌   |  ❌  |
+| 🌐 Network           |    ✅    |  ✅  |    ✅    |   ✅   |   ✅   |  ✅  |
+| ⏰ Reminders         |    ❌    |  ✅  |    ❌    |   ✅   |   ❌   |  ❌  |
+| 🗣️ Speech Recognition |    ❌    |  ✅  |    ❌    |   ✅   |   ❌   |  ❌  |
+| 🎵 Music Library     |    ❌    |  ✅  |    ❌    |   ✅   |   ❌   |  ❌  |
+| ❤️ Health            |    ✅    |  ✅  |    ❌    |   ✅   |   ❌   |  ❌  |
+
+---
 
 ## Installation
 
@@ -31,7 +54,7 @@ Add to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  permission_master: ^0.0.17
+  permission_master: ^0.1.0
 ```
 
 Or install directly from GitHub:
@@ -45,188 +68,13 @@ dependencies:
 
 ## iOS Configuration
 
+> 📖 **For complete iOS setup guide, see [iOS Permission Master Guide](README_IOS_GUIDE.md)**
+
 ⚠️ **CRITICAL: iOS permissions are NOT enabled by default!**
 
 This plugin requires **manual configuration** to prevent Apple App Store rejections. You must explicitly enable only the permissions your app actually uses.
 
-### Step 1: Enable Permissions in Podfile
-
-Add the following `post_install` block to your `ios/Podfile` and **uncomment ONLY the permissions you need**:
-
-```ruby
-post_install do |installer|
-  installer.pods_project.targets.each do |target|
-    flutter_additional_ios_build_settings(target)
-    
-    target.build_configurations.each do |config|
-      config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= [
-        '$(inherited)',
-
-        ## dart: PermissionGroup.camera
-        # 'PERMISSION_CAMERA=1',
-
-        ## dart: PermissionGroup.photos
-        # 'PERMISSION_PHOTOS=1',
-
-        ## dart: PermissionGroup.location
-        # 'PERMISSION_LOCATION=1',
-        
-        ## dart: PermissionGroup.contacts
-        # 'PERMISSION_CONTACTS=1',
-
-        ## dart: PermissionGroup.bluetooth
-        # 'PERMISSION_BLUETOOTH=1',
-
-        ## dart: PermissionGroup.microphone
-        # 'PERMISSION_MICROPHONE=1',
-
-        ## dart: PermissionGroup.speech
-        # 'PERMISSION_SPEECH_RECOGNITION=1',
-
-        ## dart: PermissionGroup.notification
-        # 'PERMISSION_NOTIFICATIONS=1',
-        
-        ## dart: PermissionGroup.calendar
-        # 'PERMISSION_CALENDAR=1',
-
-        ## dart: PermissionGroup.reminders
-        # 'PERMISSION_REMINDERS=1',
-
-        ## dart: PermissionGroup.sensors
-        # 'PERMISSION_MOTION=1',
-
-        ## dart: PermissionGroup.mediaLibrary
-        # 'PERMISSION_MUSIC_LIBRARY=1',
-
-        ## dart: PermissionGroup.health
-        # 'PERMISSION_HEALTH=1',
-      ]
-    end
-  end
-end
-```
-
-**Example:** If you only need camera and location:
-```ruby
-config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= [
-  '$(inherited)',
-  'PERMISSION_CAMERA=1',
-  'PERMISSION_LOCATION=1',
-]
-```
-
-**Why this is required:** Apple will reject your app if you include framework imports (like Contacts, Motion, Speech Recognition, or HealthKit) without providing corresponding usage description strings in Info.plist. By keeping permissions commented out by default, the plugin won't import these frameworks unless you explicitly enable them.
-
-### Step 2: Add Usage Descriptions to Info.plist
-
-⚠️ **REQUIRED:** For each permission you enabled in the Podfile, you **MUST** add the corresponding usage description to your `ios/Runner/Info.plist`. 
-
-**Apple will reject your app if:**
-- You enable a permission in Podfile but don't add its usage description
-- You add a usage description for a permission you don't enable in Podfile
-
-Add only the keys for permissions you enabled in Step 1:
-
-```xml
-<!-- Camera Permission -->
-<key>NSCameraUsageDescription</key>
-<string>This app needs camera access to take photos and videos</string>
-
-<!-- Photo Library Permission -->
-<key>NSPhotoLibraryUsageDescription</key>
-<string>This app needs access to your photo library to select images</string>
-<key>NSPhotoLibraryAddUsageDescription</key>
-<string>This app needs to save photos to your library</string>
-
-<!-- Location Permission -->
-<key>NSLocationWhenInUseUsageDescription</key>
-<string>This app needs your location to provide location-based services</string>
-<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-<string>This app needs your location for the best user experience</string>
-
-<!-- Microphone Permission -->
-<key>NSMicrophoneUsageDescription</key>
-<string>This app needs microphone access to record audio</string>
-
-<!-- Contacts Permission -->
-<key>NSContactsUsageDescription</key>
-<string>This app needs access to your contacts</string>
-
-<!-- Motion/Sensors Permission -->
-<key>NSMotionUsageDescription</key>
-<string>This app needs access to motion sensors to track activity</string>
-
-<!-- Speech Recognition Permission -->
-<key>NSSpeechRecognitionUsageDescription</key>
-<string>This app needs speech recognition to convert speech to text</string>
-
-<!-- Calendar Permission -->
-<key>NSCalendarsUsageDescription</key>
-<string>This app needs access to your calendar</string>
-
-<!-- Reminders Permission -->
-<key>NSRemindersUsageDescription</key>
-<string>This app needs access to your reminders</string>
-
-<!-- Health Permission -->
-<key>NSHealthShareUsageDescription</key>
-<string>This app needs to read your health data</string>
-<key>NSHealthUpdateUsageDescription</key>
-<string>This app needs to update your health data</string>
-
-<!-- Music Library Permission -->
-<key>NSAppleMusicUsageDescription</key>
-<string>This app needs access to your music library</string>
-
-<!-- Bluetooth Permission -->
-<key>NSBluetoothAlwaysUsageDescription</key>
-<string>This app needs Bluetooth access to connect to devices</string>
-```
-
-**Note:** If you include a permission in your Podfile but don't add the corresponding Info.plist key, Apple will reject your app during review. See `ios/Info.plist.example` for a complete reference.
-
-### Troubleshooting iOS Build Failures
-
-**Error: "Missing purpose string in Info.plist"**
-
-If you see errors like:
-- `Missing NSContactsUsageDescription`
-- `Missing NSMotionUsageDescription`
-- `Missing NSSpeechRecognitionUsageDescription`
-- `Missing NSHealthShareUsageDescription`
-
-**Solution:**
-1. Check your `ios/Podfile` - if you have ANY of these permissions uncommented, you MUST add their usage descriptions to Info.plist
-2. If you're NOT using these permissions, make sure they are commented out in your Podfile
-3. After modifying Podfile, run:
-   ```bash
-   cd ios
-   pod install
-   cd ..
-   flutter clean
-   flutter pub get
-   ```
-
-**Common Mistake:** Copying all permissions from the example without actually needing them. Only enable what your app uses!
-
-**Example of correct minimal configuration:**
-
-If you only need camera permission:
-
-`ios/Podfile`:
-```ruby
-config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= [
-  '$(inherited)',
-  'PERMISSION_CAMERA=1',
-]
-```
-
-`ios/Runner/Info.plist`:
-```xml
-<key>NSCameraUsageDescription</key>
-<string>We need camera access to take photos</string>
-```
-
+---
 
 ## Setup and Initialization
 
@@ -719,7 +567,50 @@ Future<void> requestNearbyDevicesAccessiOS() async {
 }
 ```
 
-### 13. Multiple Permission Checking (Status Only)
+### 13. Health Permission
+
+#### Android Example (Android 14+):
+```dart
+Future<void> requestHealthAccessAndroid() async {
+  final permissionMaster = PermissionMaster();
+  
+  final status = await permissionMaster.requestHealthPermission();
+  
+  if (status == PermissionStatus.granted) {
+    // Health Connect access granted
+    print('Health permission granted - can access Health Connect');
+  } else if (status == PermissionStatus.openSettings) {
+    // Opens Health Connect settings
+    print('Opening Health Connect settings');
+  } else if (status == PermissionStatus.unsupported) {
+    print('Health Connect not supported on this Android version (requires Android 14+)');
+  }
+}
+```
+
+#### iOS Example:
+```dart
+Future<void> requestHealthAccessiOS() async {
+  final permissionMaster = PermissionMaster();
+  
+  final status = await permissionMaster.requestHealthPermission();
+  
+  if (status == PermissionStatus.granted) {
+    // HealthKit access granted - can use HKHealthStore
+    print('Health permission granted - can use HKHealthStore');
+  } else if (status == PermissionStatus.denied) {
+    print('Health access denied. Enable in Settings > Privacy & Security > Health');
+  } else if (status == PermissionStatus.openSettings) {
+    await permissionMaster.openAppSettings();
+  }
+}
+```
+
+**Note:** 
+- **Android**: Requires Android 14 (API 34) or higher and Health Connect app must be installed
+- **iOS**: Uses HealthKit framework (requires `PERMISSION_HEALTH=1` in Podfile)
+
+### 14. Multiple Permission Checking (Status Only)
 
 **Note:** This method only **checks** the current status of permissions without requesting them. No dialogs will be shown.
 
@@ -760,7 +651,7 @@ Future<void> checkMultiplePermissions() async {
 }
 ```
 
-### 14. Request Multiple Permissions with Dialog
+### 15. Request Multiple Permissions with Dialog
 
 **This method requests multiple permissions sequentially, showing a dialog for each permission.**
 
@@ -816,7 +707,7 @@ Future<void> requestMultiplePermissionsWithDialogs() async {
 }
 ```
 
-### 15. Custom Permission Dialog (Single Permission)
+### 16. Custom Permission Dialog (Single Permission)
 
 ```dart
 Future<void> requestPermissionWithCustomDialog() async {
@@ -836,7 +727,7 @@ Future<void> requestPermissionWithCustomDialog() async {
 }
 ```
 
-### 16. Open App Settings
+### 17. Open App Settings
 
 ```dart
 Future<void> openAppPermissionSettings() async {
@@ -907,23 +798,7 @@ Future<void> trackPermissionRequest(PermissionType permission, PermissionStatus 
 }
 ```
 
-## Supported Permissions
 
-| Permission Type      | Android | iOS | Windows | macOS | Linux | Web |
-|----------------------|:-------:|:---:|:-------:|:-----:|:-----:|:---:|
-| Camera               |    ✅    |  ✅  |    ✅    |   ✅   |   ✅   |  ✅  |
-| Location             |    ✅    |  ✅  |    ✅    |   ✅   |   ✅   |  ✅  |
-| Storage/Photo Library|    ✅    |  ✅  |    ❌    |   ✅   |   ✅   |  ✅  |
-| Microphone           |    ✅    |  ✅  |    ✅    |   ✅   |   ✅   |  ✅  |
-| Bluetooth            |    ✅    |  ✅  |    ❌    |   ❌   |   ✅   |  ❌  |
-| Contacts             |    ✅    |  ✅  |    ❌    |   ✅   |   ❌   |  ❌  |
-| Notifications        |    ✅    |  ✅  |    ❌    |   ❌   |   ❌   |  ✅  |
-| SMS                  |    ✅    |  ❌  |    ❌    |   ❌   |   ❌   |  ❌  |
-| Calendar             |    ✅    |  ✅  |    ❌    |   ✅   |   ❌   |  ❌  |
-| Phone                |    ✅    |  ❌  |    ❌    |   ❌   |   ❌   |  ❌  |
-| Activity Recognition |    ✅    |  ✅  |    ❌    |   ❌   |   ❌   |  ❌  |
-| Nearby Devices       |    ✅    |  ✅  |    ❌    |   ❌   |   ❌   |  ❌  |
-| Network              |    ✅    |  ✅  |    ✅    |   ✅   |   ✅   |  ✅  |
 
 ## Best Practices
 
@@ -1013,64 +888,6 @@ Add these to your `android/app/src/main/AndroidManifest.xml` if needed:
 <!-- Alarms -->
 <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
 ```
-
-## Common iOS Permissions
-
-Add these to your `ios/Runner/Info.plist`:
-
-```xml
-<!-- Camera -->
-<key>NSCameraUsageDescription</key>
-<string>This app needs camera access to take photos and videos</string>
-
-<!-- Photo Library -->
-<key>NSPhotoLibraryUsageDescription</key>
-<string>This app needs photo library access to save and select images</string>
-
-<!-- Microphone -->
-<key>NSMicrophoneUsageDescription</key>
-<string>This app needs microphone access to record audio</string>
-
-<!-- Location -->
-<key>NSLocationWhenInUseUsageDescription</key>
-<string>This app needs location access to provide location-based services</string>
-<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-<string>This app needs location access to provide location-based services</string>
-
-<!-- Contacts -->
-<key>NSContactsUsageDescription</key>
-<string>This app needs contacts access to import your contacts</string>
-
-<!-- Calendar -->
-<key>NSCalendarsUsageDescription</key>
-<string>This app needs calendar access to manage your events</string>
-
-<!-- Reminders -->
-<key>NSRemindersUsageDescription</key>
-<string>This app needs reminders access to manage your tasks</string>
-
-<!-- Motion & Fitness -->
-<key>NSMotionUsageDescription</key>
-<string>This app needs motion access to track your activity</string>
-
-<!-- Bluetooth -->
-<key>NSBluetoothAlwaysUsageDescription</key>
-<string>This app needs Bluetooth access to connect to devices</string>
-<key>NSBluetoothPeripheralUsageDescription</key>
-<string>This app needs Bluetooth access to connect to peripheral devices</string>
-
-<!-- Face ID -->
-<key>NSFaceIDUsageDescription</key>
-<string>This app uses Face ID for secure authentication</string>
-
-<!-- Health -->
-<key>NSHealthShareUsageDescription</key>
-<string>This app needs health data access to track your fitness</string>
-<key>NSHealthUpdateUsageDescription</key>
-<string>This app needs health data access to update your fitness information</string>
-```
-
------
 
 ## Platform-Specific Usage Examples
 

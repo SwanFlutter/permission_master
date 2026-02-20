@@ -187,6 +187,27 @@ class PermissionMasterPlugin : FlutterPlugin, MethodChannel.MethodCallHandler, A
                     result.success(true)
                 }
             }
+            "requestHealthPermission" -> {
+                Log.d("PermissionMaster", "Request Health Permission called")
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+                    // Android 14+ (API 34+) supports Health Connect
+                    // Health Connect requires special handling through Health Connect API
+                    // For now, we'll direct users to Health Connect settings
+                    try {
+                        val intent = Intent("androidx.health.ACTION_HEALTH_CONNECT_SETTINGS").apply {
+                            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        }
+                        activity?.startActivity(intent)
+                        result.success("OPEN_SETTINGS")
+                    } catch (e: Exception) {
+                        Log.e("PermissionMaster", "Health Connect not available: ${e.message}", e)
+                        result.error("HEALTH_NOT_AVAILABLE", "Health Connect is not available on this device", null)
+                    }
+                } else {
+                    Log.d("PermissionMaster", "Health permission not supported for Android ${Build.VERSION.SDK_INT}")
+                    result.success("NOT_SUPPORTED")
+                }
+            }
             "canScheduleExactAlarms" -> {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                     val hasPermission = canScheduleExactAlarms()

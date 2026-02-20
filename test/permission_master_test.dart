@@ -401,6 +401,11 @@ class MockPermissionMasterPlatform
   Future<void> openAppSettingsLinux() {
     throw UnimplementedError();
   }
+
+  @override
+  Future<String> requestHealthPermission() {
+    throw UnimplementedError();
+  }
 }
 
 void main() {

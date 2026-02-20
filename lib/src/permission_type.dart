@@ -21,7 +21,8 @@ enum PermissionType {
   calendar('android.permission.READ_CALENDAR'),
   phone('android.permission.READ_PHONE_STATE'),
   activityRecognition('android.permission.ACTIVITY_RECOGNITION'),
-  nearbyDevices('android.permission.NEARBY_WIFI_DEVICES');
+  nearbyDevices('android.permission.NEARBY_WIFI_DEVICES'),
+  health('android.permission.HEALTH_CONNECT');
 
   final String value;
   const PermissionType(this.value);

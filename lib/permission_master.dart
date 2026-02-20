@@ -147,6 +147,8 @@ class PermissionMaster {
         return requestActivityRecognitionPermission();
       case PermissionType.nearbyDevices:
         return requestNearbyDevicesPermission();
+      case PermissionType.health:
+        return requestHealthPermission();
       default:
         throw UnsupportedError('Permission not supported');
     }
@@ -455,6 +457,60 @@ class PermissionMaster {
     );
   }
 
+  /// Requests health permission.
+  /// Example usage:
+  ///
+  /// ```dart
+  /// final permissionMaster = PermissionMaster();
+  /// final status = await permissionMaster.requestHealthPermission();
+  /// print('Health Permission Status: \$status');
+  /// ```
+
+  Future<PermissionStatus> requestHealthPermission() async {
+    return _handlePermissionRequest(
+      'requestHealthPermission',
+      PermissionType.health,
+    );
+  }
+
+  /// Requests photos/storage permission (iOS specific naming)
+  /// Alias for requestStoragePermission
+  Future<PermissionStatus> requestPhotosPermission() async {
+    return requestStoragePermission();
+  }
+
+  /// Requests reminders permission (iOS specific)
+  Future<PermissionStatus> requestRemindersPermission() async {
+    return _handlePermissionRequest(
+      'requestRemindersPermission',
+      PermissionType.calendar, // Using calendar type as fallback
+    );
+  }
+
+  /// Requests motion & fitness permission (iOS specific)
+  Future<PermissionStatus> requestMotionPermission() async {
+    return requestActivityRecognitionPermission();
+  }
+
+  /// Requests speech recognition permission (iOS specific)
+  Future<PermissionStatus> requestSpeechPermission() async {
+    return _handlePermissionRequest(
+      'requestSpeechRecognitionPermission',
+      PermissionType.microphone, // Using microphone as fallback
+    );
+  }
+
+  /// Requests music/media library permission (iOS specific)
+  Future<PermissionStatus> requestMusicPermission() async {
+    return _handlePermissionRequest(
+      'requestMusicLibraryPermission',
+      PermissionType.readStorage, // Using storage as fallback
+    );
+  }
+
+  /// Gets the storage bridge instance for custom data persistence
+  GetStorageBridge get storage => GetStorageBridge();
+
   /// Checks the status of a specific permission.
   /// Example usage:
   ///
@@ -490,17 +546,22 @@ class PermissionMaster {
   }
 
   /// Opens the app settings to allow the user to manually enable permissions.
+  /// Returns true if settings were opened successfully, false otherwise.
   /// Example usage:
   ///
   /// ```dart
   /// final permissionMaster = PermissionMaster();
-  /// await permissionMaster.openAppSettings();
-  ///
-  ///
+  /// final opened = await permissionMaster.openAppSettings();
+  /// print('Settings opened: $opened');
   /// ```
 
-  Future<void> openAppSettings() {
-    return PermissionMasterPlatform.instance.openAppSettings();
+  Future<bool> openAppSettings() async {
+    try {
+      await PermissionMasterPlatform.instance.openAppSettings();
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 
   /// Opens camera settings.
@@ -567,16 +628,24 @@ class PermissionMaster {
 
   /// Maps the string status returned by the platform to the PermissionStatus enum.
   PermissionStatus _mapStatus(String status) {
-    switch (status) {
+    switch (status.toUpperCase()) {
       case 'GRANTED':
         return PermissionStatus.granted;
       case 'DENIED':
         return PermissionStatus.denied;
       case 'OPEN_SETTINGS':
+      case 'OPENSETTINGS':
         return PermissionStatus.openSettings;
       case 'NOT_SUPPORTED':
       case 'UNSUPPORTED':
         return PermissionStatus.unsupported;
+      case 'RESTRICTED':
+        return PermissionStatus.restricted;
+      case 'LIMITED':
+        return PermissionStatus.limited;
+      case 'NOT_DETERMINED':
+      case 'NOTDETERMINED':
+        return PermissionStatus.notDetermined;
       case 'ERROR':
       default:
         return PermissionStatus.error;

@@ -1,0 +1,166 @@
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!--
+	This is a sample Info.plist configuration for iOS Permission Master.
+	Add these values to your ios/Runner/Info.plist file.
+	-->
+
+	<!-- Camera Permission -->
+	<key>NSCameraUsageDescription</key>
+	<string>This app needs access to the camera to take photos and record videos</string>
+
+	<!-- Photo Library Permissions -->
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This app needs access to the photo library to select and view images</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>This app needs access to the photo library to save images</string>
+
+	<!-- Microphone Permission -->
+	<key>NSMicrophoneUsageDescription</key>
+	<string>This app needs access to the microphone for audio recording and voice calls</string>
+
+	<!-- Location Permissions -->
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>This app needs access to your location to display it on the map</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>This app needs access to your location for background tracking</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>This app needs access to your location at all times</string>
+
+	<!-- Contacts Permission -->
+	<key>NSContactsUsageDescription</key>
+	<string>This app needs access to your contacts to display and manage them</string>
+
+	<!-- Calendar Permission -->
+	<key>NSCalendarsUsageDescription</key>
+	<string>This app needs access to your calendar to manage events and appointments</string>
+
+	<!-- Reminders Permission -->
+	<key>NSRemindersUsageDescription</key>
+	<string>This app needs access to create and manage reminders</string>
+
+	<!-- Bluetooth Permissions -->
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>This app needs access to Bluetooth to connect to devices</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>This app needs access to Bluetooth to communicate with devices</string>
+
+	<!-- Motion & Fitness Permission -->
+	<key>NSMotionUsageDescription</key>
+	<string>This app needs access to track physical activity and fitness</string>
+
+	<!-- Speech Recognition Permission -->
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>This app needs access to speech recognition for voice-to-text conversion</string>
+
+	<!-- Media Library Permission -->
+	<key>NSAppleMusicUsageDescription</key>
+	<string>This app needs access to your music library</string>
+	<key>kTCCServiceMediaLibrary</key>
+	<string>This app needs access to play music</string>
+
+	<!-- Health Data Permissions -->
+	<key>NSHealthShareUsageDescription</key>
+	<string>This app needs access to read your health data</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>This app needs access to update your health data</string>
+
+	<!--
+	Important Notes:
+	1. Only add permissions you actually use
+	2. Descriptions should be clear and honest
+	3. Use simple and understandable language
+	4. Explain to the user why the permission is needed
+	5. Apple reviews these descriptions during the app review process
+	-->
+</dict>
+</plist>
+
+
+
+
+
+// فارسی
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!-- 
+	این فایل نمونه‌ای از تنظیمات Info.plist برای استفاده از Permission Master iOS است.
+	این مقادیر را به فایل ios/Runner/Info.plist خود اضافه کنید.
+	-->
+	
+	<!-- Camera Permission -->
+	<key>NSCameraUsageDescription</key>
+	<string>این برنامه برای گرفتن عکس و ضبط ویدیو به دوربین نیاز دارد</string>
+	
+	<!-- Photo Library Permissions -->
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>این برنامه برای انتخاب و مشاهده تصاویر به کتابخانه عکس نیاز دارد</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>این برنامه برای ذخیره تصاویر به کتابخانه عکس نیاز دارد</string>
+	
+	<!-- Microphone Permission -->
+	<key>NSMicrophoneUsageDescription</key>
+	<string>این برنامه برای ضبط صدا و تماس صوتی به میکروفون نیاز دارد</string>
+	
+	<!-- Location Permissions -->
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>این برنامه برای نمایش موقعیت شما روی نقشه به دسترسی مکانی نیاز دارد</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>این برنامه برای ردیابی موقعیت در پس‌زمینه به دسترسی مکانی نیاز دارد</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>این برنامه برای ردیابی موقعیت همیشگی نیاز دارد</string>
+	
+	<!-- Contacts Permission -->
+	<key>NSContactsUsageDescription</key>
+	<string>این برنامه برای نمایش و مدیریت مخاطبین به دسترسی مخاطبین نیاز دارد</string>
+	
+	<!-- Calendar Permission -->
+	<key>NSCalendarsUsageDescription</key>
+	<string>این برنامه برای مدیریت رویدادها و قرار ملاقات‌ها به تقویم نیاز دارد</string>
+	
+	<!-- Reminders Permission -->
+	<key>NSRemindersUsageDescription</key>
+	<string>این برنامه برای ایجاد و مدیریت یادآورها نیاز دارد</string>
+	
+	<!-- Bluetooth Permissions -->
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>این برنامه برای اتصال به دستگاه‌های بلوتوث نیاز دارد</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>این برنامه برای ارتباط با دستگاه‌های بلوتوث نیاز دارد</string>
+	
+	<!-- Motion & Fitness Permission -->
+	<key>NSMotionUsageDescription</key>
+	<string>این برنامه برای ردیابی فعالیت فیزیکی و تناسب اندام نیاز دارد</string>
+	
+	<!-- Speech Recognition Permission -->
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>این برنامه برای تبدیل گفتار به متن نیاز دارد</string>
+	
+	<!-- Media Library Permission -->
+	<key>NSAppleMusicUsageDescription</key>
+	<string>این برنامه برای دسترسی به کتابخانه موسیقی شما نیاز دارد</string>
+	<key>kTCCServiceMediaLibrary</key>
+	<string>این برنامه برای پخش موسیقی نیاز دارد</string>
+	
+	<!-- Health Data Permissions -->
+	<key>NSHealthShareUsageDescription</key>
+	<string>این برنامه برای خواندن داده‌های سلامت شما نیاز دارد</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>این برنامه برای به‌روزرسانی داده‌های سلامت شما نیاز دارد</string>
+	
+	<!-- 
+	نکات مهم:
+	1. فقط مجوزهایی که واقعاً استفاده می‌کنید را اضافه کنید
+	2. توضیحات باید واضح و صادقانه باشند
+	3. از زبان ساده و قابل فهم استفاده کنید
+	4. دلیل استفاده از مجوز را به کاربر توضیح دهید
+	5. Apple این توضیحات را در فرآیند Review بررسی می‌کند
+	-->
+</dict>
+</plist>

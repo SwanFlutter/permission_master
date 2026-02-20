@@ -6,6 +6,7 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_master/permission_master.dart';
+import 'package:permission_master_example/ios_example_screen.dart';
 import 'package:permission_master_example/linux_example_screen.dart';
 import 'package:permission_master_example/test_screen.dart';
 import 'package:permission_master_example/web_example_screen.dart';
@@ -40,12 +41,12 @@ class MyApp extends StatelessWidget {
           : Platform.isWindows
           ? const WindowsExampleScreen()
           : Platform.isMacOS
-          ? const MacOSIOSExampleScreen()
+          ? const IosExampleScreen() // Using iOS example for macOS
           : Platform.isLinux
           ? const LinuxExampleScreen()
           : Platform.isIOS
-          ? const MacOSIOSExampleScreen()
-          : const PermissionDemoPage(),
+          ? const IosExampleScreen() // iOS specific example
+          : const PermissionDemoPage(), // Android example
     );
   }
 }

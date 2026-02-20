@@ -423,6 +423,10 @@ class MethodChannelPermissionMaster extends PermissionMasterPlatform {
             : 'requestNearbyDevicesPermission',
       );
 
+  @override
+  Future<String> requestHealthPermission() async =>
+      _invokePermissionMethod('requestHealthPermission');
+
   /// Shows a dialog specifically for alarm permissions on newer Android versions
   /// Returns true if the user chose to open settings, false otherwise
   Future<bool> showAlarmPermissionDialog() async {
