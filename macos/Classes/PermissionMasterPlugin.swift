@@ -56,6 +56,10 @@ public class PermissionMasterPlugin: NSObject, FlutterPlugin, CLLocationManagerD
             requestRemindersPermission(result: result)
         case "requestSpeechRecognitionPermission":
             requestSpeechRecognitionPermission(result: result)
+        case "requestMusicLibraryPermission":
+            result("NOT_SUPPORTED")
+        case "requestMusicPermission":
+            result("NOT_SUPPORTED")
         // macOS specific methods with Mac suffix
         case "requestCameraPermissionMac":
             requestCameraPermission(result: result)

@@ -28,5 +28,45 @@
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>My description about why I need this capability</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>My description about why I need this capability</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>My description about why I need this capability</string>
+	<key>NSCameraUsageDescription</key>
+	<string>My description about why I need this capability</string>
+	<key>NSContactsUsageDescription</key>
+	<string>My description about why I need this capability</string>
+	<key>NSFaceIDUsageDescription</key>
+	<string>My description about why I need this capability</string>
+	<key>NSHealthShareUsageDescription</key>
+	<string>My description about why I need this capability</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>My description about why I need this capability</string>
+	<key>NSHomeKitUsageDescription</key>
+	<string>My description about why I need this capability</string>
+	<key>NSLocationUsageDescription</key>
+	<string>My description about why I need this capability</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>My description about why I need this capability</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>My description about why I need this capability</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>My description about why I need this capability</string>
+	<key>NSMotionUsageDescription</key>
+	<string>My description about why I need this capability</string>
+	<key>NFCReaderUsageDescription</key>
+	<string>My description about why I need this capability</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>My description about why I need this capability</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>My description about why I need this capability</string>
+	<key>NSRemindersUsageDescription</key>
+	<string>My description about why I need this capability</string>
+	<key>NSSiriUsageDescription</key>
+	<string>My description about why I need this capability</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>My description about why I need this capability</string>
 </dict>
 </plist>

@@ -3,7 +3,7 @@
 # Run `pod lib lint permission_master_ios.podspec` to validate before publishing.
 #
 Pod::Spec.new do |s|
-  s.name             = 'permission_master_ios'
+  s.name             = 'permission_master'
   s.version          = '0.0.1'
   s.summary          = 'A comprehensive iOS permission management plugin for Flutter.'
   s.description      = <<-DESC
@@ -12,7 +12,7 @@ with built-in storage capabilities. Supports 13 different permission types inclu
 Photos, Microphone, Location, Contacts, Calendar, Reminders, Notifications, Bluetooth, Motion,
 Speech Recognition, Media Library, and Health data.
                        DESC
-  s.homepage         = 'https://github.com/yourusername/permission_master_ios'
+  s.homepage         = 'https://github.com/SwanFlutter/permission_master'
   s.license          = { :file => '../LICENSE' }
   s.author           = { 'Your Name' => 'your.email@example.com' }
   s.source           = { :path => '.' }
@@ -24,5 +24,5 @@ Speech Recognition, Media Library, and Health data.
   s.swift_version = '5.0'
 
   # Privacy manifest for App Store compliance
-  s.resource_bundles = {'permission_master_ios_privacy' => ['Resources/PrivacyInfo.xcprivacy']}
+  s.resource_bundles = {'permission_master_privacy' => ['Resources/PrivacyInfo.xcprivacy']}
 end

@@ -24,7 +24,7 @@ public class PermissionMasterPlugin: NSObject, FlutterPlugin, CLLocationManagerD
   private let permissionHelper = PermissionHelper.shared
 
   public static func register(with registrar: FlutterPluginRegistrar) {
-    let channel = FlutterMethodChannel(name: "permission_master_ios", binaryMessenger: registrar.messenger())
+    let channel = FlutterMethodChannel(name: "permission_master", binaryMessenger: registrar.messenger())
     let instance = PermissionMasterPlugin()
     registrar.addMethodCallDelegate(instance, channel: channel)
   }
@@ -36,6 +36,8 @@ public class PermissionMasterPlugin: NSObject, FlutterPlugin, CLLocationManagerD
     case "requestCameraPermission":
       requestCameraPermission(result: result)
     case "requestPhotosPermission":
+      requestPhotosPermission(result: result)
+    case "requestStoragePermission":
       requestPhotosPermission(result: result)
     case "requestLocationPermission":
       requestLocationPermission(result: result)
@@ -53,9 +55,13 @@ public class PermissionMasterPlugin: NSObject, FlutterPlugin, CLLocationManagerD
       requestMotionPermission(result: result)
     case "requestSpeechPermission":
       requestSpeechPermission(result: result)
+    case "requestSpeechRecognitionPermission":
+      requestSpeechPermission(result: result)
     case "requestRemindersPermission":
       requestRemindersPermission(result: result)
     case "requestMusicPermission":
+      requestMusicPermission(result: result)
+    case "requestMusicLibraryPermission":
       requestMusicPermission(result: result)
     case "requestHealthPermission":
       requestHealthPermission(result: result)
