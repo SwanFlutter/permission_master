@@ -53,6 +53,8 @@ public class PermissionMasterPlugin: NSObject, FlutterPlugin, CLLocationManagerD
       requestCalendarPermission(result: result)
     case "requestMotionPermission":
       requestMotionPermission(result: result)
+    case "requestActivityRecognitionPermission":
+      requestMotionPermission(result: result)
     case "requestSpeechPermission":
       requestSpeechPermission(result: result)
     case "requestSpeechRecognitionPermission":
@@ -407,11 +409,21 @@ public class PermissionMasterPlugin: NSObject, FlutterPlugin, CLLocationManagerD
   }
 
   private func requestHealthPermission(result: @escaping FlutterResult) {
-    print("🔧 [Swift] requestHealthPermission called")
+    print("🔧 [Swift] requestHealthPermission called - iOS \(UIDevice.current.systemVersion)")
     
+    // Check if Health data is available on this device
     if !HKHealthStore.isHealthDataAvailable() {
       print("❌ [Swift] Health data not available on this device")
-      result("unsupported")
+      result("NOT_SUPPORTED")
+      return
+    }
+    
+    // Check iOS version - HealthKit requires iOS 8.0+, but modern features need iOS 13+
+    if #available(iOS 13.0, *) {
+      print("✅ [Swift] iOS 13+ detected - HealthKit fully supported")
+    } else {
+      print("⚠️ [Swift] iOS version below 13.0 - Limited HealthKit support")
+      result("NOT_SUPPORTED")
       return
     }
     
@@ -440,22 +452,26 @@ public class PermissionMasterPlugin: NSObject, FlutterPlugin, CLLocationManagerD
           return
         }
         
-        print("✅ [Swift] Health authorization success: \(success)")
+        print("✅ [Swift] Health authorization completed: \(success)")
         
         // Check the actual status for one of the types
         let stepCountType = HKObjectType.quantityType(forIdentifier: .stepCount)!
         let status = self.healthStore.authorizationStatus(for: stepCountType)
         
-        print("🔧 [Swift] Health status: \(status.rawValue)")
+        print("🔧 [Swift] Health authorization status: \(status.rawValue)")
         
         switch status {
         case .notDetermined:
+          print("ℹ️ [Swift] Health status: Not Determined")
           result("notDetermined")
         case .sharingAuthorized:
+          print("✅ [Swift] Health status: Authorized")
           result("granted")
         case .sharingDenied:
+          print("❌ [Swift] Health status: Denied")
           result("denied")
         @unknown default:
+          print("⚠️ [Swift] Health status: Unknown")
           result("notDetermined")
         }
       }

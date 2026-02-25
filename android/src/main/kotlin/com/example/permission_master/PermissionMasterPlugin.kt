@@ -188,24 +188,33 @@ class PermissionMasterPlugin : FlutterPlugin, MethodChannel.MethodCallHandler, A
                 }
             }
             "requestHealthPermission" -> {
-                Log.d("PermissionMaster", "Request Health Permission called")
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-                    // Android 14+ (API 34+) supports Health Connect
-                    // Health Connect requires special handling through Health Connect API
-                    // For now, we'll direct users to Health Connect settings
-                    try {
-                        val intent = Intent("androidx.health.ACTION_HEALTH_CONNECT_SETTINGS").apply {
-                            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                Log.d("PermissionMaster", "Request Health Permission called - Android API ${Build.VERSION.SDK_INT}")
+                
+                when {
+                    Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE -> {
+                        // Android 14+ (API 34+) supports Health Connect
+                        Log.d("PermissionMaster", "Android 14+ detected - Opening Health Connect settings")
+                        try {
+                            val intent = Intent("androidx.health.ACTION_HEALTH_CONNECT_SETTINGS").apply {
+                                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                            }
+                            activity?.startActivity(intent)
+                            result.success("OPEN_SETTINGS")
+                        } catch (e: Exception) {
+                            Log.e("PermissionMaster", "Health Connect not available: ${e.message}", e)
+                            result.error("HEALTH_NOT_AVAILABLE", "Health Connect is not available on this device. Please install Google Health Connect from Play Store.", null)
                         }
-                        activity?.startActivity(intent)
-                        result.success("OPEN_SETTINGS")
-                    } catch (e: Exception) {
-                        Log.e("PermissionMaster", "Health Connect not available: ${e.message}", e)
-                        result.error("HEALTH_NOT_AVAILABLE", "Health Connect is not available on this device", null)
                     }
-                } else {
-                    Log.d("PermissionMaster", "Health permission not supported for Android ${Build.VERSION.SDK_INT}")
-                    result.success("NOT_SUPPORTED")
+                    Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q -> {
+                        // Android 10-13 (API 29-33) - Health Connect available as separate app
+                        Log.d("PermissionMaster", "Android 10-13 detected - Health Connect requires separate app")
+                        result.success("REQUIRES_HEALTH_CONNECT_APP")
+                    }
+                    else -> {
+                        // Android 9 and below - Not supported
+                        Log.d("PermissionMaster", "Android ${Build.VERSION.SDK_INT} - Health permission not supported")
+                        result.success("NOT_SUPPORTED")
+                    }
                 }
             }
             "canScheduleExactAlarms" -> {

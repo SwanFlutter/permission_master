@@ -8,7 +8,7 @@ A Flutter plugin for managing iOS permissions with data storage capabilities.
 ✅ Support for 13 different permission types  
 ✅ Data storage using UserDefaults  
 ✅ Compatible with App Store standards  
-✅ Supports iOS 12.0 and above  
+✅ Supports iOS 14.0 and above  
 ✅ Smart permission request count management  
 
 ---
@@ -106,7 +106,7 @@ If `ios/Podfile` does not exist, create it:
 
 ```ruby
 # ios/Podfile
-platform :ios, '12.0'
+platform :ios, '14.0'
 
 ENV['COCOAPODS_DISABLE_STATS'] = 'true'
 

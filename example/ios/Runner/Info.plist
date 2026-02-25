@@ -82,6 +82,24 @@
 	
 	<!-- Motion/Sensors Permission -->
 	<key>NSMotionUsageDescription</key>
-	<string>این اپلیکیشن برای ردیابی فعالیت به سنسورهای حرکتی نیاز دارد</string>
+	<string>This app needs access to motion sensors to track your activity</string>
+	
+	<!-- Speech Recognition Permission -->
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>This app needs access to speech recognition to transcribe your voice</string>
+	
+	<!-- Apple Music Permission -->
+	<key>NSAppleMusicUsageDescription</key>
+	<string>This app needs access to your music library to play and manage your music</string>
+	
+	<!-- Health Permission -->
+	<key>NSHealthShareUsageDescription</key>
+	<string>This app needs access to read your health data</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>This app needs access to update your health data</string>
+	
+	<!-- Reminders Permission -->
+	<key>NSRemindersUsageDescription</key>
+	<string>This app needs access to your reminders to manage tasks</string>
 </dict>
 </plist>

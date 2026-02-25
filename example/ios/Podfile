@@ -1,5 +1,5 @@
 # Uncomment this line to define a global platform for your project
-platform :ios, '12.0'
+platform :ios, '14.0'
 
 # CocoaPods analytics sends network stats synchronously affecting flutter build latency.
 ENV['COCOAPODS_DISABLE_STATS'] = 'true'
@@ -34,46 +34,46 @@ target 'Runner' do
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
 end
 
-# ⚠️ این قسمت را اضافه کنید یا ویرایش کنید ⚠️
+# ⚠️ Add or edit this section ⚠️
 post_install do |installer|
   installer.pods_project.targets.each do |target|
     flutter_additional_ios_build_settings(target)
-    
-    # 🔥 این قسمت مهم است - فقط permission هایی که نیاز دارید را uncomment کنید
+
+    # 🔥 Important section - Only uncomment the permissions you need
     target.build_configurations.each do |config|
       config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= [
         '$(inherited)',
 
-        ## برای تست، این permission ها فعال شده‌اند:
-        
-        ## دوربین
+        ## For testing, these permissions are enabled:
+
+        ## Camera
         'PERMISSION_CAMERA=1',
 
-        ## گالری عکس
+        ## Photo Gallery
         'PERMISSION_PHOTOS=1',
 
-        ## موقعیت مکانی
+        ## Location
         'PERMISSION_LOCATION=1',
-        
-        ## مخاطبین
+
+        ## Contacts
         'PERMISSION_CONTACTS=1',
 
-        ## بلوتوث
+        ## Bluetooth
         'PERMISSION_BLUETOOTH=1',
 
-        ## میکروفون
+        ## Microphone
         'PERMISSION_MICROPHONE=1',
 
-        ## اعلان‌ها
+        ## Notifications
         'PERMISSION_NOTIFICATIONS=1',
-        
-        ## تقویم
+
+        ## Calendar
         'PERMISSION_CALENDAR=1',
 
-        ## سنسورهای حرکتی
+        ## Motion Sensors
         'PERMISSION_MOTION=1',
 
-        ## اختیاری - در صورت نیاز uncomment کنید:
+        ## Optional - Uncomment if needed:
         # 'PERMISSION_SPEECH_RECOGNITION=1',
         # 'PERMISSION_REMINDERS=1',
         # 'PERMISSION_MUSIC_LIBRARY=1',

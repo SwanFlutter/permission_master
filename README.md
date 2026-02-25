@@ -19,8 +19,21 @@ Permission Master is a comprehensive Flutter plugin designed to simplify permiss
 - Built-in storage for permission states
 - Manual permission configuration required (no default permissions included)
 
-iOS platform requirement (iOS 12.0 and above)
+iOS platform requirement (iOS 14.0 and above)
 Supported platform Android (5.0 to 16)
+
+## Platform-Specific Setup
+
+### iOS and macOS
+For detailed iOS and macOS setup instructions, including Info.plist configuration and known issues, see [README_IOS_GUIDE.md](README_IOS_GUIDE.md).
+
+**Quick Setup:**
+1. Enable Swift Package Manager: `flutter config --enable-swift-package-manager`
+2. Update minimum iOS version to 14.0 in `ios/Podfile`
+3. Add required permission descriptions to `Info.plist`
+
+### Android
+For Android setup instructions, see [doc_android.md](doc_android.md).
 
 <img src="https://github.com/user-attachments/assets/56d4dc2c-bc42-4124-abe0-592b092c7ae1" width="350"> <img src="https://github.com/user-attachments/assets/77eda07d-caf4-40c4-857b-6dca12e27c48" width="350">
 
@@ -47,7 +60,18 @@ Supported platform Android (5.0 to 16)
 | 🌐 Network           |    ✅    |  ✅  |    ✅    |   ✅   |   ✅   |  ✅  |
 | ⏰ Reminders         |    ❌    |  ✅  |    ❌    |   ✅   |   ❌   |  ❌  |
 | 🗣️ Speech Recognition |    ❌    |  ✅  |    ❌    |   ✅   |   ❌   |  ❌  |
-| 🎵 Music Library     |    ❌    |  ✅  |    ❌    |   ✅   |   ❌   |  ❌  |
+| 🎵 Music Library     |    ❌    |  ✅  |    ❌    |   ❌   |   ❌   |  ❌  |
+| 💊 Health            |    ⚠️    |  ✅  |    ❌    |   ❌   |   ❌   |  ❌  |
+
+**Legend:** ✅ Supported | ❌ Not Supported | ⚠️ Partial Support (version dependent)
+
+### Health Permission Notes
+- **iOS**: Requires iOS 13.0+ and HealthKit capability
+- **Android**: 
+  - Android 14+ (API 34+): Built-in Health Connect ✅
+  - Android 10-13 (API 29-33): Requires Health Connect app from Play Store ⚠️
+  - Android < 10: Not supported ❌
+- See [HEALTH_PERMISSION_GUIDE.md](HEALTH_PERMISSION_GUIDE.md) for detailed setup instructions
 | ❤️ Health            |    ✅    |  ✅  |    ❌    |   ✅   |   ❌   |  ❌  |
 
 ---
