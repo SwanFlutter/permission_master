@@ -1,0 +1,23 @@
+Try `flutter pub outdated` for more information.
+Launching lib/main.dart on macOS in debug mode...
+Running pod install...                                             616ms
+/Users/vahid/dev/workspace/flutter/permission_master/macos/permission_master/Sources/permission_master/PermissionMasterPlugin.swift:667:5: error: extraneous '}' at top level
+    }
+    ^
+
+/Users/vahid/dev/workspace/flutter/permission_master/macos/permission_master/Sources/permission_master/PermissionMasterPlugin.swift:892:1: error: extraneous '}' at top level
+}
+^
+/Users/vahid/dev/workspace/flutter/permission_master/macos/permission_master/Sources/permission_master/PermissionMasterPlugin.swift:667:5: error: Extraneous '}' at top level
+    }
+    ^
+     (in target 'permission_master' from project 'Pods')
+/Users/vahid/dev/workspace/flutter/permission_master/macos/permission_master/Sources/permission_master/PermissionMasterPlugin.swift:892:1: error: Extraneous '}' at top level
+}
+^ (in target 'permission_master' from project 'Pods')
+warning: Run script build phase 'Run Script' will be run during every build because it does not specify any outputs. To address this issue, either add output dependencies to the script phase, or configure it to run in every build by unchecking "Based on dependency analysis" in the script phase. (in target 'Flutter Assemble' from project 'Runner')
+warning: no rule to process file '/Users/vahid/dev/workspace/flutter/permission_master/macos/permission_master/Sources/permission_master/PrivacyInfo.xcprivacy' of type 'text.xml' for architecture 'arm64' (in target 'permission_master' from project 'Pods')
+** BUILD FAILED **
+
+Building macOS application...                                           
+Error: Build process failed

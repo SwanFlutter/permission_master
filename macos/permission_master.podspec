@@ -13,7 +13,7 @@ Permission Master is a Flutter plugin for managing and requesting permissions on
   s.license          = { :file => '../LICENSE' }
   s.author           = { 'SwanFlutter' => 'your-email@example.com' }
   s.source           = { :path => '.' }
-  s.source_files = 'permission_master/Sources/permission_master/**/*'
+  s.source_files = 'permission_master/Sources/permission_master/**/*.swift'
   s.dependency 'FlutterMacOS'
   s.platform = :osx, '10.15'
   s.resource_bundles = {'permission_master_privacy' => ['permission_master/Sources/permission_master/PrivacyInfo.xcprivacy']}

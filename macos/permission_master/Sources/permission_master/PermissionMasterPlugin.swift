@@ -662,8 +662,6 @@ public class PermissionMasterPlugin: NSObject, FlutterPlugin, CLLocationManagerD
                 result(false)
             }
         }
-            }
-        }
     }
     
     private func getCalendarPermissionStatus() -> PermissionStatus {
