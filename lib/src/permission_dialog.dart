@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'permission_type.dart';
 
 /// Configuration for customizing the permission dialog appearance and content.
@@ -61,14 +62,8 @@ class PermissionDialog extends StatelessWidget {
       transitionDuration: const Duration(milliseconds: 300),
       transitionBuilder: (context, animation, secondaryAnimation, child) {
         return ScaleTransition(
-          scale: CurvedAnimation(
-            parent: animation,
-            curve: Curves.easeOutBack,
-          ),
-          child: FadeTransition(
-            opacity: animation,
-            child: child,
-          ),
+          scale: CurvedAnimation(parent: animation, curve: Curves.easeOutBack),
+          child: FadeTransition(opacity: animation, child: child),
         );
       },
       pageBuilder: (context, animation, secondaryAnimation) {
@@ -170,7 +165,12 @@ class PermissionDialog extends StatelessWidget {
                     if (config.usageReasons != null &&
                         config.usageReasons!.isNotEmpty) ...[
                       const SizedBox(height: 16),
-                      _buildUsageReasons(context, config.usageReasons!, accentColor, isDark),
+                      _buildUsageReasons(
+                        context,
+                        config.usageReasons!,
+                        accentColor,
+                        isDark,
+                      ),
                     ],
                   ],
                 ),
@@ -190,18 +190,14 @@ class PermissionDialog extends StatelessWidget {
     _PermissionInfo info,
     Color accentColor,
   ) {
-    final icon = config.icon ??
-        Icon(info.icon, color: Colors.white, size: 36);
+    final icon = config.icon ?? Icon(info.icon, color: Colors.white, size: 36);
 
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.symmetric(vertical: 32),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [
-            accentColor,
-            accentColor.withValues(alpha: 0.75),
-          ],
+          colors: [accentColor, accentColor.withValues(alpha: 0.75)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -235,10 +231,7 @@ class PermissionDialog extends StatelessWidget {
       decoration: BoxDecoration(
         color: accentColor.withValues(alpha: isDark ? 0.15 : 0.08),
         borderRadius: BorderRadius.circular(14),
-        border: Border.all(
-          color: accentColor.withValues(alpha: 0.2),
-          width: 1,
-        ),
+        border: Border.all(color: accentColor.withValues(alpha: 0.2), width: 1),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -249,15 +242,20 @@ class PermissionDialog extends StatelessWidget {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Icon(Icons.check_circle_rounded,
-                        color: accentColor, size: 16),
+                    Icon(
+                      Icons.check_circle_rounded,
+                      color: accentColor,
+                      size: 16,
+                    ),
                     const SizedBox(width: 8),
                     Expanded(
                       child: Text(
                         reason,
                         style: TextStyle(
                           fontSize: 13,
-                          color: isDark ? Colors.white70 : const Color(0xFF374151),
+                          color: isDark
+                              ? Colors.white70
+                              : const Color(0xFF374151),
                           height: 1.4,
                         ),
                       ),
@@ -307,8 +305,9 @@ class PermissionDialog extends StatelessWidget {
             child: TextButton(
               onPressed: () => Navigator.of(context).pop(false),
               style: TextButton.styleFrom(
-                foregroundColor:
-                    isDark ? Colors.white54 : const Color(0xFF9CA3AF),
+                foregroundColor: isDark
+                    ? Colors.white54
+                    : const Color(0xFF9CA3AF),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(14),
                 ),
@@ -382,8 +381,9 @@ class _SettingsDialog extends StatelessWidget {
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
-                  borderRadius:
-                      const BorderRadius.vertical(top: Radius.circular(28)),
+                  borderRadius: const BorderRadius.vertical(
+                    top: Radius.circular(28),
+                  ),
                 ),
                 child: Column(
                   children: [
@@ -395,8 +395,11 @@ class _SettingsDialog extends StatelessWidget {
                         shape: BoxShape.circle,
                       ),
                       child: const Center(
-                        child: Icon(Icons.lock_outline_rounded,
-                            color: Colors.white, size: 32),
+                        child: Icon(
+                          Icons.lock_outline_rounded,
+                          color: Colors.white,
+                          size: 32,
+                        ),
                       ),
                     ),
                   ],
@@ -413,8 +416,7 @@ class _SettingsDialog extends StatelessWidget {
                       style: theme.textTheme.titleLarge?.copyWith(
                         fontWeight: FontWeight.w700,
                         fontSize: 20,
-                        color:
-                            isDark ? Colors.white : const Color(0xFF1A1A2E),
+                        color: isDark ? Colors.white : const Color(0xFF1A1A2E),
                       ),
                     ),
                     const SizedBox(height: 10),
@@ -424,8 +426,9 @@ class _SettingsDialog extends StatelessWidget {
                               'Please open Settings and enable it to continue.',
                       textAlign: TextAlign.center,
                       style: theme.textTheme.bodyMedium?.copyWith(
-                        color:
-                            isDark ? Colors.white60 : const Color(0xFF6B7280),
+                        color: isDark
+                            ? Colors.white60
+                            : const Color(0xFF6B7280),
                         height: 1.5,
                       ),
                     ),
@@ -575,16 +578,14 @@ class _PermissionInfo {
       case PermissionType.camera:
         return const _PermissionInfo(
           title: 'Camera Access',
-          description:
-              'Allow this app to use your camera to take photos and record videos.',
+          description: 'Allow this app to use your camera to take photos and record videos.',
           icon: Icons.camera_alt_rounded,
           color: Color(0xFF5B8DEF),
         );
       case PermissionType.microphone:
         return const _PermissionInfo(
           title: 'Microphone Access',
-          description:
-              'Allow this app to use your microphone for voice messages and calls.',
+          description: 'Allow this app to use your microphone for voice messages and calls.',
           icon: Icons.mic_rounded,
           color: Color(0xFFEF5B5B),
         );
@@ -592,8 +593,7 @@ class _PermissionInfo {
       case PermissionType.backgroundLocation:
         return const _PermissionInfo(
           title: 'Location Access',
-          description:
-              'Allow this app to access your location to provide relevant content.',
+          description: 'Allow this app to access your location to provide relevant content.',
           icon: Icons.location_on_rounded,
           color: Color(0xFF34C759),
         );
@@ -601,8 +601,7 @@ class _PermissionInfo {
       case PermissionType.writeStorage:
         return const _PermissionInfo(
           title: 'Storage Access',
-          description:
-              'Allow this app to access your files and media to save and share content.',
+          description: 'Allow this app to access your files and media to save and share content.',
           icon: Icons.folder_rounded,
           color: Color(0xFFFF9500),
         );
@@ -637,8 +636,7 @@ class _PermissionInfo {
       case PermissionType.calendar:
         return const _PermissionInfo(
           title: 'Calendar Access',
-          description:
-              'Allow this app to read your calendar to manage events and reminders.',
+          description: 'Allow this app to read your calendar to manage events and reminders.',
           icon: Icons.calendar_month_rounded,
           color: Color(0xFFAF52DE),
         );
@@ -659,24 +657,21 @@ class _PermissionInfo {
       case PermissionType.activityRecognition:
         return const _PermissionInfo(
           title: 'Activity Recognition',
-          description:
-              'Allow this app to recognize your physical activities like walking and running.',
+          description: 'Allow this app to recognize your physical activities like walking and running.',
           icon: Icons.directions_run_rounded,
           color: Color(0xFFFF9500),
         );
       case PermissionType.bodySensors:
         return const _PermissionInfo(
           title: 'Body Sensors',
-          description:
-              'Allow this app to access data from your body sensors like heart rate.',
+          description: 'Allow this app to access data from your body sensors like heart rate.',
           icon: Icons.monitor_heart_rounded,
           color: Color(0xFFEF5B5B),
         );
       case PermissionType.alarm:
         return const _PermissionInfo(
           title: 'Exact Alarms',
-          description:
-              'Allow this app to schedule exact alarms and reminders.',
+          description: 'Allow this app to schedule exact alarms and reminders.',
           icon: Icons.alarm_rounded,
           color: Color(0xFFFF6B35),
         );
@@ -693,8 +688,7 @@ class _PermissionInfo {
       case PermissionType.health:
         return const _PermissionInfo(
           title: 'Health Data',
-          description:
-              'Allow this app to access your health and fitness data.',
+          description: 'Allow this app to access your health and fitness data.',
           icon: Icons.favorite_rounded,
           color: Color(0xFFEF5B5B),
         );
