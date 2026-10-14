@@ -15,6 +15,8 @@
 
 Permission Master is a comprehensive Flutter plugin designed to simplify permission management across iOS and Android platforms. It provides an intuitive and easy-to-use interface for requesting and checking various system permissions while ensuring a smooth user experience.
 
+Current release: **0.2.0**. This release includes cross-platform build validation for Android, iOS, macOS, Windows, Linux, and Web, plus improved native permission status handling.
+
 ## Key Features
 
 - Simplified permission request methods
@@ -24,7 +26,8 @@ Permission Master is a comprehensive Flutter plugin designed to simplify permiss
 - Built-in storage for permission states
 - Manual permission configuration required (no default permissions included)
 
-iOS platform requirement (iOS 14.0 and above)
+iOS platform requirement (iOS 15.0 and above)
+macOS platform requirement (macOS 12.0 and above)
 Supported platform Android (5.0 to 16)
 
 ## Platform-Specific Setup
@@ -105,7 +108,7 @@ Add to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  permission_master: ^0.1.0
+  permission_master: ^0.2.0
 ```
 
 Or install directly from GitHub:

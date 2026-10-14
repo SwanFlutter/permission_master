@@ -1,5 +1,18 @@
 
 
+## 0.2.0 - 2026-10-14
+
+* Add GitHub Actions builds and tests for iOS, macOS, Linux, and Dart analysis.
+* Build the iOS example successfully with the required Foundation imports.
+* Build the Linux example and run the native Linux plugin tests in CI.
+* Fix Windows microphone checks when Flutter has already initialized COM with a different apartment model.
+* Respect Windows camera and microphone privacy-denied registry state.
+* Improve Web permission status checks for camera, microphone, location, and notifications.
+* Open the matching Windows privacy settings from Web settings actions when supported.
+* Document the separate Windows system and browser site permission steps.
+
+---
+
 ## 0.1.0
 
 * Add Health permission support for Android (API 36+) and iOS
