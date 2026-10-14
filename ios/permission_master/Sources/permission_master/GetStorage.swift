@@ -1,3 +1,5 @@
+import Foundation
+
 class GetStorage {
     private let userDefaults = UserDefaults.standard
     

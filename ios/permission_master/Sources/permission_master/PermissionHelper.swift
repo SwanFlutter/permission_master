@@ -1,3 +1,5 @@
+import Foundation
+
 class PermissionHelper {
     static let shared = PermissionHelper()
     

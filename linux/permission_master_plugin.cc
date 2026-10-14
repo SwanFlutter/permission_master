@@ -16,6 +16,16 @@ struct _PermissionMasterPlugin {
 
 G_DEFINE_TYPE(PermissionMasterPlugin, permission_master_plugin, g_object_get_type())
 
+// Kept non-static because the native unit test links against this helper.
+FlMethodResponse* get_platform_version() {
+  struct utsname uname_data = {};
+  uname(&uname_data);
+  g_autofree gchar* version =
+      g_strdup_printf("Linux %s", uname_data.version);
+  g_autoptr(FlValue) result = fl_value_new_string(version);
+  return FL_METHOD_RESPONSE(fl_method_success_response_new(result));
+}
+
 // Called when a method call is received from Flutter.
 static void permission_master_plugin_handle_method_call(
         PermissionMasterPlugin* self,
@@ -25,11 +35,7 @@ static void permission_master_plugin_handle_method_call(
   const gchar* method = fl_method_call_get_name(method_call);
 
   if (strcmp(method, "getPlatformVersion") == 0) {
-    struct utsname uname_data = {};
-    uname(&uname_data);
-    g_autofree gchar *version = g_strdup_printf("Linux %s", uname_data.version);
-    g_autoptr(FlValue) result = fl_value_new_string(version);
-    response = FL_METHOD_RESPONSE(fl_method_success_response_new(result));
+    response = get_platform_version();
   } else if (strcmp(method, "requestCameraPermissionLinux") == 0) {
     // For now, return "granted" as a placeholder
     // In a real implementation, you would check system permissions
