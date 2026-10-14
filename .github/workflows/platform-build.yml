@@ -1,0 +1,97 @@
+name: Platform builds
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  FLUTTER_VERSION: 3.47.5
+
+jobs:
+  dart:
+    name: Dart analysis and tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+          cache: true
+      - name: Install dependencies
+        run: flutter pub get
+      - name: Analyze package
+        run: flutter analyze
+      - name: Test package
+        run: flutter test
+
+  linux:
+    name: Linux build and native tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Linux desktop dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+          cache: true
+      - name: Enable Linux desktop
+        run: flutter config --enable-linux-desktop
+      - name: Install example dependencies
+        working-directory: example
+        run: flutter pub get
+      - name: Build Linux example
+        working-directory: example
+        run: flutter build linux --debug
+      - name: Run Linux native tests
+        working-directory: example
+        run: ctest --test-dir build/linux/x64/debug --output-on-failure
+
+  apple:
+    name: iOS and macOS build
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+          cache: true
+      - name: Install example dependencies
+        working-directory: example
+        run: flutter pub get
+      - name: Install package dependencies
+        run: flutter pub get
+      - name: Verify Apple toolchain
+        run: |
+          xcodebuild -version
+          pod --version
+      - name: Build macOS example
+        working-directory: example
+        run: flutter build macos --debug
+      - name: Build iOS example without signing
+        working-directory: example
+        run: flutter build ios --debug --no-codesign
+      - name: Run Apple-compatible Dart tests
+        run: flutter test
+      - name: Upload macOS bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: macos-debug-bundle
+          path: example/build/macos/Build/Products/Debug/*.app
+          if-no-files-found: error
+      - name: Upload iOS build products
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-debug-build
+          path: example/build/ios/iphoneos/Runner.app
+          if-no-files-found: error
